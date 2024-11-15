@@ -26,7 +26,7 @@ app = Flask(__name__)
 CORS(app) 
 @app.route('/all')
 def fullcrime():
-    return jsonify(joined_gdf.to_son())
+    return jsonify(joined_gdf.to_json())
 
 @app.route('/crimecount')
 def home():
