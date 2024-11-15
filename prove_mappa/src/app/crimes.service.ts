@@ -16,7 +16,7 @@ export interface Crime {
   providedIn: 'root'
 })
 export class CrimesService {
-  private apiUrl = 'http://127.0.0.1:5000/gdf';
+  private apiUrl = 'https://progettone.onrender.com/gdf';
 
   constructor(private http: HttpClient) { }
 

@@ -51,18 +51,29 @@ export class AppComponent implements OnInit {
   }
   // Funzione per determinare il colore in base al numero di crimini
   getCrimeColor(crimeCount: number): string {
-    // Scala di colori: verde per pochi crimini, rosso per molti crimini
-    const maxCrimeCount = 62; // Impostiamo un numero massimo di crimini per la scala dei colori
-    const minCrimeCount = 0;
-    
-    const ratio = (crimeCount - minCrimeCount) / (maxCrimeCount - minCrimeCount);
-    
-    const r = Math.min(255, Math.floor(255 * ratio)); // Rosso aumenta con il numero di crimini
-    const g = Math.min(255, Math.floor(255 * (1 - ratio))); // Verde diminuisce con il numero di crimini
-    const b = 0; // Non usiamo il blu, solo rosso e verde
+    const maxCrimeCount = 62;  // Numero massimo di crimini per la scala dei colori
+    const minCrimeCount = 0;   // Numero minimo di crimini
+    const midCrimeCount = (maxCrimeCount - minCrimeCount) / 2;  // Punto medio
+
+    let r = 0, g = 0, b = 0;
+
+    if (crimeCount <= midCrimeCount) {
+      // Colori dalla verde (basso) al giallo (medio)
+      const greenToYellowRatio = crimeCount / midCrimeCount;
+      g = Math.floor(255 * (1 - greenToYellowRatio)); // Decresce il verde
+      r = Math.floor(255 * greenToYellowRatio);      // Aumenta il rosso
+      b = 0;
+    } else {
+      // Colori dal giallo al rosso (alto)
+      const yellowToRedRatio = (crimeCount - midCrimeCount) / (maxCrimeCount - midCrimeCount);
+      r = Math.floor(255 * yellowToRedRatio);  // Aumenta il rosso
+      g = Math.floor(255 * (1 - yellowToRedRatio));  // Diminuisce il verde
+      b = 0;
+    }
 
     return `rgb(${r},${g},${b})`;
   }
+
   // Funzione per aggiungere i distretti con il numero di crimini alla mappa
   addDistrictsToMap(data: any): void {
     L.geoJSON(data, {
