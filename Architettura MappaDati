@@ -1,0 +1,4 @@
+La mappa dei dati rappresenta i dati reali dei quartieri e crimini nella città americana di Chicago.
+I dati sono presi da due dataset differenti: uno per i quartieri e uno per i crimini.
+Sulla mappa di OpenStreeMap vengono visualizzati i quartieri colorati in base al numero di crimini commessi in quel quartiere (rossi quelli con tanti crimi, gialli quelli con un numero di crimini medio e verdi quelli con pochi crimini).
+Inoltre, sarà possibile cliccare su un quartiere per vedere un elenco dei crimini commessi, quindi sia la tipologia sia la data. 
