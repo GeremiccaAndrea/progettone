@@ -41,5 +41,13 @@ def gdf():
     geojson_data = json.loads(districts_gdf.to_json())  
     return jsonify(geojson_data)
 
+@app.route('/criminiOnClick/<NomeNeigh>')
+def criminiOnClick(NomeNeigh):
+    
+    OnClick=joined_gdf[joined_gdf["pri_neigh"]==NomeNeigh][["id","arrest","case_number","date","description","domestic"]]
+    geojson_data = json.loads(OnClick.to_json())  
+    return jsonify(geojson_data)
+    
+
 if __name__ == '__main__':
     app.run(debug=True)
