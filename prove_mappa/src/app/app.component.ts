@@ -94,6 +94,9 @@ export class AppComponent implements OnInit {
         layer.bindPopup(`
           <strong>${neighborhood}</strong><br/>
           Crimini: ${crimeCount}`);
+        layer.on('click',()=>{
+          console.log(neighborhood);
+        });
       }
     }).addTo(this.map); // Aggiungi il layer alla mappa
   }
