@@ -103,7 +103,7 @@ export class AppComponent implements OnInit {
             this.crimini = data; // Salva i dati dei crimini del quartiere cliccato 
             // Trasforma i dati in un array di oggetti
             const keys = Object.keys(this.crimini.id); // Usa una delle proprietà principali per le chiavi (ad esempio "id")
-            let formattedData = keys.map(key => ({
+            this.formattedData = keys.map(key => ({
               id: this.crimini.id[key],
               arrest: this.crimini.arrest[key],
               case_number: this.crimini.case_number[key],
@@ -112,7 +112,7 @@ export class AppComponent implements OnInit {
               domestic: this.crimini.domestic[key],
             }));
 
-            console.log(formattedData);
+            console.log(this.formattedData);
           });
         });
       }

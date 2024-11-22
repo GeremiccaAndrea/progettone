@@ -1,6 +1,8 @@
 #map {
     height: 100%;
     width: 100%;
+    border-color: #4169e1;
+    border: 10px;
   }
   
 /* Stili generali per il contenitore della tabella */
@@ -28,6 +30,8 @@ table {
   font-family: Arial, sans-serif;
   background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-color: #4169e1;
+  border: 10px;
 }
 
 /* Stili per le celle della tabella (th e td) */
@@ -75,4 +79,12 @@ td:nth-child(2), td:nth-child(6) {
   th, td {
     padding: 8px 10px;
   }
+}
+
+body {
+  background-color: #f6f6f6;
+}
+
+p {
+  font-family: 'Product Sans';
 }

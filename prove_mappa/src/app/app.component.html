@@ -14,13 +14,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let crimine of formattedData.features">
+        <tr *ngFor="let crimine of formattedData">
             <td>{{ crimine.id }}</td>
-            <td>{{ crimine.arrest ? 'Sì' : 'No' }}</td>
+            <td>{{ crimine.arrest}}</td>
             <td>{{ crimine.case_number }}</td>
-            <td>{{ crimine.date }}</td>
+            <td>{{ crimine.date}}</td>
             <td>{{ crimine.description }}</td>
-            <td>{{ crimine.domestic ? 'Sì' : 'No' }}</td>
+            <td>{{ crimine.domestic}}</td>
         </tr>
         </tbody>
     </table>
