@@ -9,6 +9,8 @@ import * as L from 'leaflet';  // Importa Leaflet
 })
 export class AppComponent implements OnInit {
   geojsonData:any; // Dati GeoJSON che contengono sia la geometria che il numero di crimini
+  crimini: any;
+  formattedData: any;
 
   constructor(private crimesService: CrimesService) { }
 
@@ -96,6 +98,22 @@ export class AppComponent implements OnInit {
           Crimini: ${crimeCount}`);
         layer.on('click',()=>{
           console.log(neighborhood);
+          this.crimesService.getCriminiByNeigh(neighborhood).subscribe(data => {
+            console.log(data); // Mostra i dati recuperati nella console
+            this.crimini = data; // Salva i dati dei crimini del quartiere cliccato 
+            // Trasforma i dati in un array di oggetti
+            const keys = Object.keys(this.crimini.id); // Usa una delle proprietà principali per le chiavi (ad esempio "id")
+            let formattedData = keys.map(key => ({
+              id: this.crimini.id[key],
+              arrest: this.crimini.arrest[key],
+              case_number: this.crimini.case_number[key],
+              date: this.crimini.date[key],
+              description: this.crimini.description[key],
+              domestic: this.crimini.domestic[key],
+            }));
+
+            console.log(formattedData);
+          });
         });
       }
     }).addTo(this.map); // Aggiungi il layer alla mappa

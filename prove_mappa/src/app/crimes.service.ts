@@ -17,6 +17,7 @@ export interface Crime {
 })
 export class CrimesService {
   private apiUrl = 'https://progettone.onrender.com/gdf';
+  private apiClassic = 'https://progettone.onrender.com'
 
   constructor(private http: HttpClient) { }
 
@@ -29,4 +30,9 @@ export class CrimesService {
       })
     );
   }
+   // Metodo per fare la richiesta GET per un quartiere specifico
+   getCriminiByNeigh(NomeNeigh: string): Observable<any> {
+    return this.http.get<any>(`${this.apiClassic}/criminiOnClick/${NomeNeigh}`);
+  }
+
 }

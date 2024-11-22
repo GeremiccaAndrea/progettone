@@ -1,1 +1,29 @@
-<div id="map" style="height: 500px;"></div>
+<div id="map" style="height: 800px;"></div>
+<br>
+<div>
+    <h2>Tabella dei Crimini</h2>
+    <table border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Arresto</th>
+            <th>Numero Caso</th>
+            <th>Data</th>
+            <th>Descrizione</th>
+            <th>Domestico</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let crimine of formattedData.features">
+            <td>{{ crimine.id }}</td>
+            <td>{{ crimine.arrest ? 'Sì' : 'No' }}</td>
+            <td>{{ crimine.case_number }}</td>
+            <td>{{ crimine.date }}</td>
+            <td>{{ crimine.description }}</td>
+            <td>{{ crimine.domestic ? 'Sì' : 'No' }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+      
+
