@@ -1,8 +1,34 @@
 #map {
-    height: 100%;
-    width: 100%;
+  height: calc(100vh - 70px); /* Altezza completa dello schermo meno l'header */
+  width: 100%;
 }
-  
+.btn-add {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  border-radius: 50%;
+  background-color: #007bff; /* Colore blu */
+  color: white;
+}
+.switch-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+.search-form {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: #ffffffcc; /* Sfondo semi-trasparente */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
 /* Stili generali per il contenitore della tabella */
 div {
   padding: 20px;
