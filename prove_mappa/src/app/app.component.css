@@ -1,6 +1,11 @@
 #map {
   height: calc(100vh - 70px); /* Altezza completa dello schermo meno l'header */
-  width: 100%;
+  width: 90%;
+  z-index:4;
+  border: 3px;
+  border: 5px solid black; 
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .btn-add {
   position: fixed;
@@ -12,11 +17,13 @@
   border-radius: 50%;
   background-color: #007bff; /* Colore blu */
   color: white;
+  z-index:5;
 }
 .switch-container {
   position: fixed;
   bottom: 20px;
   left: 20px;
+  z-index:5;
 }
 .search-form {
   position: absolute;
@@ -30,13 +37,14 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 /* Stili generali per il contenitore della tabella */
-div {
+.tabella {
   padding: 20px;
   background-color: #f4f4f9;
   border-radius: 8px;
   margin: 20px auto;
   max-width: 90%;
   overflow-x: auto;
+  margin: 0 auto;
 }
 
 /* Titolo della tabella */
@@ -62,7 +70,7 @@ table {
 th, td {
   padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 /* Colori di sfondo per le righe della tabella */
@@ -88,10 +96,13 @@ tbody tr:hover {
 td {
   font-weight: normal;
 }
+th {
+  background-color: #4CAF50;
+}
 
 td:nth-child(2), td:nth-child(6) {
   font-style: italic;
-  color: #4CAF50; /* Verde per i "Sì", puoi modificarlo come preferisci */
+  color: #07e50e; /* Verde per i "Sì", puoi modificarlo come preferisci */
 }
 
 /* Responsive Design: tabella mobile-friendly */
