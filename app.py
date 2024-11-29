@@ -32,8 +32,10 @@ dfReatiMilano.rename(columns={'quartiere': 'NIL'}, inplace=True)
 reatiQuartiere = quartieriMilano.merge(dfReatiMilano, on = "NIL")
 contoReati = reatiQuartiere.groupby("NIL").size().reset_index(name='crime_count')
 finaleMilano = quartieriMilano.merge(contoReati, on = "NIL")
+file_finaleMilano = quartieriMilano4326.merge(finaleMilano, on = "NIL")
+file_finaleMilano.drop(columns=['Valido_dal_x', 'Valido_al_x', 'Fonte_x',	'Shape_Length_x',	'Shape_Area_x',	'OBJECTID_x', 'ID_NIL_y',	'Valido_dal_y',	'Valido_al_y', 'Fonte_y', 'Shape_Length_y',	'Shape_Area_y',	'OBJECTID_y'], inplace=True)
+file_finaleMilano.drop(columns=['LONG_X_4326_CENTROID', 'LAT_Y_4326_CENTROID', 'Location'], inplace=True)
 
-    
 app = Flask(__name__)
 CORS(app) 
 @app.route('/all')
@@ -65,26 +67,8 @@ def gdf():
 
 @app.route('/gdfMilano')
 def gdfMilano():
-    geojson_data = json.loads(finaleMilano.to_json()) 
-     # Unisce i dati per ID
-    unified_data = [
-        {
-            "Fonte": geojson_data["Fonte"].get(key),
-            "ID_NIL": geojson_data["ID_NIL"].get(key),
-            "LAT_Y_4326_CENTROID": geojson_data["LAT_Y_4326_CENTROID"].get(key),
-            "LONG_X_4326_CENTROID": geojson_data["LONG_X_4326_CENTROID"].get(key),
-            "Location": geojson_data["Location"].get(key),
-            "NIL": geojson_data["NIL"].get(key),
-            "OBJECTID": geojson_data["OBJECTID"].get(key),
-            "Shape_Area": geojson_data["Shape_Area"].get(key),
-            "Shape_Length": geojson_data["Shape_Length"].get(key),
-            "Valido_al": geojson_data["Valido_al"].get(key),
-            "Valido_dal": geojson_data["Valido_dal"].get(key),
-            "crime_count": geojson_data["crime_count"].get(key)
-        }
-        for key in geojson_data["Fonte"].keys()  # Itera su tutte le chiavi di "Fonte"
-    ]
-    return jsonify(unified_data)
+    geojson_data = json.loads(file_finaleMilano.to_json()) 
+    return jsonify(geojson_data)
 
 @app.route('/criminiOnClick/<NomeNeigh>')
 def criminiOnClick(NomeNeigh):
@@ -93,6 +77,21 @@ def criminiOnClick(NomeNeigh):
     geojson_data = json.loads(OnClick.to_json())  
     return jsonify(geojson_data)
     
+@app.route('/criminiOnClick/Milano/<NomeNeigh>')
+def criminiOnClickMilano(NomeNeigh):
+    
+    OnClick=dfReatiMilano[dfReatiMilano["NIL"]==NomeNeigh.upper()][["id","tipo_reato", "data"]]
+    geojson_data = json.loads(OnClick.to_json())
+    # Unisce i dati per ID
+    unified_data = [
+        {
+            "id": key,
+            "tipo_reato": geojson_data["tipo_reato"].get(key),
+            "data": geojson_data["data"].get(key)
+        }
+        for key in geojson_data["id"].keys()  # Itera su tutte le chiavi di "Fonte"
+    ]  
+    return jsonify(unified_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
