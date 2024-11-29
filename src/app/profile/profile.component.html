@@ -1,0 +1,24 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="assets\images\chillguypfp.jpg" class="img-fluid rounded-circle" alt="Profile Picture">
+        </div>  
+        <div class="col-md-5 mb-4">
+            <h1>Socks Yin</h1>
+            <p>Location: Prato</p>
+            <p>Bio: Cerco di finire questo cerchio</p>
+            <div class="mt-4">
+                <button class="btn btn-primary me-2">Modifica Profilo</button>
+                <button class="btn btn-light border-dark me-2" alt="impostazioni">⚙️</button>
+                <button class="btn btn-light border-danger" (click) = "addPost()">Aggiungi Post</button>
+            </div>
+        </div>
+        <!-- Posts -->
+        <div class="row p-3 mt-3">
+            <div *ngFor = "let post of posts" class="col-md-4 mb-2">
+                <app-post [post] = "post"></app-post>
+            </div>
+        </div>
+    </div>
+    
+</div>
