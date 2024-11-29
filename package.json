@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@types/geojson": "^7946.0.14"
+  }
+}

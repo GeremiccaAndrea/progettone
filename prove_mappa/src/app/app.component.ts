@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrimesService } from './crimes.service';
 import * as L from 'leaflet';  // Importa Leaflet
+import { Feature, FeatureCollection } from 'geojson';
 
 @Component({
   selector: 'app-root',
@@ -74,27 +75,25 @@ export class AppComponent implements OnInit {
   }
   // Funzione per determinare il colore in base al numero di crimini
   getCrimeColor(crimeCount: number): string {
-    const maxCrimeCount = 62;  // Numero massimo di crimini per la scala dei colori
-    const minCrimeCount = 0;   // Numero minimo di crimini
-    const midCrimeCount = (maxCrimeCount - minCrimeCount) / 2;  // Punto medio
+    const maxCrimeCount = Math.max(...this.geojsonData.features.map((f: any) => f.properties.crime_count)); 
 
+    const verde=maxCrimeCount*0.25;
+    const giallo=maxCrimeCount*0.75;
+    
     let r = 0, g = 0, b = 0;
 
-    if (crimeCount <= midCrimeCount) {
+    if (crimeCount <= verde) {
       // Colori dalla verde (basso) al giallo (medio)
-      const greenToYellowRatio = crimeCount / midCrimeCount;
-      g = Math.floor(255 * (1 - greenToYellowRatio)); // Decresce il verde
-      r = Math.floor(255 * greenToYellowRatio);      // Aumenta il rosso
-      b = 0;
-    } else {
+      
+      return `rgb(0,255,0)`;
+    } else if(crimeCount <= giallo){
       // Colori dal giallo al rosso (alto)
-      const yellowToRedRatio = (crimeCount - midCrimeCount) / (maxCrimeCount - midCrimeCount);
-      r = Math.floor(255 * yellowToRedRatio);  // Aumenta il rosso
-      g = Math.floor(255 * (1 - yellowToRedRatio));  // Diminuisce il verde
-      b = 0;
+      return `rgb(255,255,0)`;
+    }else{
+      return `rgb(255,0,0)`;
     }
 
-    return `rgb(${r},${g},${b})`;
+    
   }
 
   // Funzione per aggiungere i distretti con il numero di crimini alla mappa
@@ -106,7 +105,7 @@ export class AppComponent implements OnInit {
         
         return {
           color: color,   // Border color
-          weight: 2,       // Border thickness
+          weight: 1,       // Border thickness
           opacity: 1       // Border opacity
         };
       },
