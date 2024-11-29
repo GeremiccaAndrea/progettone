@@ -23,14 +23,17 @@ export class LoginComponent {
   emailSignUp: string = '';
   passwordSignUp: string = '';
   messageSignUp: string = '';
+  isDisabled: boolean = false;
 
   constructor(private auth: Auth, private firestore: Firestore, private router: Router,
      private route: ActivatedRoute) {
       
      }
 
-  routeToProfile(user: AngularFireUser) {
-    this.router.navigate([`../profile`, { state: { user } }], { relativeTo: this.route });
+  routeToProfile() {
+
+    this.router.navigate([`../profile`], { relativeTo: this.route });
+    console.log('Fatto');
   }
 
   //#region LOGIN
@@ -40,19 +43,21 @@ export class LoginComponent {
 
       if(this.auth.currentUser != null) {
         console.log('Already logged in, User:', this.auth.currentUser);
+        this.routeToProfile();
         return;
       }
 
       await setPersistence(this.auth, browserSessionPersistence);
-
+      
       const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
       const user: AngularFireUser = userCredential.user;
       this.message = `Login successful! Welcome, ${user.displayName}`;
       this.logged = true;
-      this.routeToProfile(user);
+      this.routeToProfile();
       console.log('User:', user);
       
     } catch (error) {
+      this.isDisabled = false;
       this.message = 'Login failed. Please check your credentials.';
       this.logged = false;
       console.error('Login error:', error);

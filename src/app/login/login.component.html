@@ -10,12 +10,10 @@
         <input type="password" [(ngModel)]="password" name="password" required placeholder=" ">
         <label>Password</label>
       </div>
-      <button type="submit" class="login-btn">Login</button>
+      <button type="submit" class="login-btn" [disabled]="isDisabled">Login</button>
     </form>
     <p *ngIf="message">{{ message }}</p>
     <p>Don’t have an account? <a routerLink="/signup">Sign Up</a></p>
   </div>
 
-
-  
 </div>
