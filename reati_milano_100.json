@@ -1,0 +1,602 @@
+[
+    {
+        "id": 1,
+        "tipo_reato": "Violenza",
+        "data": "2023-05-27",
+        "quartiere": "GIARDINI P.TA VENEZIA"
+    },
+    {
+        "id": 2,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-07-05",
+        "quartiere": "PORTA GARIBALDI - PORTA NUOVA"
+    },
+    {
+        "id": 3,
+        "tipo_reato": "Violenza",
+        "data": "2023-08-08",
+        "quartiere": "PORTA TICINESE - CONCA DEL NAVIGLIO"
+    },
+    {
+        "id": 4,
+        "tipo_reato": "Furto",
+        "data": "2023-12-25",
+        "quartiere": "MAGENTA - S. VITTORE"
+    },
+    {
+        "id": 5,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-01-21",
+        "quartiere": "PORTA TICINESE - CONCA DEL NAVIGLIO"
+    },
+    {
+        "id": 6,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-06-21",
+        "quartiere": "GIARDINI P.TA VENEZIA"
+    },
+    {
+        "id": 7,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-04-19",
+        "quartiere": "PORTA VIGENTINA - PORTA LODOVICA"
+    },
+    {
+        "id": 8,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-12-25",
+        "quartiere": "GUASTALLA"
+    },
+    {
+        "id": 9,
+        "tipo_reato": "Rapina",
+        "data": "2023-07-17",
+        "quartiere": "BRERA"
+    },
+    {
+        "id": 10,
+        "tipo_reato": "Furto",
+        "data": "2023-12-13",
+        "quartiere": "PORTA GARIBALDI - PORTA NUOVA"
+    },
+    {
+        "id": 11,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-04-16",
+        "quartiere": "BRERA"
+    },
+    {
+        "id": 12,
+        "tipo_reato": "Violenza",
+        "data": "2023-09-14",
+        "quartiere": "GIARDINI P.TA VENEZIA"
+    },
+    {
+        "id": 13,
+        "tipo_reato": "Furto",
+        "data": "2023-01-21",
+        "quartiere": "PORTA TICINESE - CONCA DEL NAVIGLIO"
+    },
+    {
+        "id": 14,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-04-04",
+        "quartiere": "MAGENTA - S. VITTORE"
+    },
+    {
+        "id": 15,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-08-28",
+        "quartiere": "PORTA VIGENTINA - PORTA LODOVICA"
+    },
+    {
+        "id": 16,
+        "tipo_reato": "Violenza",
+        "data": "2023-08-24",
+        "quartiere": "GIARDINI P.TA VENEZIA"
+    },
+    {
+        "id": 17,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-02-05",
+        "quartiere": "MAGENTA - S. VITTORE"
+    },
+    {
+        "id": 18,
+        "tipo_reato": "Rapina",
+        "data": "2023-01-24",
+        "quartiere": "MAGENTA - S. VITTORE"
+    },
+    {
+        "id": 19,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-09-29",
+        "quartiere": "BRERA"
+    },
+    {
+        "id": 20,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-11-03",
+        "quartiere": "PARCO SEMPIONE"
+    },
+    {
+        "id": 21,
+        "tipo_reato": "Truffa",
+        "data": "2023-08-13",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 22,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-06-07",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 23,
+        "tipo_reato": "Violenza",
+        "data": "2023-12-02",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 24,
+        "tipo_reato": "Truffa",
+        "data": "2023-11-27",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 25,
+        "tipo_reato": "Furto",
+        "data": "2023-01-23",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 26,
+        "tipo_reato": "Violenza",
+        "data": "2023-10-23",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 27,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-06-05",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 28,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-01-01",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 29,
+        "tipo_reato": "Truffa",
+        "data": "2023-10-21",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 30,
+        "tipo_reato": "Truffa",
+        "data": "2023-11-05",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 31,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-04-09",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 32,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-12-03",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 33,
+        "tipo_reato": "Violenza",
+        "data": "2023-02-16",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 34,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-01-28",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 35,
+        "tipo_reato": "Furto",
+        "data": "2023-10-28",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 36,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-02-06",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 37,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-04-26",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 38,
+        "tipo_reato": "Rapina",
+        "data": "2023-03-27",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 39,
+        "tipo_reato": "Furto",
+        "data": "2023-08-19",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 40,
+        "tipo_reato": "Furto",
+        "data": "2023-02-10",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 41,
+        "tipo_reato": "Rapina",
+        "data": "2023-08-22",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 42,
+        "tipo_reato": "Rapina",
+        "data": "2023-04-18",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 43,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-06-18",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 44,
+        "tipo_reato": "Furto",
+        "data": "2023-03-08",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 45,
+        "tipo_reato": "Truffa",
+        "data": "2023-10-11",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 46,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-08-30",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 47,
+        "tipo_reato": "Truffa",
+        "data": "2023-01-16",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 48,
+        "tipo_reato": "Rapina",
+        "data": "2023-08-13",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 49,
+        "tipo_reato": "Rapina",
+        "data": "2023-06-22",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 50,
+        "tipo_reato": "Rapina",
+        "data": "2023-08-06",
+        "quartiere": "BARONA"
+    },
+    {
+        "id": 51,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-03-06",
+        "quartiere": "FIGINO"
+    },
+    {
+        "id": 52,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-10-16",
+        "quartiere": "STADIO - IPPODROMI"
+    },
+    {
+        "id": 53,
+        "tipo_reato": "Truffa",
+        "data": "2023-05-11",
+        "quartiere": "GORLA - PRECOTTO"
+    },
+    {
+        "id": 54,
+        "tipo_reato": "Rapina",
+        "data": "2023-05-12",
+        "quartiere": "FIGINO"
+    },
+    {
+        "id": 55,
+        "tipo_reato": "Rapina",
+        "data": "2023-12-08",
+        "quartiere": "CANTALUPA"
+    },
+    {
+        "id": 56,
+        "tipo_reato": "Violenza",
+        "data": "2023-03-01",
+        "quartiere": "STEPHENSON"
+    },
+    {
+        "id": 57,
+        "tipo_reato": "Violenza",
+        "data": "2023-04-21",
+        "quartiere": "PARCO BOSCO IN CITTA'"
+    },
+    {
+        "id": 58,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-09-14",
+        "quartiere": "BOVISASCA"
+    },
+    {
+        "id": 59,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-10-24",
+        "quartiere": "NIGUARDA - CA' GRANDA - PRATO CENTENARO - Q.RE FULVIO TESTI"
+    },
+    {
+        "id": 60,
+        "tipo_reato": "Truffa",
+        "data": "2023-12-15",
+        "quartiere": "MONLUE' - PONTE LAMBRO"
+    },
+    {
+        "id": 61,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-08-22",
+        "quartiere": "TRENNO"
+    },
+    {
+        "id": 62,
+        "tipo_reato": "Furto",
+        "data": "2023-02-02",
+        "quartiere": "GIAMBELLINO"
+    },
+    {
+        "id": 63,
+        "tipo_reato": "Rapina",
+        "data": "2023-10-27",
+        "quartiere": "RONCHETTO SUL NAVIGLIO - Q.RE LODOVICO IL MORO"
+    },
+    {
+        "id": 64,
+        "tipo_reato": "Rapina",
+        "data": "2023-12-08",
+        "quartiere": "GHISOLFA"
+    },
+    {
+        "id": 65,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-09-30",
+        "quartiere": "BUENOS AIRES - PORTA VENEZIA - PORTA MONFORTE"
+    },
+    {
+        "id": 66,
+        "tipo_reato": "Rapina",
+        "data": "2023-04-12",
+        "quartiere": "PARCO FORLANINI - CAVRIANO"
+    },
+    {
+        "id": 67,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-08-10",
+        "quartiere": "MONLUE' - PONTE LAMBRO"
+    },
+    {
+        "id": 68,
+        "tipo_reato": "Rapina",
+        "data": "2023-04-22",
+        "quartiere": "GORLA - PRECOTTO"
+    },
+    {
+        "id": 69,
+        "tipo_reato": "Violenza",
+        "data": "2023-03-24",
+        "quartiere": "FIGINO"
+    },
+    {
+        "id": 70,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-03-20",
+        "quartiere": "AFFORI"
+    },
+    {
+        "id": 71,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-11-10",
+        "quartiere": "QUINTOSOLE"
+    },
+    {
+        "id": 72,
+        "tipo_reato": "Furto",
+        "data": "2023-10-10",
+        "quartiere": "PORTELLO"
+    },
+    {
+        "id": 73,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-03-11",
+        "quartiere": "BOVISA"
+    },
+    {
+        "id": 74,
+        "tipo_reato": "Rapina",
+        "data": "2023-09-19",
+        "quartiere": "PAGANO"
+    },
+    {
+        "id": 75,
+        "tipo_reato": "Rapina",
+        "data": "2023-08-25",
+        "quartiere": "GRECO - SEGNANO"
+    },
+    {
+        "id": 76,
+        "tipo_reato": "Truffa",
+        "data": "2023-10-01",
+        "quartiere": "TRE TORRI"
+    },
+    {
+        "id": 77,
+        "tipo_reato": "Truffa",
+        "data": "2023-09-01",
+        "quartiere": "PARCO FORLANINI - CAVRIANO"
+    },
+    {
+        "id": 78,
+        "tipo_reato": "Truffa",
+        "data": "2023-02-17",
+        "quartiere": "STADIO - IPPODROMI"
+    },
+    {
+        "id": 79,
+        "tipo_reato": "Violenza",
+        "data": "2023-03-12",
+        "quartiere": "VILLAPIZZONE - CAGNOLA - BOLDINASCO"
+    },
+    {
+        "id": 80,
+        "tipo_reato": "Violenza",
+        "data": "2023-03-04",
+        "quartiere": "GORLA - PRECOTTO"
+    },
+    {
+        "id": 81,
+        "tipo_reato": "Rapina",
+        "data": "2023-03-12",
+        "quartiere": "ROGOREDO - SANTA GIULIA"
+    },
+    {
+        "id": 82,
+        "tipo_reato": "Furto",
+        "data": "2023-09-23",
+        "quartiere": "BAGGIO - Q.RE DEGLI OLMI - Q.RE VALSESIA"
+    },
+    {
+        "id": 83,
+        "tipo_reato": "Furto",
+        "data": "2023-06-16",
+        "quartiere": "RONCHETTO SUL NAVIGLIO - Q.RE LODOVICO IL MORO"
+    },
+    {
+        "id": 84,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-01-11",
+        "quartiere": "SARPI"
+    },
+    {
+        "id": 85,
+        "tipo_reato": "Truffa",
+        "data": "2023-03-03",
+        "quartiere": "DE ANGELI - MONTE ROSA"
+    },
+    {
+        "id": 86,
+        "tipo_reato": "Violenza",
+        "data": "2023-09-11",
+        "quartiere": "RONCHETTO DELLE RANE"
+    },
+    {
+        "id": 87,
+        "tipo_reato": "Stupefacenti",
+        "data": "2023-11-08",
+        "quartiere": "BICOCCA"
+    },
+    {
+        "id": 88,
+        "tipo_reato": "Rapina",
+        "data": "2023-03-21",
+        "quartiere": "STAZIONE CENTRALE - PONTE SEVESO"
+    },
+    {
+        "id": 89,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-01-29",
+        "quartiere": "TRE TORRI"
+    },
+    {
+        "id": 90,
+        "tipo_reato": "Violenza",
+        "data": "2023-07-14",
+        "quartiere": "ISOLA"
+    },
+    {
+        "id": 91,
+        "tipo_reato": "Vandalismo",
+        "data": "2023-03-14",
+        "quartiere": "RONCHETTO SUL NAVIGLIO - Q.RE LODOVICO IL MORO"
+    },
+    {
+        "id": 92,
+        "tipo_reato": "Furto",
+        "data": "2023-04-02",
+        "quartiere": "COMASINA"
+    },
+    {
+        "id": 93,
+        "tipo_reato": "Truffa",
+        "data": "2023-03-10",
+        "quartiere": "CANTALUPA"
+    },
+    {
+        "id": 94,
+        "tipo_reato": "Truffa",
+        "data": "2023-02-08",
+        "quartiere": "CITTA' STUDI"
+    },
+    {
+        "id": 95,
+        "tipo_reato": "Furto",
+        "data": "2023-09-12",
+        "quartiere": "GRATOSOGLIO - Q.RE MISSAGLIA - Q.RE TERRAZZE"
+    },
+    {
+        "id": 96,
+        "tipo_reato": "Furto",
+        "data": "2023-09-14",
+        "quartiere": "MORIVIONE"
+    },
+    {
+        "id": 97,
+        "tipo_reato": "Furto",
+        "data": "2023-07-25",
+        "quartiere": "TRIULZO SUPERIORE"
+    },
+    {
+        "id": 98,
+        "tipo_reato": "Furto",
+        "data": "2023-02-25",
+        "quartiere": "QUINTOSOLE"
+    },
+    {
+        "id": 99,
+        "tipo_reato": "Violenza",
+        "data": "2023-08-21",
+        "quartiere": "ADRIANO"
+    },
+    {
+        "id": 100,
+        "tipo_reato": "Rapina",
+        "data": "2023-01-29",
+        "quartiere": "PORTELLO"
+    }
+]
