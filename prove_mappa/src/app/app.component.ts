@@ -33,6 +33,27 @@ export class AppComponent implements OnInit {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
   }
+  flyToLocation(lat: number, lng: number): void {
+    this.map.flyTo([lat, lng], 14); // Cambia lo zoom se necessario
+  }
+  searchLocation(query: string): void {
+    this.crimesService.search(query).subscribe(
+      location => {
+        if (location) {
+          console.log(location); // Controlla i dati ricevuti
+          const lat = parseFloat(location.lat);
+          const lon = parseFloat(location.lon);
+          this.flyToLocation(lat, lon);
+        } else {
+          alert('Nessun risultato trovato!');
+        }
+      },
+      error => {
+        console.error('Errore durante la ricerca:', error);
+        alert('Si è verificato un errore durante la ricerca.');
+      }
+    );
+  }
 
   // Funzione per caricare i dati (crimini e distretti) da un file GeoJSON
   loadData(): void {

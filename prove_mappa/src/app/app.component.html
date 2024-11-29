@@ -12,9 +12,15 @@
       <!-- Barra di ricerca al centro -->
       <div class="col-8">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Cerca quartieri di Milano...">
-          <button class="btn btn-outline-secondary" type="button">
-            <i class="bi bi-search"></i>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Cerca quartieri di Chicago..."
+            #searchInput
+            (keyup.enter)="searchLocation(searchInput.value)"
+          />
+          <button class="btn btn-outline-secondary" type="button" (click)="searchLocation(searchInput.value)">
+            <i class="bi bi-search">search</i>
           </button>
         </div>
       </div>
