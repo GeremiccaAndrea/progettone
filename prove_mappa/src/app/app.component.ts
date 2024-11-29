@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CrimesService } from './crimes.service';
 import * as L from 'leaflet';  // Importa Leaflet
 import { Feature, FeatureCollection } from 'geojson';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   crimini: any;
   formattedData: any;
 
-  constructor(private crimesService: CrimesService) { }
+  constructor(private crimesService: CrimesService, private router: Router) { }
 
   map!: L.Map;
 
