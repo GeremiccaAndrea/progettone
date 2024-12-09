@@ -27,11 +27,17 @@ export class LoginComponent {
 
   constructor(private auth: Auth, private firestore: Firestore, private router: Router,
      private route: ActivatedRoute) {
-      
      }
 
-  routeToProfile() {
+  ngOnInit() { 
+  if(this.auth.currentUser != null) {
+    console.log('Already logged in, User:', this.auth.currentUser);
+    console.log(this.auth.currentUser)
+    this.routeToProfile();
+    return;
+  } }
 
+  routeToProfile() {
     this.router.navigate([`../profile`], { relativeTo: this.route });
     console.log('Fatto');
   }
@@ -41,12 +47,6 @@ export class LoginComponent {
     
     try {
 
-      if(this.auth.currentUser != null) {
-        console.log('Already logged in, User:', this.auth.currentUser);
-        this.routeToProfile();
-        return;
-      }
-
       await setPersistence(this.auth, browserSessionPersistence);
       
       const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
@@ -55,16 +55,14 @@ export class LoginComponent {
       this.logged = true;
       this.routeToProfile();
       console.log('User:', user);
-      
+    
     } catch (error) {
-      this.isDisabled = false;
       this.message = 'Login failed. Please check your credentials.';
       this.logged = false;
       console.error('Login error:', error);
     }
   }
   //#endregion
-
 
   //#region QUERIES
   GetUsersByCondition(field: string, operator: any, value: any, limitNum: any): Observable<any[]> {

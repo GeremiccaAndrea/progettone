@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Post } from '../post.model';
+import { Auth, User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-profile',
@@ -8,8 +9,10 @@ import { Post } from '../post.model';
 })
 export class ProfileComponent {
   posts: Post[] = [new Post('Anziata sgozzata', 'Anziana tragicamente sgozzata al parco', 'Omicidio')];
-  constructor() {
-   
+  profilo : User | null;
+  constructor(private auth: Auth) {
+    this.profilo = this.auth.currentUser;
+    let nome = this.profilo.displayName;
    }
  
    addPost() {
