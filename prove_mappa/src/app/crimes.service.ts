@@ -19,7 +19,6 @@ export interface Crime {
 export class CrimesService {
   private apiUrl = 'https://progettone.onrender.com/gdf';
   private apiClassic = 'https://progettone.onrender.com'
-
   constructor(private http: HttpClient) { }
 
   // Funzione per ottenere i crimini senza parametri
@@ -39,6 +38,15 @@ export class CrimesService {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
     return this.http.get<NominatimResult[]>(url).pipe(
       map(results => (results && results.length > 0 ? results[0] : null))
+    );
+  }
+
+  getMilano(): Observable<any> {
+    return this.http.get<any>(`${this.apiClassic}/gdfMilano`).pipe(
+      catchError(error => {
+        console.error('Errore durante il recupero dei dati GeoJSON:', error);
+        throw error;
+      })
     );
   }
   

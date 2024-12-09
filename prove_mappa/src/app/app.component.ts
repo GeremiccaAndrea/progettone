@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   geojsonData:any; // Dati GeoJSON che contengono sia la geometria che il numero di crimini
+  geojsonDataMilano:any; 
   crimini: any;
   formattedData: any;
 
@@ -57,14 +58,39 @@ export class AppComponent implements OnInit {
     );
   }
 
+  onSwitchChange(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
+      console.log('chicago e milano');
+    } else {
+      console.log('mappa utenti');
+    }
+  }
+  
   // Funzione per caricare i dati (crimini e distretti) da un file GeoJSON
   loadData(): void {
     this.crimesService.getCrimes().subscribe(
       (data) => {
+        console.log("milano",data);
         // Assicurati che data sia un FeatureCollection
         if (data.type === "FeatureCollection" && Array.isArray(data.features)) {
           this.geojsonData = data;
           this.addDistrictsToMap(this.geojsonData);
+        } else {
+          console.error("Formato GeoJSON non valido", data);
+        }
+      },
+      (error) => {
+        console.error('Errore nel recupero dei dati:', error);
+      }
+    );
+    this.crimesService.getMilano().subscribe(
+      (data) => {
+        console.log(data);
+        // Assicurati che data sia un FeatureCollection
+        if (data.type === "FeatureCollection" && Array.isArray(data.features)) {
+          this.geojsonDataMilano = data;
+          this.addDistrictsToMap(this.geojsonDataMilano);
         } else {
           console.error("Formato GeoJSON non valido", data);
         }

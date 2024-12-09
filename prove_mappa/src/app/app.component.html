@@ -51,7 +51,7 @@
   <!-- Switch in basso a sinistra -->
   <div class="switch-container">
     <div class="form-check form-switch" >
-      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" >
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" (change)="onSwitchChange($event)">
       <label class="form-check-label" for="flexSwitchCheckDefault" >Switch</label>
     </div>
   </div>
