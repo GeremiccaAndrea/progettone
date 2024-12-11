@@ -14,21 +14,15 @@ export class ProfileComponent {
   logged : boolean = false;
   constructor(private auth: Auth,  private router: Router, private route: ActivatedRoute) {
     this.profilo = this.auth.currentUser;
+
+    // Controllo se l'utente è loggato
     if (this.profilo) {
       let nome = this.profilo.displayName;
+      this.logged = true;
     } else {
+      this.logged = false;
       console.error('User profile is null');
       this.router.navigate(['/login']);
-    }
-    
-
-    if(auth.currentUser) {
-      console.log('Already logged in, User:', auth.currentUser);
-      this.logged = true;
-  
-    } else {
-      console.log('Not logged in');
-      this.logged = false;
     }
    }
  
@@ -37,9 +31,10 @@ export class ProfileComponent {
      this.auth.signOut();
      this.logged = false;
      window.location.reload();
+   } 
+  }
 
-   } }
-
+   // Generazione Post casuale (per test)
    addPost() {
       const randomWords = ['Lorem', 'Ipsum', 'Dolor', 'Sit', 'Amet', 'Consectetur', 'Adipiscing', 'Elit'];
       const getRandomWord = () => randomWords[Math.floor(Math.random() * randomWords.length)];
