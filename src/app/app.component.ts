@@ -9,13 +9,9 @@ import { createUserWithEmailAndPassword, User } from 'firebase/auth';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   constructor(private auth: Auth) {
-
-    if(auth.currentUser) {
-      console.log('Already logged in, User:', auth.currentUser);
-    }
-    
-
+   
 }
 
 /* ngOnInit(auth: Auth) {

@@ -1,4 +1,5 @@
-<div class="container mt-5">
+<div class="container mt-5" id="page">
+    <button *ngIf="logged" (click)="logout()" class="btn btn-danger m-5">Log Out</button>
     <div class="row">
         <div class="col-md-2">
             <img src="assets\images\chillguypfp.jpg" class="img-fluid rounded-circle" alt="Profile Picture">
@@ -20,5 +21,5 @@
             </div>
         </div>
     </div>
-    
 </div>
+

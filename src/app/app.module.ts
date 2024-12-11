@@ -14,7 +14,6 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostComponent } from './post/post.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
