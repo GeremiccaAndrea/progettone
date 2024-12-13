@@ -1,7 +1,7 @@
 import pandas as pd 
 import geopandas as gpd
 import requests
-from shapely.geometry import Point
+from shapely.geometry import Point,MultiPolygon, Polygon
 import matplotlib.pyplot as plt
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -35,6 +35,13 @@ finaleMilano = quartieriMilano.merge(contoReati, on = "NIL")
 file_finaleMilano = quartieriMilano4326.merge(finaleMilano, on = "NIL")
 file_finaleMilano.drop(columns=['Valido_dal_x', 'Valido_al_x', 'Fonte_x',	'Shape_Length_x',	'Shape_Area_x',	'OBJECTID_x', 'ID_NIL_y',	'Valido_dal_y',	'Valido_al_y', 'Fonte_y', 'Shape_Length_y',	'Shape_Area_y',	'OBJECTID_y'], inplace=True)
 file_finaleMilano.drop(columns=['LONG_X_4326_CENTROID', 'LAT_Y_4326_CENTROID', 'Location'], inplace=True)
+def ensure_multipolygon(geometry):
+    if isinstance(geometry, Polygon):  # Se è un Poligono
+        return MultiPolygon([geometry])  # Converti in MultiPolygon
+    return geometry  # Se è già un MultiPolygon, lascialo com'
+
+# Applicare la funzione alle geometrie del GeoDataFrame
+file_finaleMilano['geometry'] = file_finaleMilano['geometry'].apply(ensure_multipolygon)
 
 app = Flask(__name__)
 CORS(app) 
