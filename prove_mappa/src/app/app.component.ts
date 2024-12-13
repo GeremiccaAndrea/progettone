@@ -102,10 +102,10 @@ export class AppComponent implements OnInit {
     );
   }
   // Funzione per determinare il colore in base al numero di crimini
-  getCrimeColor(crimeCount: number): string {
+  getCrimeColor(crimeCount: number,data: any): string {
     console.log("inserimento colore");
     
-    const maxCrimeCount = Math.max(...this.geojsonData.features.map((f: any) => f.properties.crime_count)); 
+    const maxCrimeCount = Math.max(...data.features.map((f: any) => f.properties.crime_count)); 
     
     const verde=maxCrimeCount*0.25;
     const giallo=maxCrimeCount*0.75;
@@ -131,7 +131,7 @@ export class AppComponent implements OnInit {
     L.geoJSON(data, {
       style: (feature: any) => {
         const crimeCount = feature.properties?.crime_count || 0;
-        const color = this.getCrimeColor(crimeCount); // Otteniamo il colore in base al numero di crimini
+        const color = this.getCrimeColor(crimeCount,data); // Otteniamo il colore in base al numero di crimini
         
         return {
           color: color,   // Border color
