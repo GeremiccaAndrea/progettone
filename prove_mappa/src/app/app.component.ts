@@ -27,7 +27,8 @@ export class AppComponent implements OnInit {
   // Funzione per inizializzare la mappa
   initMap(): void {
     this.map = L.map('map', {
-      center: [41.816813771373916, -87.60670812560372],  // Coordinate centrali per Chicago
+      // center: [41.816813771373916, -87.60670812560372],  // Coordinate centrali per Chicago
+      center:[45.4642, 9.19],
       zoom: 14
     });
 
@@ -71,11 +72,11 @@ export class AppComponent implements OnInit {
   loadData(): void {
     this.crimesService.getCrimes().subscribe(
       (data) => {
-        console.log("milano",data);
+        console.log(data);
         // Assicurati che data sia un FeatureCollection
         if (data.type === "FeatureCollection" && Array.isArray(data.features)) {
           this.geojsonData = data;
-          this.addDistrictsToMap(this.geojsonData);
+          this.addDistrictsToMap(data);
         } else {
           console.error("Formato GeoJSON non valido", data);
         }
@@ -86,7 +87,7 @@ export class AppComponent implements OnInit {
     );
     this.crimesService.getMilano().subscribe(
       (data) => {
-        console.log(data);
+        console.log("Milano",data);
         // Assicurati che data sia un FeatureCollection
         if (data.type === "FeatureCollection" && Array.isArray(data.features)) {
           this.geojsonDataMilano = data;
@@ -102,8 +103,10 @@ export class AppComponent implements OnInit {
   }
   // Funzione per determinare il colore in base al numero di crimini
   getCrimeColor(crimeCount: number): string {
+    console.log("inserimento colore");
+    
     const maxCrimeCount = Math.max(...this.geojsonData.features.map((f: any) => f.properties.crime_count)); 
-
+    
     const verde=maxCrimeCount*0.25;
     const giallo=maxCrimeCount*0.75;
     
