@@ -28,17 +28,18 @@ quartieriMilano4326 = quartieriMilano2.to_crs("EPSG:4326")
 quartieriMilano = gpd.read_file('ds964_nil_wm_4326.csv')
 reatiMilano = 'reati_milano_100.json'
 dfReatiMilano = pd.read_json(reatiMilano)
-dfReatiMilano.rename(columns={'quartiere': 'pri_neigh'}, inplace=True)
+dfReatiMilano.rename(columns={'quartiere': 'NIL'}, inplace=True)
 reatiQuartiere = quartieriMilano.merge(dfReatiMilano, on = "NIL")
 contoReati = reatiQuartiere.groupby("NIL").size().reset_index(name='crime_count')
 finaleMilano = quartieriMilano.merge(contoReati, on = "NIL")
 file_finaleMilano = quartieriMilano4326.merge(finaleMilano, on = "NIL")
 file_finaleMilano.drop(columns=['Valido_dal_x', 'Valido_al_x', 'Fonte_x',	'Shape_Length_x',	'Shape_Area_x',	'OBJECTID_x', 'ID_NIL_y',	'Valido_dal_y',	'Valido_al_y', 'Fonte_y', 'Shape_Length_y',	'Shape_Area_y',	'OBJECTID_y'], inplace=True)
 file_finaleMilano.drop(columns=['LONG_X_4326_CENTROID', 'LAT_Y_4326_CENTROID', 'Location'], inplace=True)
+file_finaleMilano.rename(columns={'NIL': 'pri_neigh'}, inplace=True)
 def ensure_multipolygon(geometry):
     if isinstance(geometry, Polygon):  # Se è un Poligono
         return MultiPolygon([geometry])  # Converti in MultiPolygon
-    return geometry  # Se è già un MultiPolygon, lascialo com'
+    return geometry  # Se è già un MultiPolygon, lascialo com' 
 
 # Applicare la funzione alle geometrie del GeoDataFrame
 file_finaleMilano['geometry'] = file_finaleMilano['geometry'].apply(ensure_multipolygon)
