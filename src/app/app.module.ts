@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostComponent } from './post/post.component';
+import { SelfProfileComponent } from './self-profile/self-profile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PostComponent } from './post/post.component';
     LoginComponent,
     SignupComponent,
     ProfileComponent,
-    PostComponent
+    PostComponent,
+    SelfProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -26,8 +26,8 @@ export class LoginComponent {
   isDisabled: boolean = false;
 
   constructor(private auth: Auth, private firestore: Firestore, private router: Router,
-     private route: ActivatedRoute) {
-     }
+     private route: ActivatedRoute) {}
+     
 
   ngOnInit() { 
   if(this.auth.currentUser != null) {

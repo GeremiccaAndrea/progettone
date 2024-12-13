@@ -1,14 +1,16 @@
 <div class="container mt-5" id="page">
+    <button *ngIf="logged" (click)="logout()" class="btn btn-danger m-5">Log Out</button>
     <div class="row">
         <div class="col-md-2">
             <img src="assets\images\chillguypfp.jpg" class="img-fluid rounded-circle" alt="Profile Picture">
-        </div>
+        </div>  
         <div class="col-md-5 mb-4">
-            <h1>{{this.profilo.name}}</h1>
+            <h1>{{this.utente.displayName}}</h1>
             <p>Location: Prato</p>
             <p>Bio: Cerco di finire questo cerchio</p>
             <div class="mt-4">
-                <!-- Qua ci vanno i bottoni -->
+                <button class="btn btn-primary me-2">Modifica Profilo</button>
+                <button class="btn btn-light border-dark me-2" alt="impostazioni">⚙️</button>
             </div>
         </div>
         <!-- Posts -->
