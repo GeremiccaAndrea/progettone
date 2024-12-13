@@ -28,7 +28,7 @@ quartieriMilano4326 = quartieriMilano2.to_crs("EPSG:4326")
 quartieriMilano = gpd.read_file('ds964_nil_wm_4326.csv')
 reatiMilano = 'reati_milano_100.json'
 dfReatiMilano = pd.read_json(reatiMilano)
-dfReatiMilano.rename(columns={'quartiere': 'NIL'}, inplace=True)
+dfReatiMilano.rename(columns={'quartiere': 'pri_neigh'}, inplace=True)
 reatiQuartiere = quartieriMilano.merge(dfReatiMilano, on = "NIL")
 contoReati = reatiQuartiere.groupby("NIL").size().reset_index(name='crime_count')
 finaleMilano = quartieriMilano.merge(contoReati, on = "NIL")
