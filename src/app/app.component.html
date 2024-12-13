@@ -1,6 +1,10 @@
-<header>
-        <p><a routerLink="/login" routerLinkActive="active">Log In</a></p>
-        <p><a routerLink="/profile" routerLinkActive="active">Account</a></p>
+<header class="row p-4">
+        <a routerLink="/login" routerLinkActive="active" class="col-1">Log In</a>
+        <a routerLink="/profile" routerLinkActive="active" class="col-1">Account</a>
+        <div class="col-4">
+                <input type="text" class="form-control" placeholder="Search user" #userName>     
+                <button class="btn btn-primary" type="button" (click)="searchUser(userName)">Search</button>
+        </div>
 </header>
 <hr>
 <router-outlet></router-outlet>
