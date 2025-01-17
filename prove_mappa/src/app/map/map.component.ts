@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { CrimesService } from './crimes.service';
+import { CrimesService } from '../crimes.service';
 import * as L from 'leaflet';  // Importa Leaflet
 import { Feature, FeatureCollection } from 'geojson';
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-map',
+  templateUrl: './map.component.html',
+  styleUrls: ['./map.component.css']
 })
-export class AppComponent implements OnInit {
+export class MapComponent implements OnInit {
   geojsonData:any; // Dati GeoJSON che contengono sia la geometria che il numero di crimini
   geojsonDataMilano:any; 
   crimini: any;
   formattedData: any;
 
-  constructor(
-    private crimesService: CrimesService, private router: Router) { }
+  constructor(private crimesService: CrimesService, private router: Router) { }
 
   map!: L.Map;
 
