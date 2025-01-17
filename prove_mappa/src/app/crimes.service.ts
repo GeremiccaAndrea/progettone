@@ -17,22 +17,14 @@ export interface Crime {
   providedIn: 'root'
 })
 export class CrimesService {
-  private apiUrl = 'https://progettone.onrender.com/gdf';
-  private apiClassic = 'https://progettone.onrender.com'
+  private apiUrl = 'https://progettone.onrender.com';
   constructor(private http: HttpClient) { }
 
   // Funzione per ottenere i crimini senza parametri
-  getCrimes(): Observable<any> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      catchError(error => {
-        console.error('Errore durante il recupero dei dati GeoJSON:', error);
-        throw error;
-      })
-    );
-  }
+  
    // Metodo per fare la richiesta GET per un quartiere specifico
-   getCriminiByNeigh(NomeNeigh: string): Observable<any> {
-    return this.http.get<any>(`${this.apiClassic}/criminiOnClick/${NomeNeigh}`);
+   GetCity(CityName: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/GetCity/${CityName}`);
   }
   search(query: string): Observable<NominatimResult | null> {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
@@ -41,19 +33,13 @@ export class CrimesService {
     );
   }
 
-  getMilano(): Observable<any> {
-    return this.http.get<any>(`${this.apiClassic}/gdfMilano`).pipe(
-      catchError(error => {
-        console.error('Errore durante il recupero dei dati GeoJSON:', error);
-        throw error;
-      })
-    );
-  }
+  
   
 }
 export interface NominatimResult {
   lat: string; // Latitude in string format
   lon: string; // Longitude in string format
   display_name: string; // Full name of the location
+  name:string;
 }
 

@@ -20,8 +20,7 @@ export class AppComponent implements OnInit {
   map!: L.Map;
 
   ngOnInit(): void {
-    this.initMap();
-    this.loadData(); // Carica il file GeoJSON
+    this.initMap(); // Carica il file GeoJSON
   }
 
   // Funzione per inizializzare la mappa
@@ -44,7 +43,8 @@ export class AppComponent implements OnInit {
     this.crimesService.search(query).subscribe(
       location => {
         if (location) {
-          console.log(location); // Controlla i dati ricevuti
+          console.log(location.name); // Controlla i dati ricevuti
+          this.loadData(location.name)
           const lat = parseFloat(location.lat);
           const lon = parseFloat(location.lon);
           this.flyToLocation(lat, lon);
@@ -69,8 +69,9 @@ export class AppComponent implements OnInit {
   }
   
   // Funzione per caricare i dati (crimini e distretti) da un file GeoJSON
-  loadData(): void {
-    this.crimesService.getCrimes().subscribe(
+  loadData(namecity:string): void {
+    console.log(namecity);
+    this.crimesService.GetCity(namecity).subscribe(
       (data) => {
         console.log(data);
         // Assicurati che data sia un FeatureCollection
@@ -85,47 +86,22 @@ export class AppComponent implements OnInit {
         console.error('Errore nel recupero dei dati:', error);
       }
     );
-    this.crimesService.getMilano().subscribe(
-      (data) => {
-        console.log("Milano",data);
-        // Assicurati che data sia un FeatureCollection
-        if (data.type === "FeatureCollection" && Array.isArray(data.features)) {
-          this.geojsonDataMilano = data;
-          this.addDistrictsToMap(this.geojsonDataMilano);
-        } else {
-          console.error("Formato GeoJSON non valido", data);
-        }
-      },
-      (error) => {
-        console.error('Errore nel recupero dei dati:', error);
-      }
-    );
   }
   // Funzione per determinare il colore in base al numero di crimini
   getCrimeColor(crimeCount: number,data: any): string {
     console.log("inserimento colore");
-    
     const maxCrimeCount = Math.max(...data.features.map((f: any) => f.properties.crime_count)); 
-    
     const verde=maxCrimeCount*0.25;
     const giallo=maxCrimeCount*0.75;
-    
     let r = 0, g = 0, b = 0;
-
-    if (crimeCount <= verde) {
-      // Colori dalla verde (basso) al giallo (medio)
-      
+    if (crimeCount <= verde) {      
       return `rgb(0,255,0)`;
     } else if(crimeCount <= giallo){
-      // Colori dal giallo al rosso (alto)
       return `rgb(255,255,0)`;
     }else{
       return `rgb(255,0,0)`;
     }
-
-    
   }
-
   // Funzione per aggiungere i distretti con il numero di crimini alla mappa
   addDistrictsToMap(data: any): void {
     L.geoJSON(data, {
@@ -146,25 +122,6 @@ export class AppComponent implements OnInit {
         layer.bindPopup(`
           <strong>${neighborhood}</strong><br/>
           Crimini: ${crimeCount}`);
-        layer.on('click',()=>{
-          console.log(neighborhood);
-          this.crimesService.getCriminiByNeigh(neighborhood).subscribe(data => {
-            console.log(data); // Mostra i dati recuperati nella console
-            this.crimini = data; // Salva i dati dei crimini del quartiere cliccato 
-            // Trasforma i dati in un array di oggetti
-            const keys = Object.keys(this.crimini.id); // Usa una delle proprietà principali per le chiavi (ad esempio "id")
-            this.formattedData = keys.map(key => ({
-              id: this.crimini.id[key],
-              arrest: this.crimini.arrest[key],
-              case_number: this.crimini.case_number[key],
-              date: this.crimini.date[key],
-              description: this.crimini.description[key],
-              domestic: this.crimini.domestic[key],
-            }));
-
-            console.log(this.formattedData);
-          });
-        });
       }
     }).addTo(this.map); // Aggiungi il layer alla mappa
   }
