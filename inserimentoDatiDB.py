@@ -29,7 +29,7 @@ def process_city_data(city_name, geojson_file, json_file, url_json, mongo_db_nam
     joined_gdf = gpd.sjoin(crimes_gdf, quartieri, how="inner", predicate="within")
     #Raggruppa per il distretto (usando 'index_right', che corrisponde all'indice del distretto) e conta i crimini
     crime_counts = joined_gdf.groupby('index_right').size().reset_index(name='crime_count')
-    districts_gdf = quartieri.merge(crime_counts, left_index=True, right_on='index_right', how='left')
+    districts_gdf = quartieri.merge(crime_counts, left_index=True, right_on='index_right', how='left').reset_index()
 
     # Rimozione colonne inutili
     districts_gdf.drop(columns=['Valido_dal_x', 'Valido_al_x', 'Fonte_x', 'Shape_Length_x', 'Shape_Area_x',
@@ -50,6 +50,9 @@ def process_city_data(city_name, geojson_file, json_file, url_json, mongo_db_nam
         return geometry
 
     districts_gdf['geometry'] = districts_gdf['geometry'].apply(ensure_multipolygon)
+    #cambio il tipo di dato di due colonne
+    districts_gdf['crime_count'] = districts_gdf['crime_count'].fillna(0).astype('int32')
+    districts_gdf['index'] = districts_gdf['index'].fillna(0).astype('int32')
 
     # Connessione a MongoDB
     uri = "mongodb+srv://classeIntera:loto@safezone.lrtrk.mongodb.net/?retryWrites=true&w=majority&appName=safezone"
@@ -62,7 +65,7 @@ def process_city_data(city_name, geojson_file, json_file, url_json, mongo_db_nam
 
     for _, row in districts_gdf.iterrows():
         data = {
-            "id": row.name,  # Usa l'indice come ID
+            "id": row['index'],  # Usa l'indice come ID
             "città": city_name,
             "geometry": row.geometry.__geo_interface__,
             "quartiere": row['pri_neigh'],
