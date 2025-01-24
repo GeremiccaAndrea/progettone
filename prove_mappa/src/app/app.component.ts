@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   geojsonDataMilano:any; 
   crimini: any;
   formattedData: any;
+  geoJsonLayer:any;
 
   constructor(private crimesService: CrimesService, private router: Router) { }
 
@@ -40,6 +41,9 @@ export class AppComponent implements OnInit {
     this.map.flyTo([lat, lng], 14); // Cambia lo zoom se necessario
   }
   searchLocation(query: string): void {
+    if (this.geoJsonLayer!= null){
+      this.geoJsonLayer.remove();
+    }
     this.crimesService.search(query).subscribe(
       location => {
         if (location) {
@@ -90,7 +94,7 @@ export class AppComponent implements OnInit {
   // Funzione per determinare il colore in base al numero di crimini
   getCrimeColor(crimeCount: number,data: any): string {
     console.log("inserimento colore");
-    const maxCrimeCount = Math.max(...data.features.map((f: any) => f.properties.crime_count)); 
+    const maxCrimeCount = Math.max(...data.features.map((f: any) => f.properties.numero_crimini)); 
     const verde=maxCrimeCount*0.25;
     const giallo=maxCrimeCount*0.75;
     let r = 0, g = 0, b = 0;
@@ -104,9 +108,10 @@ export class AppComponent implements OnInit {
   }
   // Funzione per aggiungere i distretti con il numero di crimini alla mappa
   addDistrictsToMap(data: any): void {
-    L.geoJSON(data, {
+  
+    this.geoJsonLayer = L.geoJSON(data, {
       style: (feature: any) => {
-        const crimeCount = feature.properties?.crime_count || 0;
+        const crimeCount = feature.properties?.numero_crimini || 0;
         const color = this.getCrimeColor(crimeCount,data); // Otteniamo il colore in base al numero di crimini
         
         return {
@@ -117,8 +122,8 @@ export class AppComponent implements OnInit {
       },
       onEachFeature: (feature, layer) => {
         // Check for the required properties to avoid undefined errors
-        const neighborhood = feature.properties?.pri_neigh || "Unknown";
-        const crimeCount = feature.properties?.crime_count || 0;
+        const neighborhood = feature.properties?.quartiere || "Unknown";
+        const crimeCount = feature.properties?.numero_crimini || 0;
         layer.bindPopup(`
           <strong>${neighborhood}</strong><br/>
           Crimini: ${crimeCount}`);
