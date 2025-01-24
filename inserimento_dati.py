@@ -24,8 +24,9 @@ collection = database["segnalazioni"]
 # registrazione dati
 @app.route('/api/ins', methods=['POST'])
 def ins_dati():
+    # Trasformiamo i dati in json
     data = request.get_json()
-    
+    # Prendiamo i parametri
     data_inserimento = datetime.now()
     utente = data.get('utente', {})
     dove = data.get('dove')
