@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
       (data) => {
         console.log(data);
         // Assicurati che data sia un FeatureCollection
-        if (data.type === "FeatureCollection" && Array.isArray(data.features)) {
+      if (data.type === "FeatureCollection" && Array.isArray(data.features)) {
           this.geojsonData = data;
           this.addDistrictsToMap(data);
         } else {
