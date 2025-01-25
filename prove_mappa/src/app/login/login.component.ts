@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
+import { EmailAuthCredential } from 'firebase/auth';
 
 @Component({
   selector: 'app-login',
@@ -18,19 +19,20 @@ export class LoginComponent {
   passwordSignUp: string = '';
   messageSignUp: string = '';
   isDisabled: boolean = false;
-
-  constructor(
-    public firebase : FirebaseService,
-    private router: Router, 
-    private route: ActivatedRoute) {}
+  constructor(public firebase : FirebaseService) {}
 
   ngOnInit() { 
+   
 
   } 
 
   //#region LOGIN
-  login() {
-
+  login(email: HTMLInputElement, password: HTMLInputElement,) {
+    console.log("Fatto")
+    this.email = email.value;
+    this.password = password.value;
+    this.firebase.Login(this.email, this.password);
+    this.firebase.message.subscribe(message => this.message = message);
   }
   //#endregion
 

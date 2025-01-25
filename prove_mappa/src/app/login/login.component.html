@@ -1,18 +1,18 @@
-<div class="auth-container">
-    <div class="form-container login-container">
-      <h2>Log In</h2>
-      <form (ngSubmit)="login()">
-        <div class="input-box">
-          <input type="email" name="email" required placeholder=" ">
-          <label>Email</label>
-        </div>
-        <div class="input-box">
-          <input type="password" name="password" required placeholder=" ">
-          <label>Password</label>
-        </div>
-        <button type="submit" class="login-btn" [disabled]="isDisabled">Login</button>
-      </form>
-      <p *ngIf="message">{{ message }}</p>
-      <p>Don’t have an account? <a routerLink="/signup">Sign Up</a></p>
-    </div>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow-sm">
+    <h2 class="card-title text-center mb-4">Log In</h2>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" class="form-control" required placeholder="Enter your email" #email>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control" required placeholder="Enter your password" #password>
+      </div>
+      <button type="submit" class="btn btn-primary w-100" [disabled]="isDisabled" (click) = "this.login(email, password)">Login</button>
+
+    <div *ngIf="message" class="mt-3 text-danger">{{ message }}</div>
+    <p class="mt-3 text-center">Don’t have an account? <a routerLink="/signup">Sign Up</a></p>
+  </div>
 </div>
