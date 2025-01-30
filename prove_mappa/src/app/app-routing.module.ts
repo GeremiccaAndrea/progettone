@@ -6,7 +6,9 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
+  // L'URL vuoto reindirizza alla mappa
   { path: '', component: MapComponent },
+  // Le altre pagine
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'profile', component: ProfileComponent }

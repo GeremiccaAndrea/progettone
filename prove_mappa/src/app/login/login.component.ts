@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Auth, User  } from '@angular/fire/auth';
 import { FirebaseService } from '../firebase.service';
-import { EmailAuthCredential } from 'firebase/auth';
 
 @Component({
   selector: 'app-login',
@@ -10,29 +9,42 @@ import { EmailAuthCredential } from 'firebase/auth';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  utente !: User | null;
   email: string = '';
   password: string = '';
-  message: string = '';
+  message: boolean = false;
   logged : boolean = false;
   usernameSignUp: string = '';
   emailSignUp: string = '';
   passwordSignUp: string = '';
   messageSignUp: string = '';
   isDisabled: boolean = false;
-  constructor(public firebase : FirebaseService) {}
 
-  ngOnInit() { 
-   
-
-  } 
+  constructor(public firebase : FirebaseService, public auth: Auth, private router: Router) {} 
 
   //#region LOGIN
   login(email: HTMLInputElement, password: HTMLInputElement,) {
-    console.log("Fatto")
     this.email = email.value;
     this.password = password.value;
+    // Login 
     this.firebase.Login(this.email, this.password);
-    this.firebase.message.subscribe(message => this.message = message);
+    // Messaggio di successo o errore
+    this.firebase.message.subscribe(message => 
+      {
+      this.message = message
+      if(this.message) {
+        this.auth.onAuthStateChanged(user => {
+          if (user) {
+            this.router.navigate(['/profile']);
+          }
+        });
+      }
+
+      
+    });
+   
+    
+  
   }
   //#endregion
 

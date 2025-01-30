@@ -4,15 +4,18 @@
             <img src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" class="img-fluid rounded-circle" alt="Profile Picture">
         </div>
         <div class="col-md-5 mb-4">
-            <h1>Nome</h1>
+            <h1 *ngIf = 'this.utente'>{{this.utente.displayName}}</h1>
+            <h1 *ngIf = '!(this.utente)'>Nome Utente</h1>
             <p>Location: Prato</p>
             <p>Bio: Cerco di finire questo cerchio</p>
             
         </div>
-      
+        
         <!-- Posts -->
-        <div class="card p-3 m-3">
-            
+        <div class="p-3 m-3 row">
+            <div *ngFor = 'let post of posts' class="col-4 mb-3">
+                <app-post [post] = 'post'></app-post>
+            </div>
         </div>
     </div>
 </div>
