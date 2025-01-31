@@ -123,3 +123,61 @@ body {
 p {
   font-family: 'Product Sans';
 }
+/* Stile base per il footer */
+footer {
+  background-color: #2c3e50; /* Colore di sfondo scuro */
+  color: #ecf0f1; /* Colore del testo chiaro */
+  padding: 40px 0; /* Padding superiore e inferiore */
+  text-align: center; /* Testo centrato */
+  font-family: 'Arial', sans-serif; /* Font chiaro e leggibile */
+  position: relative;
+}
+
+/* Stile per il testo del copyright */
+footer p {
+  margin: 0;
+  font-size: 16px; /* Dimensione del testo */
+  letter-spacing: 0.5px; /* Leggera spaziatura tra le lettere */
+}
+
+/* Stile per i link del footer (se aggiunti) */
+footer a {
+  color: #ecf0f1; /* Colore dei link */
+  text-decoration: none; /* Rimuove la sottolineatura */
+  font-weight: bold; /* Grassetto per i link */
+  margin: 0 15px; /* Distanza tra i link */
+  transition: color 0.3s ease-in-out; /* Transizione per il colore */
+}
+
+/* Effetto hover per i link */
+footer a:hover {
+  color: #3498db; /* Colore blu quando si passa sopra */
+}
+
+/* Aggiungi una linea sopra il footer per separarlo dal resto della pagina */
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #ecf0f1; /* Linea chiara sopra */
+}
+
+/* Stile per un'area opzionale con icone social (se vuoi aggiungere icone social) */
+footer .social-icons {
+  margin-top: 20px; /* Distanza sopra le icone social */
+}
+
+footer .social-icons a {
+  font-size: 20px; /* Dimensione delle icone */
+  margin: 0 15px; /* Distanza tra le icone */
+  color: #ecf0f1; /* Colore delle icone */
+  transition: color 0.3s ease-in-out;
+}
+
+footer .social-icons a:hover {
+  color: #3498db; /* Colore blu quando si passa sopra */
+}
+
