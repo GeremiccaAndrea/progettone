@@ -58,7 +58,7 @@ def process_city_data(city_name, geojson_file, json_file, url_json, mongo_db_nam
     uri = "mongodb+srv://classeIntera:loto@safezone.lrtrk.mongodb.net/?retryWrites=true&w=majority&appName=safezone"
     client = MongoClient(uri)
     db = client["mappaUtenti"]
-    collection = db[city_name]  # Usa il nome della città come nome della collezione
+    collection = db["citta"]  # Usa il nome della città come nome della collezione
 
     # Creazione del payload per MongoDB
     data_to_insert = []
