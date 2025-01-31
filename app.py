@@ -16,9 +16,11 @@ CORS(app)
 @app.route('/GetCity/<cityName>')
 def getCity(cityName):
     cityName = cityName.capitalize()
-    if cityName in map(str.capitalize, db.list_collection_names()):
-        collection = db[cityName]
-        documenti = list(collection.find())
+    collection = db["Geometry"]
+    ListaCittà= collection.distinct("città")
+    print(ListaCittà)
+    if cityName in ListaCittà:
+        documenti = list(collection.find({"città": cityName}))
         
         # Creazione del GeoJSON
         geojson = {
