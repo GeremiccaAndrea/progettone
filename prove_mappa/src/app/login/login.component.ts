@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Auth, User  } from '@angular/fire/auth';
 import { FirebaseService } from '../firebase.service';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,21 @@ export class LoginComponent {
   messageSignUp: string = '';
   isDisabled: boolean = false;
 
-  constructor(public firebase : FirebaseService, public auth: Auth, private router: Router) {} 
+  constructor(public firebase : FirebaseService, public auth: Auth, private router: Router, private session : SessionService) {} 
+
+  ngOnInit() {
+    const token = this.session.getToken();
+    if (token) {
+      this.auth.onAuthStateChanged(user => {
+      if (user) {
+        this.utente = user;
+        this.logged = true;
+        this.router.navigate(['/profile']);
+      }
+      });
+    }
+  }
+
 
   //#region LOGIN
   login(email: HTMLInputElement, password: HTMLInputElement,) {
@@ -35,16 +50,12 @@ export class LoginComponent {
       if(this.message) {
         this.auth.onAuthStateChanged(user => {
           if (user) {
+            this.session.setToken(user.uid);
             this.router.navigate(['/profile']);
           }
         });
       }
-
-      
     });
-   
-    
-  
   }
   //#endregion
 

@@ -1,11 +1,13 @@
-<div class="container card mt-5 p-5" id="page">
+<div *ngIf = '!(this.utente)' style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <h3>Loading...</h3>
+</div>
+<div  *ngIf = 'this.utente' class="container card mt-5 p-5" id="page">
     <div class="row">
         <div class="col-md-2">
             <img src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" class="img-fluid rounded-circle" alt="Profile Picture">
         </div>
         <div class="col-md-5 mb-4">
-            <h1 *ngIf = 'this.utente'>{{this.utente.displayName}}</h1>
-            <h1 *ngIf = '!(this.utente)'>Nome Utente</h1>
+            <h1>{{this.utente.displayName}}</h1>
             <p>Location: Prato</p>
             <p>Bio: Cerco di finire questo cerchio</p>
             
