@@ -19,20 +19,31 @@ def getCity(cityName):
     cityName = cityName.capitalize()
     collection = db["Geometry"]
     ListaCittà= collection.distinct("città")
-    collectionCrimini=db["crimini"]
-    #trovo la data di oggi
-    today = datetime.utcnow()
-    ten_years_ago = today - timedelta(days=10*365)  # Circa 10 anni
-    print(ten_years_ago)
-    query = {
-        "citta": cityName,
-        "data": {"$gte": ten_years_ago.isoformat()}  # Confronto con la stringa ISO 8601
-    }
-    recent_crimes = list(collection.find(query))
-    return jsonify(recent_crimes)
+    collectionCrimini=db["Crimini"]
+   
     if cityName in ListaCittà:
+        # Query for crimes in the last 10 years
+        today = datetime.utcnow()
+        ten_years_ago = today - timedelta(days=10*365)
+# Ensure it's in UTC (important to match MongoDB's UTC)
+        ten_years_ago = ten_years_ago.replace(tzinfo=None)
+
+        # Debugging output
+        print(f"Using test_date: {ten_years_ago} (UTC)")
+
+        # MongoDB query with case-insensitive search for city and date filter
+        query = {
+            "citta": {"$regex": f"^{cityName}$", "$options": "i"},  # Case-insensitive match
+            "data": {"$gte": ten_years_ago}  # Comparing to test_date (in UTC)
+        }
+        # Fetching documents
+        recent_crimes = list(collectionCrimini.find(query))
+        if recent_crimes:
+            return jsonify(json.loads(dumps(recent_crimes, default=str)))
+        else:
+            return jsonify({"message": f"No recent crimes found in {cityName}"}), 404
+
         documenti = list(collection.find({"città": cityName}))
-        
         # Creazione del GeoJSON
         geojson = {
             "type": "FeatureCollection",
