@@ -1,2 +1,24 @@
-<!-- Componente legato al'URL-->
+<header class="container-fluid py-3 border-bottom">
+  <div class="row align-items-center" *ngIf="!currentLogin() ">
+    <!-- Logo -->
+    <div class="d-flex align-items-center col-2" (click)="goHome()">
+      <div class="logo bg-secondary rounded-circle pointer-cursor" style="width: 50px; height: 50px;"></div>
+      <span class="ms-2 pointer-cursor">App Logo</span>
+    </div>
+
+    <!-- Barra di navigazione -->
+    <div class="col-10 text-end">
+      <a class="btn btn-primary" href="/login" *ngIf="!isLoggedIn">Log In</a>
+      <div *ngIf="isLoggedIn">
+        <a class="btn btn-danger" (click)="logout()">Logout</a>
+        <a class="btn btn-warning ms-2" href="/profile">Profile</a>
+      </div>
+    </div>
+  </div>
+
+  <span *ngIf="currentLogin()">
+    <a class="btn btn-primary" href="/">Indietro</a>
+  </span>
+</header>
+
 <router-outlet></router-outlet>

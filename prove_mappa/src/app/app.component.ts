@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { Auth } from '@angular/fire/auth';
+import { SessionService } from './session.service';
 
 @Component({
   selector: 'app-root',
@@ -9,19 +11,37 @@ import { Auth } from '@angular/fire/auth';
 })
 export class AppComponent implements OnInit {
   utente: any;
-  logged: boolean = false;
+  isLoggedIn: boolean = false;
 
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(private auth: Auth, private session: SessionService, private router: Router) {}
 
   ngOnInit() {
-    const token = sessionStorage.getItem('userToken');
-    if (token) {
-      this.auth.onAuthStateChanged(user => {
-        if (user) {
-          this.utente = user;
-          this.logged = true;
-        }
+    this.checkLoginStatus();
+  
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.checkLoginStatus();
       });
-    }
+  }
+
+  logout() {
+    this.auth.signOut().then(() => {
+      this.session.clearSession();
+      this.isLoggedIn = false;
+      window.location.assign('/');
+    });
+  }
+
+  currentLogin(): boolean{
+    return this.router.url == "/login";
+  }
+
+  goHome() {
+    this.router.navigate(['']);
+  }
+
+  checkLoginStatus() {
+    this.isLoggedIn = this.session.isLoggedIn();
   }
 }

@@ -2,11 +2,16 @@
     height: calc(100vh - 70px); /* Altezza completa dello schermo meno l'header */
     width: 90%;
     z-index:4;
-    border: 3px;
-    border: 5px solid black; 
+    border: 5px solid black;
+    border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
+
+.search-bar {
+  position: absolute;
+}
+
   .btn-add {
     position: fixed;
     bottom: 20px;

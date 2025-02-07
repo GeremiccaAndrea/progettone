@@ -30,6 +30,7 @@ export class LoginComponent {
       if (user) {
         this.utente = user;
         this.logged = true;
+        console.log(this.utente);
         this.router.navigate(['/profile']);
       }
       });
@@ -50,8 +51,8 @@ export class LoginComponent {
       if(this.message) {
         this.auth.onAuthStateChanged(user => {
           if (user) {
-            this.session.setToken(user.uid);
-            this.router.navigate(['/profile']);
+            user.getIdToken().then(token => this.session.setToken(token));
+            window.location.assign('/profile');
           }
         });
       }
