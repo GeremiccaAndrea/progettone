@@ -1,12 +1,13 @@
 #map {
   height: calc(100vh - 70px); /* Altezza completa dello schermo meno l'header */
   width: 90%;
-  z-index:4;
-  border: 3px;
-  border: 5px solid black; 
+  z-index: 4;
+  border: 5px solid #fff; /* Rosso principale */
   margin-top: 10px;
   margin-bottom: 10px;
+
 }
+
 .btn-add {
   position: fixed;
   bottom: 20px;
@@ -15,16 +16,18 @@
   height: 50px;
   font-size: 24px;
   border-radius: 50%;
-  background-color: #007bff; /* Colore blu */
-  color: white;
-  z-index:5;
+  background-color: #fff; /* Rosso principale */
+  color: rgb(0, 0, 0);
+  z-index: 5;
 }
+
 .switch-container {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  z-index:5;
+  z-index: 5;
 }
+
 .search-form {
   position: absolute;
   top: 10px;
@@ -36,125 +39,114 @@
   border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-/* Stili generali per il contenitore della tabella */
+
 .tabella {
   padding: 20px;
-  background-color: #f4f4f9;
+  background-color: #C9C9C2;
   border-radius: 8px;
   margin: 20px auto;
   max-width: 90%;
   overflow-x: auto;
-  margin: 0 auto;
 }
 
-/* Titolo della tabella */
 h2 {
   font-size: 1.8rem;
-  color: #333;
+  color: #fff;
   margin-bottom: 20px;
   text-align: center;
 }
 
-/* Stili generali per la tabella */
 table {
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
   background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-color: #4169e1;
-  border-width: 5px;
+  border: 1px solid #fff;
 }
 
-/* Stili per le celle della tabella (th e td) */
 th, td {
   padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 
-/* Colori di sfondo per le righe della tabella */
 thead {
-  background-color: #4CAF50;
+  background-color: #fff;
   color: white;
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #C9C9C2;
 }
 
 tbody tr:nth-child(odd) {
   background-color: #ffffff;
 }
 
-/* Effetto hover sulle righe della tabella */
 tbody tr:hover {
-  background-color: #f1f1f1;
+  background-color: #4A4A4A;
+  color: white;
 }
 
-/* Stili per i campi booleani (Sì/No) */
 td {
   font-weight: normal;
 }
+
 th {
-  background-color: #4CAF50;
+  background-color: #fff;
 }
 
 td:nth-child(2), td:nth-child(6) {
   font-style: italic;
-  color: #07e50e; /* Verde per i "Sì", puoi modificarlo come preferisci */
+  color: #fff; /* Colore principale */
 }
 
-/* Responsive Design: tabella mobile-friendly */
 @media (max-width: 768px) {
   table {
     font-size: 14px;
   }
-
   th, td {
     padding: 8px 10px;
   }
 }
 
 body {
-  background-color: #f6f6f6;
+  background-color: #C9C9C2;
+  font-family: Arial, sans-serif;
 }
 
 p {
-  font-family: 'Product Sans';
+  font-family: Arial, sans-serif;
 }
-/* Stile base per il footer */
+
 footer {
-  background-color: #2c3e50; /* Colore di sfondo scuro */
-  color: #ecf0f1; /* Colore del testo chiaro */
-  padding: 40px 0; /* Padding superiore e inferiore */
-  text-align: center; /* Testo centrato */
-  font-family: 'Arial', sans-serif; /* Font chiaro e leggibile */
+  background-color: #4A4A4A;
+  color: #fff;
+  padding: 30px 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
   position: relative;
 }
 
-/* Stile per il testo del copyright */
 footer p {
   margin: 0;
-  font-size: 16px; /* Dimensione del testo */
-  letter-spacing: 0.5px; /* Leggera spaziatura tra le lettere */
+  font-size: 14px;
+  letter-spacing: 0.5px;
 }
 
-/* Stile per i link del footer (se aggiunti) */
 footer a {
-  color: #ecf0f1; /* Colore dei link */
-  text-decoration: none; /* Rimuove la sottolineatura */
-  font-weight: bold; /* Grassetto per i link */
-  margin: 0 15px; /* Distanza tra i link */
-  transition: color 0.3s ease-in-out; /* Transizione per il colore */
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 15px;
+  transition: color 0.3s ease-in-out;
 }
 
-/* Effetto hover per i link */
 footer a:hover {
-  color: #3498db; /* Colore blu quando si passa sopra */
+  color: #fff;
 }
 
-/* Aggiungi una linea sopra il footer per separarlo dal resto della pagina */
 footer::before {
   content: "";
   position: absolute;
@@ -162,22 +154,26 @@ footer::before {
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: #ecf0f1; /* Linea chiara sopra */
+  background-color: #fff;
 }
 
-/* Stile per un'area opzionale con icone social (se vuoi aggiungere icone social) */
 footer .social-icons {
-  margin-top: 20px; /* Distanza sopra le icone social */
+  margin-top: 15px;
 }
 
 footer .social-icons a {
-  font-size: 20px; /* Dimensione delle icone */
-  margin: 0 15px; /* Distanza tra le icone */
-  color: #ecf0f1; /* Colore delle icone */
+  font-size: 18px;
+  margin: 0 10px;
+  color: #fff;
   transition: color 0.3s ease-in-out;
 }
 
 footer .social-icons a:hover {
-  color: #3498db; /* Colore blu quando si passa sopra */
+  color: #fff;
+
 }
 
+.footerLogo {
+  width: 40px;
+  right: 200px;
+}
