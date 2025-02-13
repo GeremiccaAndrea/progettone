@@ -52,7 +52,7 @@ export class LoginComponent {
         this.auth.onAuthStateChanged(user => {
           if (user) {
             user.getIdToken().then(token => this.session.setToken(token));
-            window.location.assign('/profile');
+            window.location.assign('/');
           }
         });
       }
