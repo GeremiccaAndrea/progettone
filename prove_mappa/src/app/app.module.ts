@@ -15,6 +15,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostComponent } from './post/post.component';
+import { PostsComponent } from './posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PostComponent } from './post/post.component';
     MapComponent,
     SignupComponent,
     ProfileComponent,
-    PostComponent
+    PostComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,

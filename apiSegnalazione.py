@@ -71,7 +71,7 @@ def get_all_data():
     # Recupera tutti i documenti dalla collezione
     all_data = list(collection.find({}, {'_id': 0}))
     
-    return jsonify(all_data), 200
+    return jsonify(all_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=41000, debug=True)
