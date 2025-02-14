@@ -1,7 +1,13 @@
 export class Post {
     _id: string;
     data_inserimento: Date;
-    idUtente: string;
+    utente: {
+        id: string;
+        nome: string;
+        cognome: string;
+        email: string;
+    };
+    
     dove: string;
     rating: number;
     tipo_di_crimine: string;
@@ -14,6 +20,9 @@ export class Post {
         _id: string,
         data_inserimento: Date,
         idUtente: string,
+        nomeUtente : string,
+        cognomeUtente: string,
+        emailUtente: string,
         dove: string,
         rating: number,
         tipo_di_crimine: string,
@@ -21,7 +30,12 @@ export class Post {
     ) {
         this._id = _id;
         this.data_inserimento = data_inserimento;
-        this.idUtente = idUtente;
+        this.utente=  {
+            id: idUtente,
+            nome: nomeUtente,
+            cognome: cognomeUtente,
+            email: emailUtente
+        };
         this.dove = dove;
         this.rating = rating;
         this.tipo_di_crimine = tipo_di_crimine;

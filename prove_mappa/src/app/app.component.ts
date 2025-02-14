@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   }
 
   currentLogin(): boolean{
-    return this.router.url == "/login";
+    return this.router.url == "/login" || this.router.url == "/signup";
   }
 
   goHome() {
