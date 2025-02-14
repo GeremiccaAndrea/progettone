@@ -7,7 +7,7 @@ export class Post {
         cognome: string;
         email: string;
     };
-    
+    descrizione: string;
     dove: string;
     rating: number;
     tipo_di_crimine: string;
@@ -23,6 +23,7 @@ export class Post {
         nomeUtente : string,
         cognomeUtente: string,
         emailUtente: string,
+        descrizione: string,
         dove: string,
         rating: number,
         tipo_di_crimine: string,
@@ -36,6 +37,7 @@ export class Post {
             cognome: cognomeUtente,
             email: emailUtente
         };
+        this.descrizione = descrizione;
         this.dove = dove;
         this.rating = rating;
         this.tipo_di_crimine = tipo_di_crimine;

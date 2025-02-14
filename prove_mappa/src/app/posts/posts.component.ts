@@ -11,7 +11,7 @@ import { of } from 'rxjs';
 })
 export class PostsComponent implements OnInit {
   posts: Post[] = [];
-  apiUrl: string = 'https://upgraded-fishstick-6qxrgj6rw74hwp9-41000.app.github.dev/api/get_all';
+  apiUrl: string = 'http://127.0.0.1:41000/api/get_all';
   //apiUrl: string = 'https://world.openfoodfacts.org/api/v3/product/737628064502.json';
   constructor(private http: HttpClient) {}
   data: any;

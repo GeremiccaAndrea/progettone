@@ -32,7 +32,9 @@
   </div>
 
 <div class="container">
-  <app-posts></app-posts>
+  <div *ngIf="this.mappaType">
+    <app-posts></app-posts>
+  </div>
   <div class="tabella">
     <h2>Tabella dei Crimini</h2>
     <table class="table table-bordered">

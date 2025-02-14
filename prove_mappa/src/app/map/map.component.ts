@@ -14,6 +14,9 @@ export class MapComponent implements OnInit {
   geojsonDataMilano:any; 
   crimini: any;
   formattedData: any;
+  mappaUtenti: boolean = true;
+  mappaReati: boolean = false;
+  mappaType: boolean = this.mappaReati;
 
   constructor(private crimesService: CrimesService, private router: Router) { }
 
@@ -62,9 +65,9 @@ export class MapComponent implements OnInit {
   onSwitchChange(event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked;
     if (isChecked) {
-      console.log('chicago e milano');
+      this.mappaType = this.mappaUtenti;
     } else {
-      console.log('mappa utenti');
+      this.mappaType = this.mappaReati;
     }
   }
   
