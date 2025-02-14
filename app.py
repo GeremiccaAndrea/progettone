@@ -6,7 +6,7 @@ import json
 from datetime import datetime, timedelta
 import geopandas as gpd
 import pandas as pd
-from shapely.geometry import Point
+from shapely.geometry import Point,shape
 
 # Configurazione del database MongoDB
 uri = "mongodb+srv://classeIntera:loto@safezone.lrtrk.mongodb.net/?retryWrites=true&w=majority&appName=safezone"
@@ -40,28 +40,29 @@ def getCity(cityName):
         # Fetching documents
         recent_crimes = list(collectionCrimini.find(query))
         documenti = list(collection.find({"città": cityName}))
+        df_crimini=pd.DataFrame(recent_crimes)
+        gdf_quartieri = gpd.GeoDataFrame(documenti)
 
-        crimini_data = pd.DataFrame(recent_crimes)
-        geometry = [Point(lon, lat) for lon, lat in zip(crimini_data['lon'], crimini_data['lat'])]
-        crimini_gdf = gpd.GeoDataFrame(crimini_data, geometry=geometry)
-        crimini_gdf['data'] = pd.to_datetime(crimini_gdf['data'], unit='ms')
-        crimini_gdf.set_crs("EPSG:4326", allow_override=True, inplace=True)
+        gdf_quartieri["geometry"] = gdf_quartieri["geometry"].apply(lambda g: shape(g) if isinstance(g, dict) else g)
 
-        quartieri_gdf = gpd.read_file(documenti)
-        crimini_per_quartiere = gpd.sjoin(crimini_gdf, quartieri_gdf, how="inner", op="within")
-        crimini_count = crimini_per_quartiere.groupby('quartiere')['id'].count()
-        quartieri_gdf['numero_crimini'] = quartieri_gdf['quartiere'].map(crimini_count)
-
+        GroupDocumenti=pd.merge(df_crimini, gdf_quartieri, on='quartiere', how='inner').reset_index()
+      
+        print(GroupDocumenti)
+        crimini_per_quartiere = GroupDocumenti.groupby('quartiere')['id_y'].count()
+        gdf_quartieri["numero_crimini"] = gdf_quartieri["quartiere"].map(crimini_per_quartiere).fillna(0)
         # Creazione del GeoJSON
         geojson = {
             "type": "FeatureCollection",
             "features": [
                 {
                     "type": "Feature",
-                    "geometry": quartiere['geometry'].__geo_interface__,
-                    "properties": {key: value for key, value in quartiere.items() if key not in ["_id", "geometry"]}
+                    "geometry": quartiere['geometry'].__geo_interface__,  # Assicura che la geometria sia ben formattata
+                    "properties": {
+                        "quartiere": quartiere["quartiere"],
+                        "numero_crimini": quartiere["numero_crimini"]
+                    }
                 }
-                for idx, quartiere in quartieri_gdf.iterrows()
+                for _, quartiere in gdf_quartieri.iterrows()  # Itera sulle righe del GeoDataFrame
             ]
         }
         return jsonify(geojson)
