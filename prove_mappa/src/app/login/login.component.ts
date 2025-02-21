@@ -36,8 +36,7 @@ export class LoginComponent {
       });
     }
   }
-
-
+  
   //#region LOGIN
   login(email: HTMLInputElement, password: HTMLInputElement,) {
     this.email = email.value;

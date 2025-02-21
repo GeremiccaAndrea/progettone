@@ -33,7 +33,11 @@
 
 <div class="container">
   <div *ngIf="this.mappaType">
-    <app-posts></app-posts>
+    <div class="p-3 m-3 row">
+      <div *ngFor = 'let post of posts' class="col-4 mb-3">
+          <app-post [post] = 'post'></app-post>
+      </div>
+  </div>
   </div>
   <div class="tabella">
     <h2>Tabella dei Crimini</h2>

@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CrimesService } from '../crimes.service';
 import * as L from 'leaflet';  // Importa Leaflet
 import { Feature, FeatureCollection } from 'geojson';
 import { Router } from '@angular/router';
+import { PostsComponent } from '../posts/posts.component';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, of } from 'rxjs';
+import { Post } from '../post.model';
 
 @Component({
   selector: 'app-map',
@@ -17,14 +21,18 @@ export class MapComponent implements OnInit {
   mappaUtenti: boolean = true;
   mappaReati: boolean = false;
   mappaType: boolean = this.mappaReati;
+  apiUrl: string = 'http://127.0.0.1:41000/api/get_all';
+  posts: Post[] = [];
 
-  constructor(private crimesService: CrimesService, private router: Router) { }
 
+  constructor(private crimesService: CrimesService, private router: Router,private http: HttpClient ) { }
+  @ViewChild(PostsComponent) postsComponent!: PostsComponent;
   map!: L.Map;
 
   ngOnInit(): void {
     this.initMap();
     this.loadData(); // Carica il file GeoJSON
+    this.chiamata_db();
   }
 
   // Funzione per inizializzare la mappa
@@ -170,5 +178,23 @@ export class MapComponent implements OnInit {
         });
       }
     }).addTo(this.map); // Aggiungi il layer alla mappa
+  }
+
+  chiamata_db() {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    this.http.get<Post[]>(this.apiUrl).pipe(
+      catchError(error => {
+        console.warn('Errore durante la richiesta:', error);
+        if (error.status === 302) {
+          console.warn('Reindirizzamento rilevato:', error.headers.get('Location'));
+        }
+        return of([]); // Restituisce un array vuoto in caso di errore
+      })
+    ).subscribe(data => {
+      // Read the result field from the JSON response.
+      this.posts = data;
+      console.log(this.posts);
+    });
   }
 }
