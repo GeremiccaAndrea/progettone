@@ -2,25 +2,20 @@
   <h2>Segnala un crimine</h2>
 
   <!-- Mappa -->
-  <div id="map" style="height: 400px;"></div> <!-- Contenitore per la mappa -->
+  <div id="map" style="height: 400px;"></div>
 
   <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
     <label>Posizione:</label>
-    <input type="text" formControlName="location" readonly /> <!-- Solo indirizzo senza lat/lng visibile -->
+    <input type="text" formControlName="location" readonly />
 
     <label>Tipo di Crimine:</label>
     <input type="text" formControlName="crimeType" placeholder="Es: Furto, Aggressione, Vandalismo, ecc." />
 
-    <label>Rating:</label>
-    <div class="stars">
-      <span *ngFor="let star of [1, 2, 3, 4, 5]" (click)="setRating(star)" [class.selected]="star <= rating">
-        ★
-      </span>
-    </div>
+    <label>Rating (1-5):</label>
+    <input type="number" formControlName="rating" min="1" max="5" />
 
     <label>Descrizione:</label>
     <textarea formControlName="description"></textarea>
-
     <button type="submit">Invia Segnalazione</button>
-  </form>
-</div>
+    </form>
+  </div>

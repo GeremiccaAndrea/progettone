@@ -7,11 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class CrimeReportService {
 
-  private apiUrl = 'https://41000-andrealeone0-progettone-ayl7qrlakgi.ws-eu117.gitpod.io/api/ins'; // Sostituisci con l'URL della tua API
+  private apiUrl = 'https://4200-geremiccaand-progettone-tpce9j94vps.ws-eu117.gitpod.io/api/ins';
 
   constructor(private http: HttpClient) { }
 
-  // Metodo per inviare una segnalazione al server
   submitReport(reportData: any): Observable<any> {
     return this.http.post(this.apiUrl, reportData, {
       headers: new HttpHeaders({
