@@ -1,0 +1,64 @@
+/* Contenitore principale per allineare la mappa e il form */
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  /* Stile per la mappa */
+  #map {
+    width: 100%;    /* Imposta la larghezza della mappa al 100% del contenitore */
+    height: auto;  /* Imposta un'altezza fissa per la mappa */
+    margin-bottom: 20px;
+    border: 1px solid black;
+  }
+  
+  /* Form di segnalazione */
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  label {
+    margin: 5px 0;
+  }
+  
+  input, textarea {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  /* Stile per le stelle di rating */
+  .stars span {
+    cursor: pointer;
+    font-size: 24px;
+    color: #ccc;
+  }
+  
+  .stars span.selected {
+    color: gold;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }

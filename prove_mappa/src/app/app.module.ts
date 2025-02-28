@@ -16,6 +16,8 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostComponent } from './post/post.component';
 import { PostsComponent } from './posts/posts.component';
+import { CrimeReportComponent } from './crime-report/crime-report.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,10 +27,12 @@ import { PostsComponent } from './posts/posts.component';
     SignupComponent,
     ProfileComponent,
     PostComponent,
-    PostsComponent
+    PostsComponent,
+    CrimeReportComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     provideFirebaseApp( () => initializeApp(firebaseConfig)), 
     provideFirestore(() => getFirestore()), 

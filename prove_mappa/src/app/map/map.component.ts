@@ -25,7 +25,7 @@ export class MapComponent implements OnInit {
   posts: Post[] = [];
 
 
-  constructor(private crimesService: CrimesService, private router: Router,private http: HttpClient ) { }
+  constructor(private crimesService: CrimesService, private router: Router,private http: HttpClient) { }
   @ViewChild(PostsComponent) postsComponent!: PostsComponent;
   map!: L.Map;
 
@@ -196,5 +196,10 @@ export class MapComponent implements OnInit {
       this.posts = data;
       console.log(this.posts);
     });
+  }
+
+  onModalShown(): void {
+    // Inizializza la mappa nel componente app-crime-report
+    
   }
 }

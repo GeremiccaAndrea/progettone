@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { MapComponent } from './map/map.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CrimeReportComponent } from './crime-report/crime-report.component';
 
 const routes: Routes = [
   // L'URL vuoto reindirizza alla mappa
@@ -11,7 +12,8 @@ const routes: Routes = [
   // Le altre pagine
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent },
+  { path: 'report', component: CrimeReportComponent }
 ];
 
 @NgModule({

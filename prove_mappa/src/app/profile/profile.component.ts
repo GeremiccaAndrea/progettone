@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, authInstance$, User  } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../post.model';
-import { FirebaseService } from '../firebase.service';
 import { SessionService } from '../session.service';
 
 @Component({
@@ -18,7 +17,7 @@ export class ProfileComponent implements OnInit {
   // Sarà popolato con i dati del database
   posts: Post[] = [];
 
-  constructor(public auth: Auth, private router: Router, private route: ActivatedRoute, private session: SessionService) { 
+  constructor(public auth: Auth, private router: Router, private session: SessionService) { 
     // Controllo se il profilo visualizza è quello dell'utente loggato
     /*
     if (this.auth.currentUser.uid == this.profilo.uid) {
