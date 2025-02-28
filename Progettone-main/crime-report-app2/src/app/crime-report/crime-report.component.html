@@ -5,17 +5,69 @@
   <div id="map" style="height: 400px;"></div>
 
   <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
-    <label>Posizione:</label>
-    <input type="text" formControlName="location" readonly />
-
     <label>Tipo di Crimine:</label>
-    <input type="text" formControlName="crimeType" placeholder="Es: Furto, Aggressione, Vandalismo, ecc." />
+    <div class="crime-type-container">
+      <select formControlName="crimeType">
+        <option value="furto">Furto</option>
+        <option value="vandalismo">Vandalismo</option>
+        <option value="violenza">Violenza</option>
+        <option value="rapina">Rapina</option>
+        <option value="stupefacenti">Stupefacenti</option>
+        <option value="truffa">Truffa</option>
+      </select>
+    </div>
 
-    <label>Rating (1-5):</label>
-    <input type="number" formControlName="rating" min="1" max="5" />
+    <label>Pericolosità (1-5):</label>
+    <div class="rating-container">
+      <input type="range" formControlName="rating" min="1" max="5" step="1" id="dangerRating" />
+      <div class="rating-labels">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+      </div>
+    </div>
 
     <label>Descrizione:</label>
     <textarea formControlName="description"></textarea>
     <button type="submit">Invia Segnalazione</button>
-    </form>
-  </div>
+  </form>
+</div>
+
+<style>
+  .crime-type-container {
+    margin-bottom: 15px;
+  }
+
+  .rating-container {
+    position: relative;
+    width: 100%;
+  }
+
+  #dangerRating {
+    width: 100%;
+    margin: 10px 0;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 10px;
+    background: linear-gradient(to right, green, yellow, orange, red, darkred);
+    border-radius: 5px;
+    outline: none;
+  }
+  #dangerRating::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: black;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .rating-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-weight: bold;
+  }
+</style>

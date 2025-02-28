@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CrimeReportService {
 
-  private apiUrl = 'https://41000-geremiccaand-progettone-1jckuxk25zw.ws-eu118.gitpod.io/api/ins';
+  private apiUrl = 'https://41000-geremiccaand-progettone-1yn865d5v9q.ws-eu118.gitpod.io/api/ins';
 
   constructor(private http: HttpClient) { }
 
