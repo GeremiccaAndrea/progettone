@@ -32,7 +32,9 @@ export class CrimesService {
       map(results => (results && results.length > 0 ? results[0] : null))
     );
   }
-
+  getDataCrime(CityName: string,quartiere:string){
+    return this.http.get<any>(`${this.apiUrl}/GetDataCrimes/${CityName}/${quartiere}`);
+  };
   
   
 }

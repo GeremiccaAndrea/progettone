@@ -66,22 +66,16 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Arresto</th>
-          <th>Numero Caso</th>
           <th>Data</th>
-          <th>Descrizione</th>
-          <th>Domestico</th>
+          <th>Arresto</th>
+          <th>Tipologia</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let crimine of formattedData">
-          <td>{{ crimine.id }}</td>
-          <td>{{ crimine.arrest }}</td>
-          <td>{{ crimine.case_number }}</td>
-          <td>{{ crimine.date }}</td>
-          <td>{{ crimine.description }}</td>
-          <td>{{ crimine.domestic }}</td>
+        <tr *ngFor="let crimine of crimini">
+          <td>{{ crimine.data }}</td>
+          <td>{{ crimine.arresto }}</td>
+          <td>{{ crimine.tipologia }}</td>
         </tr>
       </tbody>
     </table>

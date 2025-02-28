@@ -27,8 +27,8 @@ export class AppComponent implements OnInit {
   // Funzione per inizializzare la mappa
   initMap(): void {
     this.map = L.map('map', {
-      // center: [41.816813771373916, -87.60670812560372],  // Coordinate centrali per Chicago
-      center:[45.4642, 9.19],
+      center: [41.816813771373916, -87.60670812560372],  // Coordinate centrali per Chicago
+      //center:[45.4642, 9.19],
       zoom: 14
     });
 
@@ -124,9 +124,18 @@ export class AppComponent implements OnInit {
         // Check for the required properties to avoid undefined errors
         const neighborhood = feature.properties?.quartiere || "Unknown";
         const crimeCount = feature.properties?.numero_crimini || 0;
+        const city= feature.properties?.citta || "Unknown";
         layer.bindPopup(`
           <strong>${neighborhood}</strong><br/>
-          Crimini: ${crimeCount}`);
+          Crimini: ${crimeCount}`
+        );
+        layer.on('click',()=>
+          {
+          this.crimesService.getDataCrime(city,neighborhood).subscribe(data => {
+            console.log(data);
+            this.crimini = data;
+          });
+        });
       }
     }).addTo(this.map); // Aggiungi il layer alla mappa
   }

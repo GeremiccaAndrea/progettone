@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@types/geojson": "^7946.0.14"
+    "@types/geojson": "^7946.0.14",
+    "leaflet": "^1.9.4"
   }
 }
