@@ -5,7 +5,11 @@
   <div id="map" style="height: 400px;"></div>
 
   <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
-    <label>Tipo di Crimine:</label>
+    
+    <label>
+      Tipo di Crimine:
+      <span class="info-icon" tabindex="0" data-tooltip="Seleziona il tipo di crimine che vuoi segnalare.">🔺</span>
+    </label>
     <div class="crime-type-container">
       <select formControlName="crimeType">
         <option value="furto">Furto</option>
@@ -17,13 +21,20 @@
       </select>
     </div>
 
-    <label>Pericolosità (1-5):</label>
+    <label>
+      Pericolosità (1-5):
+      <span class="info-icon" tabindex="0" data-tooltip="Seleziona un valore da 1 a 5 in base alla gravità.">🔺</span>
+    </label>
     <div class="rating-container">
       <input type="range" formControlName="rating" min="1" max="5" step="1" id="dangerRating" (input)="updateRating($event)">
     </div>
 
-    <label>Descrizione:</label>
+    <label>
+      Descrizione:
+      <span class="info-icon" tabindex="0" data-tooltip="Fornisci una breve descrizione dell'evento.">🔺</span>
+    </label>
     <textarea formControlName="description"></textarea>
+
     <button type="submit">Invia Segnalazione</button>
   </form>
 </div>

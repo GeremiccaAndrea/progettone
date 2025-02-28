@@ -139,3 +139,38 @@ button:hover {
     font-size: 26px;
   }
 }
+
+
+
+/* Stile per l'icona di aiuto */
+.info-icon {
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 5px;
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip nascosto di default */
+.info-icon::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: 150%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Mostra il tooltip quando si passa sopra o si clicca */
+.info-icon:hover::after,
+.info-icon:focus::after {
+  opacity: 1;
+}
