@@ -59,7 +59,8 @@ def getCity(cityName):
                     "geometry": quartiere['geometry'].__geo_interface__,  # Assicura che la geometria sia ben formattata
                     "properties": {
                         "quartiere": quartiere["quartiere"],
-                        "numero_crimini": quartiere["numero_crimini"]
+                        "numero_crimini": quartiere["numero_crimini"],
+                        "citta": quartiere["città"]
                     }
                 }
                 for _, quartiere in gdf_quartieri.iterrows()  # Itera sulle righe del GeoDataFrame
