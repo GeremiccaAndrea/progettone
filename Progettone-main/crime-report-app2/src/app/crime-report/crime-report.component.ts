@@ -17,16 +17,34 @@ export class CrimeReportComponent implements OnInit {
     this.reportForm = this.fb.group({
       location: ['', Validators.required],
       crimeType: ['', Validators.required],
-      rating: [1, [Validators.required, Validators.min(1), Validators.max(5)]], // Default rating = 1
+      rating: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
       description: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.map = L.map('map').setView([45.4642, 9.19], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+    this.initMap();
+  }
 
-    this.marker = L.marker([45.4642, 9.19]).addTo(this.map);
+  private initMap(): void {
+    this.map = L.map('map').setView([45.4642, 9.19], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(this.map);
+
+    const customIcon = L.icon({
+      iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+      shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      shadowSize: [41, 41]
+    });
+
+    this.marker = L.marker([45.4642, 9.19], { icon: customIcon, interactive: false }).addTo(this.map);
+
+    // Imposta il cursore personalizzato per la mappa
+    this.map.getContainer().style.cursor = 'url(https://upload.wikimedia.org/wikipedia/commons/2/29/Crosshair.svg) 16 16, crosshair';
 
     this.map.on('click', (e: any) => {
       const latLng = e.latlng;
@@ -46,14 +64,13 @@ export class CrimeReportComponent implements OnInit {
   }
 
   submitReport(): void {
-    console.log("Form Values:", this.reportForm.value); // Debug
     if (this.reportForm.invalid) {
       alert("Compila tutti i campi correttamente.");
       return;
     }
 
     const reportData = {
-      utente: { nome: 'Nome', cognome: 'Cognome', data_nascita: '2000-01-01' }, // Puoi modificarli
+      utente: { nome: 'Nome', cognome: 'Cognome', data_nascita: '2000-01-01' },
       dove: this.reportForm.value.location,
       rating: parseInt(this.reportForm.value.rating, 10),
       tipo_di_crimine: this.reportForm.value.crimeType,
@@ -70,7 +87,7 @@ export class CrimeReportComponent implements OnInit {
     this.crimeReportService.submitReport(reportData).subscribe(
       (response) => {
         alert("Segnalazione inviata con successo! ID: " + response.id);
-        this.reportForm.reset({ rating: 1 }); // Reset con valore predefinito
+        this.reportForm.reset({ rating: 1 });
       },
       (error) => {
         alert("Errore durante l'invio della segnalazione.");
