@@ -17,14 +17,13 @@ export class CrimeReportComponent implements OnInit {
     this.reportForm = this.fb.group({
       location: ['', Validators.required],
       crimeType: ['', Validators.required],
-      rating: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
+      rating: [1, [Validators.required, Validators.min(1), Validators.max(5)]], // Default rating = 1
       description: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
     this.map = L.map('map').setView([45.4642, 9.19], 13);
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
 
     this.marker = L.marker([45.4642, 9.19]).addTo(this.map);
@@ -39,21 +38,24 @@ export class CrimeReportComponent implements OnInit {
   updateLocation(latLng: any): void {
     const lat = latLng.lat.toFixed(6);
     const lng = latLng.lng.toFixed(6);
-    this.reportForm.patchValue({
-      location: [lat, lng],
-    });
+    this.reportForm.patchValue({ location: [lat, lng] });
+  }
+
+  updateRating(event: any): void {
+    this.reportForm.patchValue({ rating: event.target.value });
   }
 
   submitReport(): void {
+    console.log("Form Values:", this.reportForm.value); // Debug
     if (this.reportForm.invalid) {
       alert("Compila tutti i campi correttamente.");
       return;
     }
 
     const reportData = {
-      utente: { nome: '', cognome: '', data_nascita: '' },
+      utente: { nome: 'Nome', cognome: 'Cognome', data_nascita: '2000-01-01' }, // Puoi modificarli
       dove: this.reportForm.value.location,
-      rating: parseInt(this.reportForm.value.rating),
+      rating: parseInt(this.reportForm.value.rating, 10),
       tipo_di_crimine: this.reportForm.value.crimeType,
       geometry: {
         type: 'Point',
@@ -68,7 +70,7 @@ export class CrimeReportComponent implements OnInit {
     this.crimeReportService.submitReport(reportData).subscribe(
       (response) => {
         alert("Segnalazione inviata con successo! ID: " + response.id);
-        this.reportForm.reset();
+        this.reportForm.reset({ rating: 1 }); // Reset con valore predefinito
       },
       (error) => {
         alert("Errore durante l'invio della segnalazione.");

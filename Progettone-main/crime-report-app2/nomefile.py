@@ -5,7 +5,7 @@ Andrea Leone
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-from bson import ObjectId  # Correzione qui
+from bson import ObjectId
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
@@ -13,7 +13,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 # Abilitare CORS per richieste da qualsiasi origine
-CORS(app) 
+CORS(app)
 
 # Connessione al database MongoDB
 uri = "mongodb+srv://classeIntera:loto@safezone.lrtrk.mongodb.net/?retryWrites=true&w=majority&appName=safezone"
@@ -24,48 +24,45 @@ collection = database["segnalazioni"]
 # Endpoint per inserire una nuova segnalazione
 @app.route('/api/ins', methods=['POST'])
 def ins_dati():
-    # Ricezione dei dati dal frontend
     data = request.get_json()
-    
-    # Controllo che i dati siano validi
+
     if not data:
         return jsonify({"error": "Nessun dato ricevuto"}), 400
 
-    # Estrazione dei dati con valori di default
-    data_inserimento = datetime.now()
-    dove = data.get('dove', "")
-    rating = data.get('rating', 0)
-    tipo_di_crimine = data.get('tipo_di_crimine', "")
-    geometry = data.get('geometry', {})
-    descrizione = data.get('description', "")
+    # Controllo specifico dei campi richiesti
+    missing_fields = []
+    if 'dove' not in data or not data['dove']:
+        missing_fields.append('dove')
+    if 'rating' not in data or not isinstance(data['rating'], int):
+        missing_fields.append('rating')
+    if 'tipo_di_crimine' not in data or not data['tipo_di_crimine']:
+        missing_fields.append('tipo_di_crimine')
+    if 'geometry' not in data or 'coordinates' not in data['geometry']:
+        missing_fields.append('geometry.coordinates')
 
-    # Controllo dei campi obbligatori
-    if not all([dove, rating, tipo_di_crimine, geometry]):
-        return jsonify({"error": "Campi obbligatori mancanti"}), 400
+    if missing_fields:
+        return jsonify({"error": f"Campi obbligatori mancanti o non validi: {', '.join(missing_fields)}"}), 400
 
-    # Creazione della nuova segnalazione con ID univoco
     new_crime = {
-        "_id": str(ObjectId()),  # ID univoco generato automaticamente
-        "data_inserimento": data_inserimento,
+        "_id": str(ObjectId()),
+        "data_inserimento": datetime.now(),
         "utente": {
             "nome": "pino",
             "cognome": "gino",
             "data_nascita": "1990-01-02"
         },
-        "dove": "via roma ,Milano",
-        "rating": int(rating),
-        "tipo_di_crimine": str(tipo_di_crimine),
-        "descrizione": str(descrizione),
+        "dove": data['dove'],
+        "rating": data['rating'],
+        "tipo_di_crimine": data['tipo_di_crimine'],
+        "descrizione": data.get('description', ""),
         "geometry": {
             "type": "Point",
-            "coordinates": geometry.get('coordinates', [0, 0])
+            "coordinates": data['geometry']['coordinates']
         }
     }
 
-    # Inserimento nel database
     collection.insert_one(new_crime)
 
-    # Restituisce il messaggio di successo con l'ID della segnalazione
     return jsonify({
         "message": "Crime data inserted successfully",
         "id": new_crime["_id"]

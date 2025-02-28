@@ -61,4 +61,35 @@
   button:hover {
     background-color: #45a049;
   }
+  .crime-type-container {
+    margin-bottom: 20px;
+  }
+  
+  .rating-container {
+    position: relative;
+    width: 100%;
+    text-align: center;
+  }
+  
+  #dangerRating {
+    width: 100%;
+    margin: 10px 0;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 32px;
+    background: linear-gradient(to right, green, yellow, orange, red, darkred);
+    border-radius: 10px;
+    outline: none;
+  }
+  
+  #dangerRating::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    background: black;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+  }
   
