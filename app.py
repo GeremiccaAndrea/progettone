@@ -69,5 +69,36 @@ def getCity(cityName):
     else:
         return jsonify({"error": "City not found"}), 404
 
+@app.route('/GetDataCrimes/<cityName>/<quartiere>')
+def getDataCrimes(cityName, quartiere):
+    cityName = cityName.capitalize()
+    if cityName == "Milano":
+        quartiere = quartiere.upper()
+    elif cityName == "Chicago":
+        quartiere = quartiere.capitalize()
+
+    collection = db["Crimini"]
+    # Recupera le città disponibili nel database
+    ListaCittà = collection.distinct("citta")
+
+    if cityName in ListaCittà:
+        query = {
+            "citta": cityName,
+            "quartiere": quartiere
+        }
+        fields = {
+            "_id": 0,  # Esclude l'ID MongoDB
+            "arresto": 1,
+            "data": 1,
+            "tipologia": 1
+        }
+
+        # Esegui la query sul database
+        risultati = list(collection.find(query, fields))
+
+        return jsonify(risultati)
+    else:
+        return jsonify({"errore": "Città non trovata nel database"}), 404
+
 if __name__ == '__main__':
     app.run(debug=True)
