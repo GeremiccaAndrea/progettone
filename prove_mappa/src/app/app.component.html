@@ -1,106 +1,115 @@
 <br>
 
-<!-- Header con logo, barra di ricerca e menu a tendina -->
-<header class="container-fluid py-3 border-bottom">
-    <div class="row align-items-center">
-      <!-- Logo a sinistra -->
-      <div class="col-2 d-flex align-items-center">
-        <div class="logo bg-secondary rounded-circle" style="width: 50px; height: 50px;"></div>
-        <span class="ms-2">App Logo</span>
-      </div>
-  
-      <!-- Barra di ricerca al centro -->
-      <div class="col-8">
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Cerca quartieri di Chicago..."
-            #searchInput
-            (keyup.enter)="searchLocation(searchInput.value)"
-          />
-          <button class="btn btn-outline-secondary" type="button" (click)="searchLocation(searchInput.value)">
-            <i class="bi bi-search">search</i>
-          </button>
-        </div>
-      </div>
-      
-
-      <!-- Menu a tendina a destra -->
-      <div class="col-2 text-end">
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            Menu
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#">Opzione 1</a></li>
-            <li><a class="dropdown-item" href="#">Opzione 2</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </header>
-  
-  <!-- Sezione per la mappa fullscreen -->
-  <div id="map" class="container-fluid" ></div>
-
-  
-  <!-- Bottone '+' in basso a destra -->
-  <button class="btn btn-primary btn-add">+</button>
-  
-  <!-- Switch in basso a sinistra -->
-  <div class="switch-container">
-    <div class="form-check form-switch" >
-      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" (change)="onSwitchChange($event)">
-      <label class="form-check-label" for="flexSwitchCheckDefault" >Switch</label>
-    </div>
-  </div>
-  
-  <!-- Script Bootstrap e Leaflet.js -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  
-<div class="container">
-  <div class="tabella">
-    <h2>Tabella dei Crimini</h2>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Arresto</th>
-          <th>Numero Caso</th>
-          <th>Data</th>
-          <th>Descrizione</th>
-          <th>Domestico</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let crimine of formattedData">
-          <td>{{ crimine.id }}</td>
-          <td>{{ crimine.arrest }}</td>
-          <td>{{ crimine.case_number }}</td>
-          <td>{{ crimine.date }}</td>
-          <td>{{ crimine.description }}</td>
-          <td>{{ crimine.domestic }}</td>
-        </tr>
-      </tbody>
-    </table>
+<!--PrimaSchermata Visibile1 -->
+<div class="container text-center" id="initialContainer" >
+  <h1 id="helperText">Safe Zone</h1>
+  <div class="mt-3">
+      <input type="text" id="userInput" id="aCenter" class="form-control" placeholder="Cerca quartieri di Chicago..." #searchInput
+      (keyup.enter)="searchLocation(searchInput.value)">
   </div>
 </div>
-<!-- Footer -->
-<footer>
-  <div class="container text-center">
-    <p>&copy; 2025 Copyright</p>
-    <!-- Icone social -->
-    <div class="social-icons">
-      <a href="#" class="bi bi-facebook" target="_blank"></a>
-      <a href="#" class="bi bi-twitter" target="_blank"></a>
-      <a href="#" class="bi bi-instagram" target="_blank"></a>
-      <a href="#" class="bi bi-linkedin" target="_blank"></a>
-    </div>
-  </div>
-</footer>
 
+
+<!-- Contenuto secondario (inizialmente nascosto) -->
+<div id="mainContent">
+    <!-- Header con logo, barra di ricerca e menu a tendina -->
+    <header class="container-fluid py-3 border-bottom">
+        <div class="row align-items-center">
+          <!-- Logo a sinistra -->
+          <div class="col-2 d-flex align-items-center">
+            <div class="logo bg-secondary rounded-circle" style="width: 50px; height: 50px;"></div>
+            <span class="ms-2">App Logo</span>
+          </div>
+      
+          <!-- Barra di ricerca al centro -->
+          <div class="col-8">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Cerca quartieri di Chicago..."
+                #searchInput
+                (keyup.enter)="searchLocation(searchInput.value)"
+              />
+              <button class="btn btn-outline-secondary" type="button" (click)="searchLocation(searchInput.value)">
+                <i class="bi bi-search">search</i>
+              </button>
+            </div>
+          </div>
+          
+
+          <!-- Menu a tendina a destra -->
+          <div class="col-2 text-end">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Menu
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Opzione 1</a></li>
+                <li><a class="dropdown-item" href="#">Opzione 2</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      
+      <!-- Sezione per la mappa fullscreen -->
+      <div id="map" class="container-fluid" ></div>
 
       
-
+      <!-- Bottone '+' in basso a destra -->
+      <button class="btn btn-primary btn-add">+</button>
+      
+      <!-- Switch in basso a sinistra -->
+      <div class="switch-container">
+        <div class="form-check form-switch" >
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" (change)="onSwitchChange($event)">
+          <label class="form-check-label" for="flexSwitchCheckDefault" >Switch</label>
+        </div>
+      </div>
+      
+      <!-- Script Bootstrap e Leaflet.js -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+      
+    <div class="container">
+      <div class="tabella">
+        <h2>Tabella dei Crimini</h2>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Arresto</th>
+              <th>Numero Caso</th>
+              <th>Data</th>
+              <th>Descrizione</th>
+              <th>Domestico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let crimine of formattedData">
+              <td>{{ crimine.id }}</td>
+              <td>{{ crimine.arrest }}</td>
+              <td>{{ crimine.case_number }}</td>
+              <td>{{ crimine.date }}</td>
+              <td>{{ crimine.description }}</td>
+              <td>{{ crimine.domestic }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+      <div class="container text-center">
+        <p>&copy; 2025 Copyright</p>
+        <!-- Icone social -->
+        <div class="social-icons">
+          <a href="#" class="bi bi-facebook" target="_blank"></a>
+          <a href="#" class="bi bi-twitter" target="_blank"></a>
+          <a href="#" class="bi bi-instagram" target="_blank"></a>
+          <a href="#" class="bi bi-linkedin" target="_blank"></a>
+        </div>
+      </div>
+    </footer>
+</div>

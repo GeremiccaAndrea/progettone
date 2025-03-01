@@ -10,6 +10,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  ngAfterViewInit(): void {
+    const userInput = document.getElementById("userInput");
+    if (userInput) {
+      userInput.addEventListener("keypress", (event: KeyboardEvent) => {
+        if (event.key === "Enter") {
+          userInput.classList.add("fade-out");
+          const helperText = document.getElementById("helperText");
+          if (helperText) {
+            helperText.classList.add("fade-out");
+          }
+  
+          setTimeout(() => {
+            const initialContainer = document.getElementById("initialContainer");
+            if (initialContainer) {
+              initialContainer.style.display = "none";
+            }
+            const mainContent = document.getElementById("mainContent");
+            if (mainContent) {
+              mainContent.style.opacity = "1";
+            }
+          }, 5000);
+        }
+      });
+    }}
   geojsonData:any; // Dati GeoJSON che contengono sia la geometria che il numero di crimini
   geojsonDataMilano:any; 
   crimini: any;
@@ -129,5 +154,7 @@ export class AppComponent implements OnInit {
           Crimini: ${crimeCount}`);
       }
     }).addTo(this.map); // Aggiungi il layer alla mappa
+
+
   }
 }
