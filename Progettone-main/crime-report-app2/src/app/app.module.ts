@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';  // Aggiunto FormsModule
 import { AppComponent } from './app.component';
-import { CrimeReportComponent } from './crime-report/crime-report.component';  // Importa il componente
-import { ReactiveFormsModule } from '@angular/forms';  // Importa ReactiveFormsModule per il form
-import { HttpClientModule } from '@angular/common/http';  // Importa HttpClientModule per fare richieste HTTP
+import { CrimeReportComponent } from './crime-report/crime-report.component';
+import { HttpClientModule } from '@angular/common/http';  // Per chiamate API
 
 @NgModule({
   declarations: [
     AppComponent,
-    CrimeReportComponent  // Aggiungi il componente al modulo
+    CrimeReportComponent
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,  // Aggiungi ReactiveFormsModule
-    HttpClientModule      // Aggiungi HttpClientModule
+    ReactiveFormsModule,
+    FormsModule,  // Import necessario per usare ngModel
+    HttpClientModule  // Import necessario per le API
   ],
   providers: [],
   bootstrap: [AppComponent]

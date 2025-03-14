@@ -1,8 +1,3 @@
-"""
-Enrico Cottone
-Andrea Leone
-"""
-
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from bson import ObjectId
@@ -31,34 +26,25 @@ def ins_dati():
 
     # Controllo specifico dei campi richiesti
     missing_fields = []
-    if 'dove' not in data or not data['dove']:
-        missing_fields.append('dove')
-    if 'rating' not in data or not isinstance(data['rating'], int):
-        missing_fields.append('rating')
-    if 'tipo_di_crimine' not in data or not data['tipo_di_crimine']:
-        missing_fields.append('tipo_di_crimine')
-    if 'geometry' not in data or 'coordinates' not in data['geometry']:
-        missing_fields.append('geometry.coordinates')
+    if 'arresto' not in data or not isinstance(data['arresto'], bool):
+        missing_fields.append('arresto')
+    if 'tipologia' not in data or not data['tipologia']:
+        missing_fields.append('tipologia')
+    if 'quartiere' not in data or not data['quartiere']:
+        missing_fields.append('quartiere')
+    if 'citta' not in data or not data['citta']:
+        missing_fields.append('citta')
 
     if missing_fields:
         return jsonify({"error": f"Campi obbligatori mancanti o non validi: {', '.join(missing_fields)}"}), 400
 
     new_crime = {
         "_id": str(ObjectId()),
-        "data_inserimento": datetime.now(),
-        "utente": {
-            "nome": "pino",
-            "cognome": "gino",
-            "data_nascita": "1990-01-02"
-        },
-        "dove": data['dove'],
-        "rating": data['rating'],
-        "tipo_di_crimine": data['tipo_di_crimine'],
-        "descrizione": data.get('description', ""),
-        "geometry": {
-            "type": "Point",
-            "coordinates": data['geometry']['coordinates']
-        }
+        "arresto": data['arresto'],
+        "tipologia": data['tipologia'],
+        "data": datetime.now(),
+        "quartiere": data['quartiere'],
+        "citta": data['citta']
     }
 
     collection.insert_one(new_crime)

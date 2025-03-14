@@ -1,26 +1,32 @@
 <div class="container">
   <h2>Segnala un crimine</h2>
 
+  <!-- Barra di ricerca -->
+  <input type="text" placeholder="Cerca un indirizzo, città o quartiere" [(ngModel)]="searchQuery" (keyup.enter)="searchLocation()">
+  <button (click)="searchLocation()">Cerca</button>
+
   <!-- Mappa -->
   <div id="map" style="height: 400px;"></div>
 
-  <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
-    
-    <label>
-      Tipo di Crimine:
-      <span class="info-icon" tabindex="0" data-tooltip="Seleziona il tipo di crimine che vuoi segnalare.">🔺</span>
-    </label>
-    <div class="crime-type-container">
-      <select formControlName="crimeType">
-        <option value="furto">Furto</option>
-        <option value="vandalismo">Vandalismo</option>
-        <option value="violenza">Violenza</option>
-        <option value="rapina">Rapina</option>
-        <option value="stupefacenti">Stupefacenti</option>
-        <option value="truffa">Truffa</option>
-      </select>
-    </div>
+  <!-- Dettagli posizione -->
+  <div *ngIf="locationInfo">
+    <p><strong>Via:</strong> {{ locationInfo.road || 'N/A' }}</p>
+    <p><strong>Città:</strong> {{ locationInfo.city || 'N/A' }}</p>
+    <p><strong>Quartiere:</strong> {{ locationInfo.neighbourhood || 'N/A' }}</p>
+  </div>
 
+  <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
+    <label>Tipo di Crimine:</label>
+    <select formControlName="crimeType">
+      <option value="furto">Furto</option>
+      <option value="vandalismo">Vandalismo</option>
+      <option value="violenza">Violenza</option>
+      <option value="rapina">Rapina</option>
+      <option value="stupefacenti">Stupefacenti</option>
+      <option value="truffa">Truffa</option>
+    </select>
+
+    <!-- Barra di pericolosità con tooltip -->
     <label>
       Pericolosità (1-5):
       <span class="info-icon" tabindex="0" data-tooltip="Seleziona un valore da 1 a 5 in base alla gravità.">🔺</span>
@@ -29,11 +35,12 @@
       <input type="range" formControlName="rating" min="1" max="5" step="1" id="dangerRating" (input)="updateRating($event)">
     </div>
 
-    <label>
-      Descrizione:
-      <span class="info-icon" tabindex="0" data-tooltip="Fornisci una breve descrizione dell'evento.">🔺</span>
-    </label>
+    
+
+    <label>Descrizione:</label>
     <textarea formControlName="description"></textarea>
+
+
 
     <button type="submit">Invia Segnalazione</button>
   </form>

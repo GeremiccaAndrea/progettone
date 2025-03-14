@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { CrimeReportService } from './services/crime-report.service';
 import * as L from 'leaflet';
 
@@ -12,13 +13,16 @@ export class CrimeReportComponent implements OnInit {
   reportForm: FormGroup;
   map: any;
   marker: any;
+  searchQuery: string = '';  
+  locationInfo: any = null;  
+  arresto: boolean = false;  
 
-  constructor(private fb: FormBuilder, private crimeReportService: CrimeReportService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private crimeReportService: CrimeReportService) {
     this.reportForm = this.fb.group({
       location: ['', Validators.required],
-      crimeType: ['', Validators.required],
-      rating: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
-      description: ['', Validators.required]
+      tipologia: ['', Validators.required],  // Modificato da crimeType a tipologia
+      description: ['', Validators.required],
+      arresto: [false] 
     });
   }
 
@@ -43,13 +47,11 @@ export class CrimeReportComponent implements OnInit {
 
     this.marker = L.marker([45.4642, 9.19], { icon: customIcon, interactive: false }).addTo(this.map);
 
-    // Imposta il cursore personalizzato per la mappa
-    this.map.getContainer().style.cursor = 'url(https://upload.wikimedia.org/wikipedia/commons/2/29/Crosshair.svg) 16 16, crosshair';
-
     this.map.on('click', (e: any) => {
       const latLng = e.latlng;
       this.marker.setLatLng(latLng);
       this.updateLocation(latLng);
+      this.reverseGeocode(latLng.lat, latLng.lng);
     });
   }
 
@@ -59,40 +61,70 @@ export class CrimeReportComponent implements OnInit {
     this.reportForm.patchValue({ location: [lat, lng] });
   }
 
-  updateRating(event: any): void {
-    this.reportForm.patchValue({ rating: event.target.value });
+  reverseGeocode(lat: number, lng: number): void {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+    
+    this.http.get(url).subscribe((data: any) => {
+      this.locationInfo = {
+        road: data.address?.road || 'N/A',
+        city: data.address?.city || data.address?.town || data.address?.village || 'N/A',
+        neighbourhood: data.address?.neighbourhood || data.address?.suburb || 'N/A'
+      };
+    }, error => {
+      console.error("Errore nella geocodifica inversa:", error);
+      this.locationInfo = null;
+    });
+  }
+
+  searchLocation(): void {
+    if (!this.searchQuery) return;
+
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(this.searchQuery)}`;
+    
+    this.http.get(url).subscribe((results: any) => {
+      if (results.length > 0) {
+        const result = results[0];  
+        const latLng = L.latLng(result.lat, result.lon);
+        
+        this.map.setView(latLng, 13);
+        this.marker.setLatLng(latLng);
+        this.updateLocation(latLng);
+        this.reverseGeocode(result.lat, result.lon);
+      } else {
+        alert("Nessun risultato trovato.");
+      }
+    }, error => {
+      console.error("Errore nella ricerca dell'indirizzo:", error);
+    });
+  }
+
+  toggleArresto(): void {
+    this.arresto = !this.arresto;
+    this.reportForm.patchValue({ arresto: this.arresto });
   }
 
   submitReport(): void {
-    if (this.reportForm.invalid) {
-      alert("Compila tutti i campi correttamente.");
+    if (this.reportForm.invalid || !this.locationInfo) {
+      alert("Compila tutti i campi obbligatori!");
       return;
     }
 
+    // Costruisco i dati della segnalazione con i valori corretti
     const reportData = {
-      utente: { nome: 'Nome', cognome: 'Cognome', data_nascita: '2000-01-01' },
-      dove: this.reportForm.value.location,
-      rating: parseInt(this.reportForm.value.rating, 10),
-      tipo_di_crimine: this.reportForm.value.crimeType,
-      geometry: {
-        type: 'Point',
-        coordinates: [
-          parseFloat(this.marker.getLatLng().lat.toFixed(6)),
-          parseFloat(this.marker.getLatLng().lng.toFixed(6))
-        ]
-      },
-      description: this.reportForm.value.description
+      arresto: this.reportForm.value.arresto,
+      tipologia: this.reportForm.value.tipologia,
+      quartiere: this.locationInfo.neighbourhood || "N/A",
+      citta: this.locationInfo.city || "N/A"
     };
 
-    this.crimeReportService.submitReport(reportData).subscribe(
-      (response) => {
-        alert("Segnalazione inviata con successo! ID: " + response.id);
-        this.reportForm.reset({ rating: 1 });
-      },
-      (error) => {
-        alert("Errore durante l'invio della segnalazione.");
-        console.error(error);
-      }
-    );
+    console.log("Segnalazione inviata:", reportData);
+
+    this.crimeReportService.submitReport(reportData).subscribe(response => {
+      alert("Segnalazione inviata con successo!");
+      this.reportForm.reset();
+    }, error => {
+      console.error("Errore durante l'invio della segnalazione:", error);
+      alert("Si è verificato un errore. Riprova.");
+    });
   }
 }
