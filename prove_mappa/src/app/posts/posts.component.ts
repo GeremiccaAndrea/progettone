@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../post.model';
-import { catchError } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-posts',

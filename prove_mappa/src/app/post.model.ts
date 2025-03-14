@@ -1,13 +1,8 @@
 export class Post {
     _id: string;
     data_inserimento: Date;
-    utente: {
-        id: string;
-        nome: string;
-        cognome: string;
-        email: string;
-    };
-    descrizione: string;
+    utente: any;
+    Descrizione: string;
     dove: string;
     rating: number;
     tipo_di_crimine: string;
@@ -19,11 +14,8 @@ export class Post {
     constructor(
         _id: string,
         data_inserimento: Date,
-        idUtente: string,
-        nomeUtente : string,
-        cognomeUtente: string,
-        emailUtente: string,
-        descrizione: string,
+        utente:  any,
+        Descrizione: string,
         dove: string,
         rating: number,
         tipo_di_crimine: string,
@@ -31,13 +23,8 @@ export class Post {
     ) {
         this._id = _id;
         this.data_inserimento = data_inserimento;
-        this.utente=  {
-            id: idUtente,
-            nome: nomeUtente,
-            cognome: cognomeUtente,
-            email: emailUtente
-        };
-        this.descrizione = descrizione;
+        this.utente=  utente;
+        this.Descrizione = Descrizione;
         this.dove = dove;
         this.rating = rating;
         this.tipo_di_crimine = tipo_di_crimine;

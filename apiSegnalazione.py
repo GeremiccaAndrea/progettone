@@ -62,8 +62,16 @@ def ins_dati():
 def get_all_data():
     # Recupera tutti i documenti dalla collezione
     all_data = list(collection.find({}, {'_id': 0}))
-    
     return jsonify(all_data)
+
+@app.route('/api/<user_id>', methods=['GET'])
+def get_user_posts(user_id):
+    # Recupera tutti i documenti dalla collezione
+    all_data = list(collection.find({"utente.uid": user_id}, {'_id': 0}))
+    print(all_data)
+    return jsonify(all_data)
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=41000, debug=True)
