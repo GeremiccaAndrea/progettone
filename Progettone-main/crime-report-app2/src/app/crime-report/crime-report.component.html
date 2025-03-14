@@ -26,6 +26,7 @@
       <option value="truffa">Truffa</option>
     </select>
 
+    <br>
     <!-- Barra di pericolosità con tooltip -->
     <label>
       Pericolosità (1-5):
@@ -34,6 +35,15 @@
     <div class="rating-container">
       <input type="range" formControlName="rating" min="1" max="5" step="1" id="dangerRating" (input)="updateRating($event)">
     </div>
+
+    <div class="switch-container">
+      <label>E' stato arrestato?</label>
+      <label class="switch">
+        <input type="checkbox" formControlName="arresto" (change)="toggleArresto()">
+        <span class="slider round"></span>
+      </label>
+    </div>
+     
 
     <label>Descrizione:</label>
     <textarea formControlName="description"></textarea>

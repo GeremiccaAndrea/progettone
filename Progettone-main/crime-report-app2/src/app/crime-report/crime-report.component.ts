@@ -119,19 +119,25 @@ export class CrimeReportComponent implements OnInit {
       arresto: this.reportForm.value.arresto,
       tipologia: this.reportForm.value.tipologia,
       quartiere: this.locationInfo.neighbourhood || "N/A",
-      citta: this.locationInfo.city || "N/A",
-      rating: this.reportForm.value.rating,
-      description: this.reportForm.value.description,
+      citta: this.locationInfo.city || "N/A"
     };
 
-    console.log("Segnalazione inviata:", reportData);
+    console.log("Attempting to send data:", reportData);
 
-    this.crimeReportService.submitReport(reportData).subscribe(response => {
-      alert("Segnalazione inviata con successo!");
-      this.reportForm.reset();
-    }, error => {
-      console.error("Errore durante l'invio della segnalazione:", error);
-      alert("Si è verificato un errore. Riprova.");
-    });
+    this.crimeReportService.submitReport(reportData).subscribe(
+      response => {
+        console.log('Success response:', response);
+        alert("Segnalazione inviata con successo!");
+        this.reportForm.reset();
+      },
+      error => {
+        console.error("Error details:", error);
+        if (error.error && error.error.error) {
+          alert(`Errore: ${error.error.error}`);
+        } else {
+          alert("Si è verificato un errore. Riprova.");
+        }
+      }
+    );
   }
 }
