@@ -34,6 +34,10 @@ def ins_dati():
         missing_fields.append('quartiere')
     if 'citta' not in data or not data['citta']:
         missing_fields.append('citta')
+    if 'description' not in data or not data['description']:
+        missing_fields.append('description')
+                
+
 
     if missing_fields:
         return jsonify({"error": f"Campi obbligatori mancanti o non validi: {', '.join(missing_fields)}"}), 400
@@ -42,9 +46,11 @@ def ins_dati():
         "_id": str(ObjectId()),
         "arresto": data['arresto'],
         "tipologia": data['tipologia'],
+        "rating": data['rating'],
         "data": datetime.now(),
         "quartiere": data['quartiere'],
-        "citta": data['citta']
+        "citta": data['citta'],
+        "description": data['description'],
     }
 
     collection.insert_one(new_crime)

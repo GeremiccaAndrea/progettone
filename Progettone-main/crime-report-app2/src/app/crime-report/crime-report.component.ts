@@ -20,9 +20,10 @@ export class CrimeReportComponent implements OnInit {
   constructor(private fb: FormBuilder, private http: HttpClient, private crimeReportService: CrimeReportService) {
     this.reportForm = this.fb.group({
       location: ['', Validators.required],
-      tipologia: ['', Validators.required],  // Modificato da crimeType a tipologia
+      tipologia: ['', Validators.required],
       description: ['', Validators.required],
-      arresto: [false] 
+      arresto: [false],
+      rating: [1, [Validators.required, Validators.min(1), Validators.max(5)]]
     });
   }
 
@@ -98,6 +99,11 @@ export class CrimeReportComponent implements OnInit {
     });
   }
 
+  updateRating(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.reportForm.patchValue({ rating: parseInt(input.value, 10) });
+  }
+
   toggleArresto(): void {
     this.arresto = !this.arresto;
     this.reportForm.patchValue({ arresto: this.arresto });
@@ -109,12 +115,13 @@ export class CrimeReportComponent implements OnInit {
       return;
     }
 
-    // Costruisco i dati della segnalazione con i valori corretti
     const reportData = {
       arresto: this.reportForm.value.arresto,
       tipologia: this.reportForm.value.tipologia,
       quartiere: this.locationInfo.neighbourhood || "N/A",
-      citta: this.locationInfo.city || "N/A"
+      citta: this.locationInfo.city || "N/A",
+      rating: this.reportForm.value.rating,
+      description: this.reportForm.value.description,
     };
 
     console.log("Segnalazione inviata:", reportData);
