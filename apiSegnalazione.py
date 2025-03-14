@@ -24,9 +24,7 @@ collection = database["segnalazioni"]
 @app.route('/api/ins', methods=['POST'])
 def ins_dati():
     # Trasformiamo i dati in json
-    print("ciao")
     data = request.get_json()
-    print(data)
     # Prendiamo i parametri
     data_inserimento = datetime.now()
     utente = data.get('utente', {})
@@ -35,22 +33,16 @@ def ins_dati():
     tipo_di_crimine = data.get('tipo_di_crimine')
     geometry = data.get('geometry', {})
     descrizione= data.get('description')
-    
+    print("Ricevuto", data_inserimento)
+
     # Controllo dei campi obbligatori
     if not all([utente, dove, rating, tipo_di_crimine, geometry]):
+        print("Missing required fields")
         return jsonify({"error": "Missing required fields"}), 400
-    
-    # Verifica la struttura
-    if not all(key in utente for key in [ 'nome', 'cognome', 'data_nascita']):
-        return jsonify({"error": "Invalid user structure"}), 400
-    
+
     new_crime = {
         "data_inserimento": data_inserimento,
-        "utente": {
-            "nome": "pino",
-            "cognome": "gino",
-            "data_nascita": "1990-01-02"
-        },
+        "utente": utente,
         "dove": "via roma ,Milano",
         "rating": int(rating),
         "tipo_di_crimine": str(tipo_di_crimine),

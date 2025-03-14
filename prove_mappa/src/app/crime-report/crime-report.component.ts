@@ -4,7 +4,7 @@ import { CrimeReportService } from './crime-report.service';
 import * as L from 'leaflet';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
-import { Auth, User  } from '@angular/fire/auth';
+import { Auth, user, User  } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-crime-report',
@@ -29,20 +29,20 @@ export class CrimeReportComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('eccomi');
     const token = this.session.getToken();
     if (token) {
+      console.log("Utente loggato");
       this.auth.onAuthStateChanged(user => {
       if (user) {
         this.utente = user;
         this.logged = true;
         console.log(this.utente);
-      } else {  
+      } 
+      });
+    } else {  
         this.router.navigate(['/login']);
         return
       }
-      });
-    }
 
     if (this.map) {
       this.map.remove();
@@ -76,7 +76,7 @@ export class CrimeReportComponent implements OnInit {
     }
 
     const reportData = {
-      utente: { nome: '', cognome: '', data_nascita: '' },
+      utente: this.utente,
       dove: this.reportForm.value.location,
       rating: parseInt(this.reportForm.value.rating),
       tipo_di_crimine: this.reportForm.value.crimeType,

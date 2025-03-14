@@ -1,5 +1,4 @@
 <div class="container center-content">
-
   <div class="container center-content" *ngIf = "!logged">
     <h2>Per segnalare un crimine devi effettuare il login</h2>
   </div>
@@ -23,6 +22,4 @@
       <textarea formControlName="description"></textarea>
       <button type="submit" [disabled]="!logged">Invia Segnalazione</button>
     </form>
-
 </div>
-
