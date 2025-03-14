@@ -1,17 +1,21 @@
 <br>
 
 <!--PrimaSchermata Visibile1 -->
-<div class="container text-center" id="initialContainer" >
-  <h1 id="helperText">Safe Zone</h1>
-  <div class="mt-3">
-      <input type="text" id="userInput" id="aCenter" class="form-control" placeholder="Cerca quartieri di Chicago..." #searchInput
-      (keyup.enter)="searchLocation(searchInput.value)">
+<div class="container" id="button-container">
+      <div class="box">
+        <div class="inner left">Safe</div>
+        <div class="inner right">Zone</div>
+      </div>
+  <div class="main-content">
+          <input type="text" id="userInput" class="form-control" placeholder="Cerca quartieri di Chicago..." #searchInput
+          (keyup.enter)="startSearch(searchInput.value)">
+          <button #searchInput (click)="startSearch(searchInput.value)" class="btn btn-primary mt-3">Cerca</button>
+
   </div>
 </div>
 
-
 <!-- Contenuto secondario (inizialmente nascosto) -->
-<div id="mainContent">
+<div class="container" id="mainContent">
     <!-- Header con logo, barra di ricerca e menu a tendina -->
     <header class="container-fluid py-3 border-bottom">
         <div class="row align-items-center">
@@ -40,16 +44,20 @@
 
           <!-- Menu a tendina a destra -->
           <div class="col-2 text-end">
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Menu
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Opzione 1</a></li>
-                <li><a class="dropdown-item" href="#">Opzione 2</a></li>
-              </ul>
+            <div class="dropdown" (click)="toggleDropdown($event)">
+                <button class="btn btn-primary dropdown-toggle" type="button">
+                    ☰ Menu
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen">
+                    <li><a class="dropdown-item" href="#">🏠 Home</a></li>
+                    <li><a class="dropdown-item" href="#">📁 Opzione 1</a></li>
+                    <li><a class="dropdown-item" href="#">⚙️ Impostazioni</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="#">🚪 Esci</a></li>
+                </ul>
             </div>
-          </div>
+        </div>        
+        
         </div>
       </header>
       

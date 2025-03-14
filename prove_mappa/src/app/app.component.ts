@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { CrimesService } from './crimes.service';
 import * as L from 'leaflet';  // Importa Leaflet
 import { Feature, FeatureCollection } from 'geojson';
@@ -10,6 +10,37 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  //menu, apritiSesamo
+isDropdownOpen: boolean = false;
+
+toggleDropdown(event: Event): void {
+    event.stopPropagation(); // Evita la chiusura immediata
+    this.isDropdownOpen = !this.isDropdownOpen;
+}
+
+@HostListener('document:click', ['$event'])
+closeDropdown(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.dropdown')) {
+        this.isDropdownOpen = false;
+    }
+}
+
+
+  //parte inizialw del progetto di magia
+  startSearch(query: string): void {
+    if (query) {
+      const buttonContainer = document.getElementById("button-container");
+
+      // Nascondi input e bottone quando la ricerca è avviata
+      if (buttonContainer) {
+        buttonContainer.style.display = "none";  // Nascondi la zona del bottone
+      }
+
+      // Riattiva lo scroll una volta che la ricerca è avviata
+      document.body.style.overflow = "auto";
+    }
+  }
 
   ngAfterViewInit(): void {
     const userInput = document.getElementById("userInput");
