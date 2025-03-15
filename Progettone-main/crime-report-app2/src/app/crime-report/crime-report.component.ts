@@ -13,15 +13,15 @@ export class CrimeReportComponent implements OnInit {
   reportForm: FormGroup;
   map: any;
   marker: any;
-  searchQuery: string = '';  
-  locationInfo: any = null;  
-  arresto: boolean = false;  
+  searchQuery: string = '';
+  locationInfo: any = null;
+  arresto: boolean = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private crimeReportService: CrimeReportService) {
     this.reportForm = this.fb.group({
       location: ['', Validators.required],
       tipologia: ['', Validators.required],
-      description: ['', Validators.required],
+      descrizione: ['', Validators.required],
       arresto: [false],
       rating: [1, [Validators.required, Validators.min(1), Validators.max(5)]]
     });
@@ -64,7 +64,7 @@ export class CrimeReportComponent implements OnInit {
 
   reverseGeocode(lat: number, lng: number): void {
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
-    
+
     this.http.get(url).subscribe((data: any) => {
       this.locationInfo = {
         road: data.address?.road || 'N/A',
@@ -81,12 +81,12 @@ export class CrimeReportComponent implements OnInit {
     if (!this.searchQuery) return;
 
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(this.searchQuery)}`;
-    
+
     this.http.get(url).subscribe((results: any) => {
       if (results.length > 0) {
-        const result = results[0];  
+        const result = results[0];
         const latLng = L.latLng(result.lat, result.lon);
-        
+
         this.map.setView(latLng, 13);
         this.marker.setLatLng(latLng);
         this.updateLocation(latLng);
@@ -110,7 +110,7 @@ export class CrimeReportComponent implements OnInit {
   }
 
   submitReport(): void {
-    if (this.reportForm.invalid || !this.locationInfo) {
+    if (this.reportForm.invalid) {
       alert("Compila tutti i campi obbligatori!");
       return;
     }
@@ -118,6 +118,7 @@ export class CrimeReportComponent implements OnInit {
     const reportData = {
       arresto: this.reportForm.value.arresto,
       tipologia: this.reportForm.value.tipologia,
+      descrizione: this.reportForm.value.descrizione,
       quartiere: this.locationInfo.neighbourhood || "N/A",
       citta: this.locationInfo.city || "N/A"
     };

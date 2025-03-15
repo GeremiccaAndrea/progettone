@@ -7,7 +7,7 @@ import { tap, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CrimeReportService {
-  private apiUrl = 'https://41000-geremiccaand-progettone-aowdh9sr3ek.ws-eu118.gitpod.io/api/ins';
+  private apiUrl = 'http://localhost:41000/api/ins'; // Correct API URL with endpoint
 
   constructor(private http: HttpClient) { }
 
