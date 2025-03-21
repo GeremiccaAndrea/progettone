@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Auth, authInstance$, User  } from '@angular/fire/auth';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Auth, User  } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { Post } from '../post.model';
 import { SessionService } from '../session.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

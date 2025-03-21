@@ -9,7 +9,6 @@ import { Post } from '../post.model';
 export class PostComponent {
 // Passaggio del post come input
 @Input() post !: Post;
-
 constructor() { }
 
 }

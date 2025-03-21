@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrimeReportService {
-
-  // private apiUrl = 'https://41000-geremiccaand-progettone-1jckuxk25zw.ws-eu118.gitpod.io/api/ins';
-  private apiUrl = 'http://127.0.0.1:41000/api/ins';
+  
+  private apiUrl = 'http://localhost:41000/api/ins'; // Correct API URL with endpoint
 
   constructor(private http: HttpClient) { }
 
   submitReport(reportData: any): Observable<any> {
-    return this.http.post(this.apiUrl, reportData, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+    console.log('Sending data to API:', reportData); // Debug log
+    
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this.http.post(this.apiUrl, reportData, { headers }).pipe(
+      tap(response => console.log('API Response:', response)),
+      catchError(error => {
+        console.error('API Error:', error);
+        throw error;
       })
-    });
+    );
   }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { CrimeReportService } from './crime-report.service';
 import * as L from 'leaflet';
+import { Auth ,User  } from '@angular/fire/auth';
 import { SessionService } from '../session.service';
 import { Router } from '@angular/router';
-import { Auth, user, User  } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-crime-report',
@@ -15,89 +16,148 @@ export class CrimeReportComponent implements OnInit {
   reportForm: FormGroup;
   map: any;
   marker: any;
-  logged: boolean =false;
+  searchQuery: string = '';
+  locationInfo: any = null;
+  arresto: boolean = false;
   utente !: User | null;
 
-  constructor(private fb: FormBuilder, private crimeReportService: CrimeReportService,private auth: Auth, private router: Router, private session: SessionService) { 
+  constructor(private fb: FormBuilder, private http: HttpClient, private crimeReportService: CrimeReportService, private router:Router,private session: SessionService, private auth: Auth) {
     this.reportForm = this.fb.group({
       location: ['', Validators.required],
-      crimeType: ['', Validators.required],
-      rating: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
-      description: ['', Validators.required]
+      tipologia: ['', Validators.required],
+      descrizione: ['', Validators.required],
+      arresto: [false],
+      rating: [1, [Validators.required, Validators.min(1), Validators.max(5)]]
     });
   }
 
   ngOnInit(): void {
 
-    const token = this.session.getToken();
-    if (token) {
-      console.log("Utente loggato");
-      this.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.utente = user;
-        this.logged = true;
-        console.log(this.utente);
-      } 
-      });
-    } else {  
-        this.router.navigate(['/login']);
-        return
-      }
+const token = this.session.getToken();
+if (token) {
+  console.log("Utente loggato");
+  this.auth.onAuthStateChanged(user => {
+  if (user) {
+    this.utente = user;
+    console.log(this.utente);
+  }
+  });
+} else {
+    this.router.navigate(['/login']);
+    return
+  }
 
-    if (this.map) {
-      this.map.remove();
-    }
+    this.initMap();
+  }
 
+  private initMap(): void {
     this.map = L.map('map').setView([45.4642, 9.19], 13);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(this.map);
 
-    this.marker = L.marker([45.4642, 9.19]).addTo(this.map);
+    const customIcon = L.icon({
+      iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+      shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      shadowSize: [41, 41]
+    });
+
+    this.marker = L.marker([45.4642, 9.19], { icon: customIcon, interactive: false }).addTo(this.map);
 
     this.map.on('click', (e: any) => {
       const latLng = e.latlng;
       this.marker.setLatLng(latLng);
       this.updateLocation(latLng);
+      this.reverseGeocode(latLng.lat, latLng.lng);
     });
   }
 
   updateLocation(latLng: any): void {
     const lat = latLng.lat.toFixed(6);
     const lng = latLng.lng.toFixed(6);
-    this.reportForm.patchValue({
-      location: [lat, lng],
+    this.reportForm.patchValue({ location: [lat, lng] });
+  }
+
+  reverseGeocode(lat: number, lng: number): void {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+
+    this.http.get(url).subscribe((data: any) => {
+      this.locationInfo = {
+        road: data.address?.road || 'N/A',
+        city: data.address?.city || data.address?.town || data.address?.village || 'N/A',
+        neighbourhood: data.address?.neighbourhood || data.address?.suburb || 'N/A'
+      };
+    }, error => {
+      console.error("Errore nella geocodifica inversa:", error);
+      this.locationInfo = null;
     });
+  }
+
+  searchLocation(): void {
+    if (!this.searchQuery) return;
+
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(this.searchQuery)}`;
+
+    this.http.get(url).subscribe((results: any) => {
+      if (results.length > 0) {
+        const result = results[0];
+        const latLng = L.latLng(result.lat, result.lon);
+
+        this.map.setView(latLng, 13);
+        this.marker.setLatLng(latLng);
+        this.updateLocation(latLng);
+        this.reverseGeocode(result.lat, result.lon);
+      } else {
+        alert("Nessun risultato trovato.");
+      }
+    }, error => {
+      console.error("Errore nella ricerca dell'indirizzo:", error);
+    });
+  }
+
+  updateRating(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.reportForm.patchValue({ rating: parseInt(input.value, 10) });
+  }
+
+  toggleArresto(): void {
+    this.arresto = !this.arresto;
+    this.reportForm.patchValue({ arresto: this.arresto });
   }
 
   submitReport(): void {
     if (this.reportForm.invalid) {
-      alert("Compila tutti i campi correttamente.");
+      alert("Compila tutti i campi obbligatori!");
       return;
     }
 
     const reportData = {
-      utente: this.utente,
-      dove: this.reportForm.value.location,
-      rating: parseInt(this.reportForm.value.rating),
-      tipo_di_crimine: this.reportForm.value.crimeType,
-      geometry: {
-        type: 'Point',
-        coordinates: [
-          parseFloat(this.marker.getLatLng().lat.toFixed(6)),
-          parseFloat(this.marker.getLatLng().lng.toFixed(6))
-        ]
-      },
-      description: this.reportForm.value.description
+      arresto: this.reportForm.value.arresto,
+      tipologia: this.reportForm.value.tipologia,
+      descrizione: this.reportForm.value.descrizione,
+      quartiere: this.locationInfo.neighbourhood || "N/A",
+      citta: this.locationInfo.city || "N/A",
+      utente: this.utente
     };
 
+    console.log("Attempting to send data:", reportData);
+
     this.crimeReportService.submitReport(reportData).subscribe(
-      (response) => {
-        alert("Segnalazione inviata con successo! ID: " + response.id);
+      response => {
+        console.log('Success response:', response);
+        alert("Segnalazione inviata con successo!");
         this.reportForm.reset();
       },
-      (error) => {
-        alert("Errore durante l'invio della segnalazione.");
-        console.error(error);
+      error => {
+        console.error("Error details:", error);
+        if (error.error && error.error.error) {
+          alert(`Errore: ${error.error.error}`);
+        } else {
+          alert("Si è verificato un errore. Riprova.");
+        }
       }
     );
   }

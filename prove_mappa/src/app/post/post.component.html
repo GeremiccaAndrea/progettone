@@ -1,11 +1,11 @@
 <div class="card">
     <div class="card-header">
-        <h2>{{post.tipo_di_crimine}}</h2>
+        <h2>{{post.tipologia}}</h2>
     </div>
     <div class="card-body">
-        <p class="card-text"><strong>Data:</strong> {{post.data_inserimento | date}}</p>
-        <p class="card-text"><strong>Dove:</strong> {{post.dove}}</p>
-        <p class="card-text"><strong>Nome</strong> {{post.utente.displayName}}</p>
-        <p class="card-text"><strong>Rating:</strong> {{post.rating}}</p>
-        <p class="card-text"><strong>Descrizione:</strong> {{post.Descrizione}}</p>
-    </div>x\x\
+        <p class="card-text"><strong>Data:</strong> {{post.data | date}}</p>
+        <p class="card-text"><strong>Dove:</strong> {{post.quartiere}}, {{post.citta}}</p>
+        <p class="card-text"  *ngIf="post.utente"><strong>Nome:</strong> {{post.utente.displayName}}</p>
+        <p class="card-text"><strong>Descrizione:</strong> {{post.descrizione}}</p>
+    </div>
+</div>

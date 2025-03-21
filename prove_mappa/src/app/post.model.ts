@@ -1,11 +1,12 @@
 export class Post {
     _id: string;
-    data_inserimento: Date;
+    arresto: boolean;
+    tipologia: string;
+    data: Date;
+    quartiere: string;
+    citta: string;
+    descrizione: string;
     utente: any;
-    Descrizione: string;
-    dove: string;
-    rating: number;
-    tipo_di_crimine: string;
     geometry: {
         type: string;
         coordinates: [number, number];
@@ -13,21 +14,23 @@ export class Post {
 
     constructor(
         _id: string,
-        data_inserimento: Date,
-        utente:  any,
-        Descrizione: string,
-        dove: string,
-        rating: number,
-        tipo_di_crimine: string,
+        arresto: boolean,
+        tipologia: string,
+        data: Date,
+        quartiere: string,
+        citta: string,
+        descrizione: string,
+        utente: any,
         coordinates: [number, number]
     ) {
         this._id = _id;
-        this.data_inserimento = data_inserimento;
-        this.utente=  utente;
-        this.Descrizione = Descrizione;
-        this.dove = dove;
-        this.rating = rating;
-        this.tipo_di_crimine = tipo_di_crimine;
+        this.arresto = arresto;
+        this.tipologia = tipologia;
+        this.data = data;
+        this.quartiere = quartiere;
+        this.citta = citta;
+        this.descrizione = descrizione;
+        this.utente = utente;
         this.geometry = {
             type: "Point",
             coordinates: coordinates
