@@ -23,17 +23,27 @@ export class CrimesService {
   // Funzione per ottenere i crimini senza parametri
   
    // Metodo per fare la richiesta GET per un quartiere specifico
-   GetCity(CityName: string): Observable<any> {
+  GetCity(CityName: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/GetCity/${CityName}`);
-  }
+  };
+
+  getCityUser(CityName: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/GetCityUser/${CityName}`);
+  };
+
   search(query: string): Observable<NominatimResult | null> {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
     return this.http.get<NominatimResult[]>(url).pipe(
       map(results => (results && results.length > 0 ? results[0] : null))
     );
   }
+  
   getDataCrime(CityName: string,quartiere:string){
     return this.http.get<any>(`${this.apiUrl}/GetDataCrimes/${CityName}/${quartiere}`);
+  };
+
+  getSegnalazioni(CityName: string,quartiere:string){
+    return this.http.get<any>(`${this.apiUrl}/GetSegnalazioni/${CityName}/${quartiere}`);
   };
   
   
