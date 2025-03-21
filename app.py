@@ -153,7 +153,7 @@ def getCityUser(CityName):
         return jsonify({"error": "City not found"}), 404
 
 @app.route('/GetSegnalazioni/<cityName>/<quartiere>')
-def getDataCrimes(cityName, quartiere):
+def GetSegnalazioni(cityName, quartiere):
     cityName = cityName.capitalize()
     if cityName == "Milano":
         quartiere = quartiere.upper()
