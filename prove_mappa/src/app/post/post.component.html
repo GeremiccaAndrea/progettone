@@ -5,7 +5,7 @@
     <div class="card-body">
         <p class="card-text"><strong>Data:</strong> {{post.data | date}}</p>
         <p class="card-text"><strong>Dove:</strong> {{post.quartiere}}, {{post.citta}}</p>
-        <p class="card-text"  *ngIf="post.utente"><strong>Nome:</strong> {{post.utente.displayName}}</p>
+        <p class="card-text"  *ngIf="post.utente"><strong>Utente:</strong> <a href="/user/{{post.utente.uid}}">{{post.utente.displayName}}</a></p>
         <p class="card-text"><strong>Descrizione:</strong> {{post.descrizione}}</p>
     </div>
 </div>
