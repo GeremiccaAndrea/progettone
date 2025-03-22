@@ -4,6 +4,13 @@ from bson import ObjectId
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
+from firebase_admin import auth, credentials
+import firebase_admin
+
+# Initialize the Firebase Admin SDK
+cred = credentials.Certificate("./firebaseCredentials.json")
+firebase_admin.initialize_app(cred)
+
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
@@ -13,6 +20,7 @@ uri = "mongodb+srv://classeIntera:loto@safezone.lrtrk.mongodb.net/?retryWrites=t
 client = MongoClient(uri, server_api=ServerApi('1'))
 database = client["mappaUtenti"]
 collection = database["segnalazioni"]
+
 
 # Verify MongoDB connection
 try:
@@ -78,12 +86,25 @@ def get_all_data():
     all_data = list(collection.find({}, {'_id': 0}))
     return jsonify(all_data)
 
-@app.route('/api/<user_id>', methods=['GET'])
-def get_user_posts(user_id):
-    # Recupera tutti i documenti dalla collezione
-    all_data = list(collection.find({"utente.uid": user_id}, {'_id': 0}))
-    print(all_data)
-    return jsonify(all_data)
+@app.route('/api/getuser/<uid>', methods=['GET'])
+def get_user(uid):
+    print("Ricevuto ", uid)
+    # Fetch user data
+    userRecord = auth.get_user(uid)
+    user = {
+        "uid": userRecord.uid,
+        "email": userRecord.email,
+        "phoneNumber": userRecord.phone_number,
+        "displayName": userRecord.display_name,
+        "photoURL": userRecord.photo_url,
+        "emailVerified": userRecord.email_verified,
+        "disabled": userRecord.disabled,
+        "metadata": {
+            "creationTime": userRecord.user_metadata.creation_timestamp,
+            "lastSignInTime": userRecord.user_metadata.last_sign_in_timestamp
+        }
+    }
+    return jsonify(user)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=41000, debug=True)

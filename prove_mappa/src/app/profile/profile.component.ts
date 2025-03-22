@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
       this.auth.onAuthStateChanged(user => {
       if (user) {
         this.utente = user;
+        console.log(this.utente);
         this.logged = true;
         this.chiamata_db();
       } 

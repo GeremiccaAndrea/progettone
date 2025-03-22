@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User as AngularFireUser } from '@angular/fire/auth';
 import { updateProfile } from 'firebase/auth';
-import { Firestore, getDoc, deleteDoc, doc, limit, setDoc, collection, query, getDocs, where, collectionData } from '@angular/fire/firestore';
-import { setPersistence, browserSessionPersistence } from 'firebase/auth';
+import { Firestore} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -57,4 +56,6 @@ export class FirebaseService {
     }
   }
   //#endregion
+
+
 }
