@@ -8,14 +8,12 @@ import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { LoginComponent } from './login/login.component';
 import { MapComponent } from './map/map.component';
 import { firebaseConfig } from '../environments/environment';
-import { Auth } from '@angular/fire/auth';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostComponent } from './post/post.component';
-import { PostsComponent } from './posts/posts.component';
 import { CrimeReportComponent } from './crime-report/crime-report.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
@@ -28,7 +26,6 @@ import { UserComponent } from './user/user.component';
     SignupComponent,
     ProfileComponent,
     PostComponent,
-    PostsComponent,
     CrimeReportComponent,
     UserComponent
   ],

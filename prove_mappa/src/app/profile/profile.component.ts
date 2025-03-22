@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
    }
 
    chiamata_db() {
-       let apiUrl: string = 'http://127.0.0.1:41000/api/' + this.utente?.uid;
+       let apiUrl: string = 'http://127.0.0.1:41000/api/get_user_posts/' + this.utente?.uid;
        console.log(apiUrl);
        let headers = new HttpHeaders();
        headers = headers.set('Content-Type', 'application/json; charset=utf-8');
@@ -62,6 +62,7 @@ export class ProfileComponent implements OnInit {
        ).subscribe(data => {
          // Read the result field from the JSON response.
          this.posts = data;
+    
          console.log(this.posts);
        });
      }

@@ -3,7 +3,6 @@ import { CrimesService } from '../crimes.service';
 import * as L from 'leaflet';  // Importa Leaflet
 import { Feature, FeatureCollection } from 'geojson';
 import { Router } from '@angular/router';
-import { PostsComponent } from '../posts/posts.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, of } from 'rxjs';
 import { Post } from '../post.model';
@@ -26,7 +25,6 @@ export class MapComponent implements OnInit {
 
 
   constructor(private crimesService: CrimesService, private router: Router,private http: HttpClient) { }
-  @ViewChild(PostsComponent) postsComponent!: PostsComponent;
   map!: L.Map;
 
   ngOnInit(): void {

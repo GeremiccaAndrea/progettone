@@ -106,5 +106,31 @@ def get_user(uid):
     }
     return jsonify(user)
 
+
+@app.route('/api/get_user_posts/<user_id>', methods=['GET'])
+def get_user_posts(user_id):
+    # Recupera tutti i documenti dalla collezione
+    all_data = list(collection.find({"utente.uid": user_id}, {'_id': 0}).sort("data", -1))
+    return jsonify(all_data)
+
+@app.route('/api/get_all_users', methods=['GET'])
+def get_all_user():
+    allusers = []
+    for user in auth.list_users().iterate_all():
+        allusers.append({
+            "uid": user.uid,
+            "email": user.email,
+            "phoneNumber": user.phone_number,
+            "displayName": user.display_name,
+            "photoURL": user.photo_url,
+            "emailVerified": user.email_verified,
+            "disabled": user.disabled,
+            "metadata": {
+                "creationTime": user.user_metadata.creation_timestamp,
+                "lastSignInTime": user.user_metadata.last_sign_in_timestamp
+            }
+        })
+    return jsonify(allusers)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=41000, debug=True)
