@@ -1,6 +1,13 @@
 <div class="container">
     <h2>Utenti Trovati:</h2>
-    <div *ngFor="let user of results" class="row">
-        <h4 class="card col-3">{{user.displayName}}</h4>
+    <div style="display: flex; flex-wrap: wrap; width: 100%;">
+        <div *ngFor="let user of results" style="width: 15%;">
+            <a href="/user/{{user.uid}}" style="text-decoration: none; color: inherit;">
+                <div class="p-2 m-2" style="display: flex; align-items: center; border: 1px solid rgb(94, 94, 94); border-radius: 10px; height: fit-content;">
+                    <img src="{{user.photoURL}}" alt="pfp" class="img-fluid rounded-circle" style="height: 100%;">
+                    <h4 class="card-title col-8">{{user.displayName}}</h4>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
