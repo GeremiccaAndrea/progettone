@@ -25,6 +25,7 @@ export class SearchUsersComponent implements OnInit {
       this.http.get(apiUrl).subscribe(data => {
         // Read the result field from the JSON response.
         this.results = data;
+        console.log(this.results);
       });
 
     } 

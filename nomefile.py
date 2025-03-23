@@ -103,7 +103,7 @@ def get_all_data():
     return jsonify(all_data)
 
 @app.route('/api/getuser/<uid>', methods=['GET'])
-def get_user(uid):
+def get_user(uid, backend=False):
     print("Ricevuto ", uid)
     # Fetch user data
     userRecord = auth.get_user(uid)
@@ -120,7 +120,10 @@ def get_user(uid):
             "lastSignInTime": userRecord.user_metadata.last_sign_in_timestamp
         }
     }
-    return jsonify(user)
+    if backend:
+        return user
+    else:
+        return jsonify(user)
 
 
 @app.route('/api/get_user_posts/<user_id>', methods=['GET'])
@@ -135,8 +138,10 @@ def get_all_user():
 
 @app.route('/api/sarch_users/<searchedUser>', methods=['GET'])
 def search_user(searchedUser):
-    result = list(filter(lambda searched: searchedUser.lower() in searched["displayName"].lower(), allusers)) 
+    result = list(filter(lambda searched: searchedUser.lower() in searched["displayName"].lower(), allusers))
     if len(result) > 0:
+        found_users = [get_user(user['uid'], True) for user in result]
+        
         return jsonify(result)
     else:
         return jsonify({"error": "Nessun utente trovato"})

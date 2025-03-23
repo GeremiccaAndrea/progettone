@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Post } from '../post.model';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-user',
@@ -16,13 +17,13 @@ export class UserComponent {
   user_uid !: string;
   posts: Post[] = [];
   
-  constructor(private http: HttpClient,   private route: ActivatedRoute) {}
+  constructor(private http: HttpClient,   private route: ActivatedRoute, private session: SessionService,private router: Router) {}
 
   ngOnInit() {
     this.routeObs = this.route.paramMap;
     this.routeObs.subscribe(this.getRouterParam);
   }
-
+  
   //#region GET USER
   getRouterParam = (params: ParamMap) =>
     {

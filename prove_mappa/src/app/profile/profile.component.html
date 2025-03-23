@@ -5,21 +5,34 @@
     <div  *ngIf = 'this.utente' class="card mt-5 p-5" id="page">
         <div class="row">
             <div class="col-md-2">
-                <img src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" class="img-fluid rounded-circle" alt="Profile Picture">
+                <img src="{{this.utente.photoURL}}" class="rounded-circle" alt="Profile Picture" style="width: 10rem; height: 10rem;">
             </div>
             <div class="col-md-5 mb-4">
                 <h1>{{this.utente.displayName}}</h1>
                 <p>Location: Prato</p>
                 <p>Bio: Cerco di finire questo cerchio</p>
-                
+                <button (click)="modificaProfilo()" class="btn btn-primary" [disabled]="edit">Modifica Profilo</button>
             </div> 
         </div>
         <!-- Posts -->
     
     </div>
-    <div class="mt-3 row">
+    <div class="mt-3 row" *ngIf = '!edit'>
         <div *ngFor = 'let post of posts' class="col-4 mb-3">
             <app-post [post] = 'post'></app-post>
         </div>
+    </div>
+    <div *ngIf = 'edit' class="p-3">
+        <form>
+            <div class="form-group">
+                <label for="photoURL">Immagine Profilo (URL):</label>
+                <input type="text" class="form-control" id="photoURL" #photoURL>
+                <div class=" mt-2">
+                    <button class="btn btn-danger" (click)="annulla()">Annulla</button>
+                    <button class="btn btn-primary m-1" (click)="confermaModifica(photoURL)">Conferma</button>
+                </div>
+                
+            </div>
+        </form>
     </div>
 </div>

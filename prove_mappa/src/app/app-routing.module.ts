@@ -7,7 +7,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { CrimeReportComponent } from './crime-report/crime-report.component';
 import { UserComponent } from './user/user.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
-
 const routes: Routes = [
   // L'URL vuoto reindirizza alla mappa
   { path: '', component: MapComponent },

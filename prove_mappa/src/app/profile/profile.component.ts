@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Auth, User  } from '@angular/fire/auth';
+import { Auth, User, updateProfile } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Post } from '../post.model';
 import { SessionService } from '../session.service';
@@ -15,11 +15,12 @@ import { catchError, of } from 'rxjs';
 export class ProfileComponent implements OnInit {
   utente !: User | null;
   logged: boolean = false;
+  edit : boolean = false;
   // Array dei post
   // Sarà popolato con i dati del database
   posts: Post[] = [];
 
-  constructor(public auth: Auth, private router: Router, private session: SessionService, private http:  HttpClient) { 
+  constructor(private auth: Auth, private router: Router, private session: SessionService, private http:  HttpClient) { 
     // Controllo se il profilo visualizza è quello dell'utente loggato
     /*
     if (this.auth.currentUser.uid == this.profilo.uid) {
@@ -65,5 +66,39 @@ export class ProfileComponent implements OnInit {
     
          console.log(this.posts);
        });
-     }
+      }
+      
+      modificaProfilo() {
+      if (this.auth.currentUser) {
+        this.edit = true;
+      }
+      }
+
+      confermaModifica(photoURL:HTMLInputElement) {
+
+        this.submitModifica(photoURL.value)
+        this.edit = false;
+      }
+
+      annulla() {
+        this.edit = false;
+      }
+
+      submitModifica(photoURL:string) {
+        if (this.auth.currentUser) {
+          updateProfile(this.auth.currentUser, {
+            photoURL: photoURL
+          }).then(() => {
+            // Profile updated!
+            // ...
+          }).catch((error) => {
+            // An error occurred
+            // ...
+          });
+        } else {
+          console.error('No user is currently logged in.');
+        }
+      }
+      
+  
 }
