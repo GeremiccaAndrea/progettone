@@ -11,7 +11,6 @@ import firebase_admin
 cred = credentials.Certificate("./firebaseCredentials.json")
 firebase_admin.initialize_app(cred)
 
-
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
 
@@ -20,6 +19,23 @@ uri = "mongodb+srv://classeIntera:loto@safezone.lrtrk.mongodb.net/?retryWrites=t
 client = MongoClient(uri, server_api=ServerApi('1'))
 database = client["mappaUtenti"]
 collection = database["segnalazioni"]
+
+# Recupera tutti gli utenti da Firebase
+allusers = []
+for user in auth.list_users().iterate_all():
+    allusers.append({
+        "uid": user.uid,
+        "email": user.email,
+        "phoneNumber": user.phone_number,
+        "displayName": user.display_name,
+        "photoURL": user.photo_url,
+        "emailVerified": user.email_verified,
+        "disabled": user.disabled,
+        "metadata": {
+            "creationTime": user.user_metadata.creation_timestamp,
+            "lastSignInTime": user.user_metadata.last_sign_in_timestamp
+        }
+    })
 
 
 # Verify MongoDB connection
@@ -115,22 +131,14 @@ def get_user_posts(user_id):
 
 @app.route('/api/get_all_users', methods=['GET'])
 def get_all_user():
-    allusers = []
-    for user in auth.list_users().iterate_all():
-        allusers.append({
-            "uid": user.uid,
-            "email": user.email,
-            "phoneNumber": user.phone_number,
-            "displayName": user.display_name,
-            "photoURL": user.photo_url,
-            "emailVerified": user.email_verified,
-            "disabled": user.disabled,
-            "metadata": {
-                "creationTime": user.user_metadata.creation_timestamp,
-                "lastSignInTime": user.user_metadata.last_sign_in_timestamp
-            }
-        })
     return jsonify(allusers)
 
+@app.route('/api/sarch_users/<searchedUser>', methods=['GET'])
+def search_user(searchedUser):
+    result = list(filter(lambda searched: searchedUser.lower() in searched["displayName"].lower(), allusers)) 
+    if len(result) > 0:
+        return jsonify(result)
+    else:
+        return jsonify({"error": "Nessun utente trovato"})
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=41000, debug=True)

@@ -1,14 +1,15 @@
 <header class="container-fluid py-3 border-bottom">
   <div class="row align-items-center" *ngIf="!currentLogin() ">
     <!-- Logo -->
-    <div class="d-flex align-items-center col-2" (click)="goHome()">
+    <div class="d-flex align-items-center col-4" (click)="goHome()">
       <div class="logo bg-secondary rounded-circle pointer-cursor" style="width: 50px; height: 50px;"></div>
       <span class="ms-2 pointer-cursor">App Logo</span>
-      <a class="btn btn-success m-2" href="/user/cBqSCdHMg5bH1eBDKhx8uG3j8332">Test User</a>
+      <input type="text" class="form-control" placeholder="Search user" #searchedUser>
+      <button class="btn btn-success" (click)="searchSubmit(searchedUser)">Search</button>
     </div>
     
     <!-- Barra di navigazione -->
-    <div class="col-10 text-end">
+    <div class="col-8 text-end">
       <a class="btn btn-primary" href="/login" *ngIf="!isLoggedIn">Log In</a>
       <div *ngIf="isLoggedIn">
         <a class="btn btn-danger" (click)="logout()">Logout</a>

@@ -6,6 +6,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CrimeReportComponent } from './crime-report/crime-report.component';
 import { UserComponent } from './user/user.component';
+import { SearchUsersComponent } from './search-users/search-users.component';
 
 const routes: Routes = [
   // L'URL vuoto reindirizza alla mappa
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'report', component: CrimeReportComponent },
+  { path: 'users/:searchedUser', component: SearchUsersComponent },
   { path: 'user/:uid', component: UserComponent },
 ];
 

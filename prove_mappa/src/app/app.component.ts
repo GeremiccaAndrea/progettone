@@ -44,4 +44,10 @@ export class AppComponent implements OnInit {
   checkLoginStatus() {
     this.isLoggedIn = this.session.isLoggedIn();
   }
+
+  searchSubmit(query: HTMLInputElement): void {
+    let url = 'users/'+ query.value;
+    window.location.href = '/' + url;
+  }
+
 }

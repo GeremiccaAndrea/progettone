@@ -17,6 +17,7 @@ import { PostComponent } from './post/post.component';
 import { CrimeReportComponent } from './crime-report/crime-report.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
+import { SearchUsersComponent } from './search-users/search-users.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UserComponent } from './user/user.component';
     ProfileComponent,
     PostComponent,
     CrimeReportComponent,
-    UserComponent
+    UserComponent,
+    SearchUsersComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,
