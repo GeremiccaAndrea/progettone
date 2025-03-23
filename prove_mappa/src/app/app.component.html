@@ -1,9 +1,9 @@
 <header class="container-fluid py-3 border-bottom">
   <div class="row align-items-center" *ngIf="!currentLogin() ">
     <!-- Logo -->
-    <div class="d-flex align-items-center col-4" (click)="goHome()">
-      <div class="logo bg-secondary rounded-circle pointer-cursor" style="width: 50px; height: 50px;"></div>
-      <span class="ms-2 pointer-cursor">App Logo</span>
+    <div class="d-flex align-items-center col-4">
+      <div class="logo bg-secondary rounded-circle pointer-cursor" style="width: 50px; height: 50px;" (click)="goHome()"></div>
+      <span class="ms-2 pointer-cursor" (click)="goHome()">App Logo</span>
       <input type="text" class="form-control" placeholder="Search user" #searchedUser>
       <button class="btn btn-success  m-1" (click)="searchSubmit(searchedUser)">Search</button>
     </div>

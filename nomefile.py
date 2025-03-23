@@ -19,6 +19,7 @@ uri = "mongodb+srv://classeIntera:loto@safezone.lrtrk.mongodb.net/?retryWrites=t
 client = MongoClient(uri, server_api=ServerApi('1'))
 database = client["mappaUtenti"]
 collection = database["segnalazioni"]
+mongo_utenti = database["utenti"]
 
 # Recupera tutti gli utenti da Firebase
 allusers = []
@@ -145,5 +146,20 @@ def search_user(searchedUser):
         return jsonify(result)
     else:
         return jsonify({"error": "Nessun utente trovato"})
+
+@app.route('/api/sync_fireb_mongo', methods=['GET'])
+def sync():
+    mongo_allusers = [user['uid'] for user in mongo_utenti.find({}, {'uid': 1, '_id': 0})]
+    log = {}
+    for user in allusers:
+        if user["uid"] not in mongo_allusers:
+            result = mongo_utenti.insert_one(user)
+            message = "User inserted in MongoDB:", result.inserted_id      
+        else:
+            message = "User already exists in MongoDB, skipping..."
+        log.update({user["displayName"]: message})
+        print(message)
+    return jsonify(log)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=41000, debug=True)
