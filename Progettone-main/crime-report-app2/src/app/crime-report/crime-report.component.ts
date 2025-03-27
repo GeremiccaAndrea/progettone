@@ -120,7 +120,8 @@ export class CrimeReportComponent implements OnInit {
       tipologia: this.reportForm.value.tipologia,
       descrizione: this.reportForm.value.descrizione,
       quartiere: this.locationInfo.neighbourhood || "N/A",
-      citta: this.locationInfo.city || "N/A"
+      citta: this.locationInfo.city || "N/A",
+      rating: this.reportForm.value.rating
     };
 
     console.log("Attempting to send data:", reportData);
