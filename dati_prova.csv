@@ -1,4 +1,11 @@
-codice,nome_completo,posta_elettronica,film_codice,recensione,data_recensione
-1,Mario Rossi,mario@mail.com,101,Bello!,2024-02-05
-2,Luca Bianchi,luca@mail.com,102,Noioso...,2024-02-04
-3,Anna Verdi,anna@mail.com,103,Fantastico!,2024-02-03
+id,arresto,tipologia,data,quartiere,citta
+1012,False,BATTERY,2025-02-03 17:15,Logan Square,Chicago
+1025,False,OTHER OFFENSE,2025-02-03 16:50,Englewood,Chicago
+1050,False,THEFT,2025-02-03 15:30,Loop,Chicago
+1098,False,THEFT,2025-02-03 13:10,Humboldt Park,Chicago
+1120,False,DECEPTIVE PRACTICE,2025-02-03 12:40,Rogers Park,Chicago
+1134,False,THEFT,2025-02-03 12:20,West Town,Chicago
+1156,False,CRIMINAL DAMAGE,2025-02-03 11:50,Austin,Chicago
+1182,False,CRIMINAL TRESPASS,2025-02-03 10:20,Uptown,Chicago
+1201,False,THEFT,2025-02-03 09:45,Near North Side,Chicago
+1230,False,BATTERY,2025-02-03 08:10,South Shore,Chicago

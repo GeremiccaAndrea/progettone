@@ -1,0 +1,83 @@
+[
+    {
+      "id": 1301,
+      "arresto": false,
+      "tipologia": "BURGLARY",
+      "data": "2025-02-05T18:20:00",
+      "quartiere": "Logan Square",
+      "citta": "Chicago"
+    },
+    {
+      "id": 1325,
+      "arresto": true,
+      "tipologia": "BATTERY",
+      "data": "2025-02-05T17:45:00",
+      "quartiere": "Humboldt Park",
+      "citta": "Chicago"
+    },
+    {
+      "id": 1350,
+      "arresto": false,
+      "tipologia": "ROBBERY",
+      "data": "2025-02-05T16:30:00",
+      "quartiere": "West Loop",
+      "citta": "Chicago"
+    },
+    {
+      "id": 1382,
+      "arresto": true,
+      "tipologia": "CRIMINAL DAMAGE",
+      "data": "2025-02-05T15:10:00",
+      "quartiere": "South Shore",
+      "citta": "Chicago"
+    },
+    {
+      "id": 1407,
+      "arresto": false,
+      "tipologia": "THEFT",
+      "data": "2025-02-05T14:50:00",
+      "quartiere": "Bridgeport",
+      "citta": "Chicago"
+    },
+    {
+      "id": 1431,
+      "arresto": false,
+      "tipologia": "DECEPTIVE PRACTICE",
+      "data": "2025-02-05T13:25:00",
+      "quartiere": "Edgewater",
+      "citta": "Chicago"
+    },
+    {
+      "id": 1465,
+      "arresto": true,
+      "tipologia": "OTHER OFFENSE",
+      "data": "2025-02-05T12:40:00",
+      "quartiere": "Lincoln Square",
+      "citta": "Chicago"
+    },
+    {
+      "id": 1498,
+      "arresto": false,
+      "tipologia": "CRIMINAL TRESPASS",
+      "data": "2025-02-05T11:10:00",
+      "quartiere": "Near West Side",
+      "citta": "Chicago"
+    },
+    {
+      "id": 1523,
+      "arrest": true,
+      "tipologia": "ASSAULT",
+      "data": "2025-02-05T10:35:00",
+      "quartiere": "Bronzeville",
+      "citta": "Chicago"
+    },
+    {
+      "id": 1550,
+      "arresto": false,
+      "tipologia": "BATTERY",
+      "data": "2025-02-05T09:05:00",
+      "quartiere": "West Ridge",
+      "citta": "Chicago"
+    }
+  ]
+  
