@@ -6,7 +6,7 @@ from flask_cors import CORS
 from datetime import datetime
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
+CORS(app)
 
 # Connessione al database MongoDB
 uri = "mongodb+srv://classeIntera:loto@safezone.lrtrk.mongodb.net/?retryWrites=true&w=majority&appName=safezone"
@@ -43,6 +43,8 @@ def ins_dati():
             missing_fields.append('citta')
         if 'descrizione' not in data or not data['descrizione']:
             missing_fields.append('descrizione')
+        if 'rating' not in data or not data['rating']:
+            missing_fields.append('rating')
 
         if missing_fields:
             return jsonify({"error": f"Campi obbligatori mancanti o non validi: {', '.join(missing_fields)}"}), 400
@@ -54,7 +56,8 @@ def ins_dati():
             "data": datetime.now(),
             "quartiere": data['quartiere'],
             "citta": data['citta'],
-            "descrizione": data['descrizione']
+            "descrizione": data['descrizione'],
+            "rating": data['rating'],
         }
 
         print("Attempting to insert:", new_crime)  # Debug log

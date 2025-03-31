@@ -16,6 +16,7 @@ export class CrimeReportComponent implements OnInit {
   searchQuery: string = '';
   locationInfo: any = null;
   arresto: boolean = false;
+  rating: any = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private crimeReportService: CrimeReportService) {
     this.reportForm = this.fb.group({
@@ -71,6 +72,9 @@ export class CrimeReportComponent implements OnInit {
         city: data.address?.city || data.address?.town || data.address?.village || 'N/A',
         neighbourhood: data.address?.neighbourhood || data.address?.suburb || 'N/A'
       };
+      if (this.locationInfo.neighbourhood === 'N/A') {
+        this.locationInfo.neighbourhood = this.locationInfo.city;
+      }
     }, error => {
       console.error("Errore nella geocodifica inversa:", error);
       this.locationInfo = null;
