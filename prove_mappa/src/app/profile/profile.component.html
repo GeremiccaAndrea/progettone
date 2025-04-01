@@ -5,12 +5,10 @@
     <div  *ngIf = 'this.utente' class="card mt-5 p-5" id="page">
         <div class="row">
             <div class="col-md-2">
-                <img src="{{this.utente.photoURL}}" class="rounded-circle" alt="Profile Picture" style="width: 10rem; height: 10rem;">
+                <img src="{{this.utente.photoURL}}" class="rounded-circle" alt="Profile Picture" style="width: 10rem; height: 10rem;" onerror="this.src='assets/img/nopfp.png'">
             </div>
             <div class="col-md-5 mb-4">
                 <h1>{{this.utente.displayName}}</h1>
-                <p>Location: Prato</p>
-                <p>Bio: Cerco di finire questo cerchio</p>
                 <button (click)="modificaProfilo()" class="btn btn-primary" [disabled]="edit">Modifica Profilo</button>
             </div> 
         </div>
@@ -31,7 +29,6 @@
                     <button class="btn btn-danger" (click)="annulla()">Annulla</button>
                     <button class="btn btn-primary m-1" (click)="confermaModifica(photoURL)">Conferma</button>
                 </div>
-                
             </div>
         </form>
     </div>

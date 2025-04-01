@@ -9,6 +9,10 @@ import { Post } from '../post.model';
 export class PostComponent {
 // Passaggio del post come input
 @Input() post !: Post;
+dettagli: boolean = false;
 constructor() { }
 
+toggleDettagli() {
+  this.dettagli = !this.dettagli;
+}
 }

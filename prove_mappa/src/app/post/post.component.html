@@ -6,6 +6,10 @@
         <p class="card-text"><strong>Data:</strong> {{post.data | date}}</p>
         <p class="card-text"><strong>Dove:</strong> {{post.quartiere}}, {{post.citta}}</p>
         <p class="card-text"  *ngIf="post.utente"><strong>Utente:</strong> <a href="/user/{{post.utente.uid}}">{{post.utente.displayName}}</a></p>
-        <p class="card-text"><strong>Descrizione:</strong> {{post.descrizione}}</p>
+        <p *ngIf="!dettagli" class="card-text"><strong>Descrizione:</strong> {{ post.descrizione | slice:0:50 }}<span *ngIf="post.descrizione.length > 50">...</span></p>
+        <p *ngIf="dettagli" class="card-text"><strong>Descrizione:</strong> {{ post.descrizione }}</p>
+        <div *ngIf="post.descrizione.length > 50">
+            <button class="btn btn-light"  (click)="toggleDettagli()"><span *ngIf="!dettagli" >Altro</span><span *ngIf="dettagli">Meno</span></button>
+        </div>
     </div>
 </div>

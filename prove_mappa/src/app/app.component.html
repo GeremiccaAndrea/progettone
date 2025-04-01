@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center col-4">
       <div class="logo bg-secondary rounded-circle pointer-cursor" style="width: 50px; height: 50px;" (click)="goHome()"></div>
       <span class="ms-2 pointer-cursor" (click)="goHome()">App Logo</span>
-      <input type="text" class="form-control" placeholder="Search user" #searchedUser>
+      <input type="text" class="form-control" placeholder="Search user" #searchedUser (keyup.enter)="searchSubmit(searchedUser)">
       <button class="btn btn-success  m-1" (click)="searchSubmit(searchedUser)">Search</button>
     </div>
     
