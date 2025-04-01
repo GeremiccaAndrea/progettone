@@ -1,11 +1,11 @@
 #map {
   height: calc(100vh - 70px); /* Altezza completa dello schermo meno l'header */
-  width: 90%;
-  z-index:4;
-  border: 3px;
-  border: 5px solid black; 
-  margin-top: 10px;
-  margin-bottom: 10px;
+  width: 100%; /* Larghezza completa */
+  z-index: 4; /* Garantisce che la mappa stia sopra altri contenuti */
+  margin-top: 53px; /* Rimuove il margine superiore */
+  margin-bottom: 0; /* Rimuove il margine inferiore */
+  margin-left: 0;
+  margin-right: 0;
 }
 .btn-add {
   position: fixed;
@@ -76,9 +76,18 @@ th, td {
 /* Colori di sfondo per le righe della tabella */
 thead {
   background-color: #4CAF50;
-  color: white;
+  color: #fff
 }
 
+header {
+  background-color: #26355D; /* Colore del testo (bianco in questo caso) */
+  color: #ecf0f1;
+  padding: 10px; /* Aggiungi padding se necessario per distanziare il contenuto */
+}
+
+#coloreText{
+  color: #f1f1f1;
+}
 tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }

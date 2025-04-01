@@ -15,7 +15,7 @@
 </div>
 
 <!-- Contenuto secondario (inizialmente nascosto) -->
-<div class="container" id="mainContent">
+<div class="container-fluid" id="mainContent">
     <!-- Header con logo, barra di ricerca e menu a tendina -->
     <header class="container-fluid py-3 border-bottom">
         <div class="row align-items-center">
@@ -36,7 +36,7 @@
                 (keyup.enter)="searchLocation(searchInput.value)"
               />
               <button class="btn btn-outline-secondary" type="button" (click)="searchLocation(searchInput.value)">
-                <i class="bi bi-search">search</i>
+                <i id="coloreText" class="bi bi-search">search</i>
               </button>
             </div>
           </div>
@@ -62,7 +62,7 @@
       </header>
       
       <!-- Sezione per la mappa fullscreen -->
-      <div id="map" class="container-fluid" ></div>
+      <div id="map"></div>
 
       
       <!-- Bottone '+' in basso a destra -->
