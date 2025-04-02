@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ɵsetAlternateWeakRefImpl } from '@angular/core';
 import { CrimesService } from '../crimes.service';
 import * as L from 'leaflet';  // Importa Leaflet
 import { Feature, FeatureCollection } from 'geojson';
-import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, of } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { Post } from '../post.model';
+import { ParamMap, Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -24,14 +24,28 @@ export class MapComponent implements OnInit {
   posts: Post[] = [];
 
 
-  constructor(private crimesService: CrimesService, private router: Router,private http: HttpClient) { }
+  constructor(private crimesService: CrimesService, private router: Router, private route: ActivatedRoute ,private http: HttpClient) { }
   map!: L.Map;
+  results: any;
+  routeObs !: Observable<ParamMap>; 
 
   ngOnInit(): void {
+    this.routeObs = this.route.paramMap;
+    this.routeObs.subscribe(this.getRouterParam);
     this.initMap();
     this.loadData(); // Carica il file GeoJSON
     this.chiamata_db();
   }
+
+  getRouterParam = (params: ParamMap) =>
+    {
+      console.log('dai')
+      let searchedLocation = params.get('searchedLocation') || '';
+      console.log(searchedLocation);
+      if(searchedLocation != ''){
+        this.searchLocation(searchedLocation);
+      }
+    } 
 
   // Funzione per inizializzare la mappa
   initMap(): void {
@@ -49,6 +63,7 @@ export class MapComponent implements OnInit {
   flyToLocation(lat: number, lng: number): void {
     this.map.flyTo([lat, lng], 14); // Cambia lo zoom se necessario
   }
+  
   searchLocation(query: string): void {
     this.crimesService.search(query).subscribe(
       location => {

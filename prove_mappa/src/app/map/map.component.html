@@ -1,22 +1,5 @@
 
   <div class="row mt-3">
-   <!-- Barra di ricerca al centro -->
-      <div class="col-8 mx-auto">
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Cerca quartieri di Chicago..."
-            #searchInput
-            (keyup.enter)="searchLocation(searchInput.value)"
-          />
-          <button class="btn btn-outline-secondary" type="button" (click)="searchLocation(searchInput.value)">
-            <i class="bi bi-search">search</i>
-          </button>
-        </div>
-      </div>
-    </div>
-
   <!-- Sezione per la mappa fullscreen -->
   <div id="map" class="container-fluid" ></div>
   

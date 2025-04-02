@@ -1,0 +1,20 @@
+<div class="search-container">
+    <!-- Dropdown per selezionare il tipo di ricerca -->
+    <select [(ngModel)]="searchType" aria-label="Tipo di ricerca">
+      <option value="users">Utenti</option>
+      <option value="cities">Città</option>
+      <!-- Aggiungi altri tipi se necessario -->
+    </select>
+  
+    <!-- Input per inserire il termine di ricerca -->
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Inserisci termine..."
+      (keyup.enter)="onEnterPress()"
+      aria-label="Termine di ricerca"
+    />
+  
+    <!-- Bottone per avviare la ricerca -->
+    <button (click)="onSearch()">Cerca</button>
+</div>

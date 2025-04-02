@@ -1,0 +1,34 @@
+.search-container {
+    display: flex;
+    gap: 10px; /* Spazio tra gli elementi */
+    padding: 15px;
+    border-radius: 5px;
+    align-items: center; /* Allinea verticalmente gli elementi */
+  }
+  
+  .search-container select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-container input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1; /* Fa espandere l'input per riempire lo spazio */
+  }
+  
+  .search-container button {
+    padding: 8px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .search-container button:hover {
+    background-color: #0056b3;
+  }

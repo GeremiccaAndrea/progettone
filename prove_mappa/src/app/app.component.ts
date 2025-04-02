@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Auth } from '@angular/fire/auth';
 import { SessionService } from './session.service';
+import { SearchEvent } from './search-bar/search-bar.component';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,27 @@ import { SessionService } from './session.service';
 export class AppComponent implements OnInit {
   utente: any;
   isLoggedIn: boolean = false;
+  lastSearch: SearchEvent | null = null; // Per memorizzare l'ultima ricerca
 
   constructor(private auth: Auth, private session: SessionService, private router: Router) {}
 
+  // Metodo chiamato quando l'evento 'searchPerformed' viene emesso da SearchBarComponent
+  handleSearch(event: SearchEvent): void {
+    console.log('AppComponent: Received search event:', event);
+    this.lastSearch = event;
+
+    // Qui è dove implementeresti la logica di ricerca effettiva:
+    // 1. Chiama un servizio (es. SearchService)
+    // 2. Passa event.type e event.term al servizio
+    // 3. Il servizio fa una chiamata HTTP all'API appropriata
+    // 4. Aggiorna una variabile con i risultati per mostrarli nel template
+
+    // Esempio di logica fittizia:
+    let query = event.type + '/'+ event.term;
+    window.location.href = '/' + query;
+    
+  }
+ 
   ngOnInit() {
     this.checkLoginStatus();
   

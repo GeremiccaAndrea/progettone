@@ -1,3 +1,13 @@
 .pointer-cursor {
     cursor: pointer;
 }
+
+.navbaru {
+    display: flex;
+    justify-content: space-heavenly;
+    width: 100%;
+}
+
+.search-bar {
+  width: 50%;
+}   

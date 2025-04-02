@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CrimeReportComponent } from './crime-report/crime-report.component';
 import { UserComponent } from './user/user.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
+
 const routes: Routes = [
   // L'URL vuoto reindirizza alla mappa
   { path: '', component: MapComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'report', component: CrimeReportComponent },
   { path: 'users/:searchedUser', component: SearchUsersComponent },
   { path: 'user/:uid', component: UserComponent },
+  { path: 'cities/:searchedLocation', component: MapComponent },
 ];
 
 @NgModule({

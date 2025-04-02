@@ -18,6 +18,7 @@ import { CrimeReportComponent } from './crime-report/crime-report.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { SearchUsersComponent } from './search-users/search-users.component';
     CrimeReportComponent,
     UserComponent,
     SearchUsersComponent,
+    SearchBarComponent,
 
   ],
   imports: [
