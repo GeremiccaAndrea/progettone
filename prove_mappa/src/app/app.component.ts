@@ -69,4 +69,7 @@ export class AppComponent implements OnInit {
     window.location.href = '/' + url;
   }
 
+  reporting(): Boolean {
+    return this.router.url == "/report";
+  }
 }

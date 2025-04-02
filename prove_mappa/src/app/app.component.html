@@ -6,7 +6,9 @@
       <span class="ms-2 pointer-cursor" (click)="goHome()">App Logo</span>
     </div>
 
-    <app-search-bar (searchPerformed)="handleSearch($event)" class="search-bar col-4"></app-search-bar>
+    <app-search-bar (searchPerformed)="handleSearch($event)" *ngIf="!reporting()" class="search-bar col-4"></app-search-bar>
+    <div class="search-bar"  *ngIf="reporting()"></div>
+    
     <!-- Barra di navigazione -->
     <div class="col-3 text-end">
       <a class="btn btn-primary" href="/login" *ngIf="!isLoggedIn">Log In</a>

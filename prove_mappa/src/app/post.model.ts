@@ -7,6 +7,7 @@ export class Post {
     citta: string;
     descrizione: string;
     utente: any;
+    rating: number;
     geometry: {
         type: string;
         coordinates: [number, number];
@@ -21,6 +22,7 @@ export class Post {
         citta: string,
         descrizione: string,
         utente: any,
+        rating: number,
         coordinates: [number, number]
     ) {
         this._id = _id;
@@ -31,6 +33,7 @@ export class Post {
         this.citta = citta;
         this.descrizione = descrizione;
         this.utente = utente;
+        this.rating = rating;
         this.geometry = {
             type: "Point",
             coordinates: coordinates
