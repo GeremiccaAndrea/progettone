@@ -124,14 +124,16 @@ def getCityUser(CityName):
         documenti = list(collection.find({"città": cityName}))
         df_crimini=pd.DataFrame(recent_crimes)
         gdf_quartieri = gpd.GeoDataFrame(documenti)
-
         gdf_quartieri["geometry"] = gdf_quartieri["geometry"].apply(lambda g: shape(g) if isinstance(g, dict) else g)
 
-        GroupDocumenti=pd.merge(df_crimini, gdf_quartieri, on='quartiere', how='inner').reset_index()
+        if not df_crimini.empty:
+            GroupDocumenti=pd.merge(df_crimini, gdf_quartieri, on='quartiere', how='inner').reset_index()
+            crimini_per_quartiere = GroupDocumenti.groupby('quartiere')['quartiere'].count()
+            gdf_quartieri["numero_crimini"] = gdf_quartieri["quartiere"].map(crimini_per_quartiere).fillna(0)
+        else:
+            gdf_quartieri["numero_crimini"] = 0  
+       
         
-        app.logger.info("ciao ",GroupDocumenti)
-        crimini_per_quartiere = GroupDocumenti.groupby('quartiere')['_id_y'].count()
-        gdf_quartieri["numero_crimini"] = gdf_quartieri["quartiere"].map(crimini_per_quartiere).fillna(0)
         # Creazione del GeoJSON
         geojson = {
             "type": "FeatureCollection",
