@@ -5,7 +5,7 @@
     <div   class="card mt-5 p-5" id="page">
         <div class="row">
             <div class="col-md-2">
-                <img src="{{this.user.photoURL}}" class="img-fluid rounded-circle" alt="Profile Picture">
+                <img src="{{this.user.photoURL}}" class="img-fluid rounded-circle" alt="Profile Picture" onerror="this.src='assets/img/nopfp.png'">
             </div>
             <div class="col-md-5 mb-4">
                 <h1>{{this.user.displayName}}</h1>                  
