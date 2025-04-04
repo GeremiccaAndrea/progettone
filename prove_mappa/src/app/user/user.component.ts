@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Post } from '../post.model';
+import { Auth } from '@angular/fire/auth';
 import { SessionService } from '../session.service';
 
 @Component({
@@ -15,11 +16,22 @@ export class UserComponent {
   results: any;
   user: any;
   user_uid !: string;
+  loaded: boolean = false;
   posts: Post[] = [];
   
-  constructor(private http: HttpClient,   private route: ActivatedRoute, private session: SessionService,private router: Router) {}
+  constructor(private http: HttpClient,   private route: ActivatedRoute, private session: SessionService,private router: Router, private auth: Auth) {}
 
   ngOnInit() {
+    const token = this.session.getToken();
+    if (token) {
+      this.auth.onAuthStateChanged(logged => {
+      if (logged?.uid == this.user_uid) {
+        window.location.href = '/profile';
+        return;
+      } 
+      });
+    }
+    this.loaded = true;
     this.routeObs = this.route.paramMap;
     this.routeObs.subscribe(this.getRouterParam);
   }

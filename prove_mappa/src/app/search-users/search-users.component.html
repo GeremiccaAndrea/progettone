@@ -1,3 +1,6 @@
+<div *ngIf = "!results" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <h3>Loading...</h3>
+</div>
 <div class="container">
     <div *ngIf="results">
         <h2>Utenti Trovati:</h2>
@@ -12,6 +15,5 @@
             </div>
         </div>
     </div>
-    <h2 *ngIf = "!results">Loading</h2>
     <h3 *ngIf = "results.error" class="text-danger">Nessun utente trovato</h3>
 </div>

@@ -121,6 +121,7 @@ if (token) {
   updateRating(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.reportForm.patchValue({ rating: parseInt(input.value, 10) });
+    console.log("Rating updated:", this.reportForm.value.rating);
   }
 
   toggleArresto(): void {
@@ -129,7 +130,7 @@ if (token) {
   }
 
   submitReport(): void {
-    if (this.reportForm.invalid) {
+    if (this.reportForm.errors) {
       alert("Compila tutti i campi obbligatori!");
       return;
     }
@@ -139,7 +140,8 @@ if (token) {
       tipologia: this.reportForm.value.tipologia,
       descrizione: this.reportForm.value.descrizione,
       quartiere: this.locationInfo.neighbourhood || "N/A",
-      citta: this.locationInfo.city || "N/A",
+      citta: this.locationInfo.city || "N/A", 
+      rating: this.reportForm.value.rating,
       utente: this.utente
     };
 

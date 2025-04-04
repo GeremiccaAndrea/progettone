@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
 
   // Metodo chiamato quando l'evento 'searchPerformed' viene emesso da SearchBarComponent
   handleSearch(event: SearchEvent): void {
-    console.log('AppComponent: Received search event:', event);
     this.lastSearch = event;
 
     // Qui è dove implementeresti la logica di ricerca effettiva:
