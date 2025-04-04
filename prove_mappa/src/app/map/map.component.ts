@@ -13,8 +13,8 @@ import { ParamMap, Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-  geojsonData:any; // Dati GeoJSON che contengono sia la geometria che il numero di crimini
-  geojsonDataMilano:any; 
+  geojsonData: any;
+  geoJsonLayer: any;
   crimini: any;
   formattedData: any;
   mappaUtenti: boolean = true;
@@ -33,7 +33,6 @@ export class MapComponent implements OnInit {
     this.routeObs = this.route.paramMap;
     this.routeObs.subscribe(this.getRouterParam);
     this.initMap();
-    this.loadData(); // Carica il file GeoJSON
     this.chiamata_db();
   }
 
@@ -50,25 +49,29 @@ export class MapComponent implements OnInit {
   // Funzione per inizializzare la mappa
   initMap(): void {
     this.map = L.map('map', {
-      // center: [41.816813771373916, -87.60670812560372],  // Coordinate centrali per Chicago
-      center:[45.4642, 9.19],
+      center: [41.816813771373916, -87.60670812560372],
       zoom: 14
     });
 
-    // Aggiungi il layer di base di OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
   }
+
   flyToLocation(lat: number, lng: number): void {
     this.map.flyTo([lat, lng], 14); // Cambia lo zoom se necessario
   }
   
   searchLocation(query: string): void {
+    if (this.geoJsonLayer != null) {
+      this.geoJsonLayer.remove();
+    }
+
     this.crimesService.search(query).subscribe(
       location => {
         if (location) {
-          console.log(location); // Controlla i dati ricevuti
+          console.log(location.name);
+          this.loadData(location.name); // Chiamata aggiornata
           const lat = parseFloat(location.lat);
           const lon = parseFloat(location.lon);
           this.flyToLocation(lat, lon);
@@ -90,14 +93,27 @@ export class MapComponent implements OnInit {
     } else {
       this.mappaType = this.mappaReati;
     }
+    // Se sono già caricati dati per una città, ricarica i dati corretti in base allo switch
+    if (this.geojsonData?.features?.length > 0 && this.geojsonData.features[0].properties?.citta) {
+      const city = this.geojsonData.features[0].properties.citta;
+      this.loadData(city);
+    }
   }
   
   // Funzione per caricare i dati (crimini e distretti) da un file GeoJSON
-  loadData(): void {
-    this.crimesService.getCrimes().subscribe(
-      (data) => {
-        console.log(data);
-        // Assicurati che data sia un FeatureCollection
+  loadData(nameCity: string): void {
+    console.log(`Caricamento dati per: ${nameCity} (modalità ${this.mappaType ? 'utenti' : 'ufficiale'})`);
+
+    if (this.geoJsonLayer != null) {
+      this.geoJsonLayer.remove();
+    }
+
+    const dataObservable = this.mappaType
+      ? this.crimesService.getCityUser(nameCity)
+      : this.crimesService.GetCity(nameCity);
+
+    dataObservable.subscribe(
+      (data: { type: string; features: any; }) => {
         if (data.type === "FeatureCollection" && Array.isArray(data.features)) {
           this.geojsonData = data;
           this.addDistrictsToMap(data);
@@ -105,92 +121,65 @@ export class MapComponent implements OnInit {
           console.error("Formato GeoJSON non valido", data);
         }
       },
-      (error) => {
-        console.error('Errore nel recupero dei dati:', error);
-      }
-    );
-    this.crimesService.getMilano().subscribe(
-      (data) => {
-        console.log("Milano",data);
-        // Assicurati che data sia un FeatureCollection
-        if (data.type === "FeatureCollection" && Array.isArray(data.features)) {
-          this.geojsonDataMilano = data;
-          this.addDistrictsToMap(this.geojsonDataMilano);
-        } else {
-          console.error("Formato GeoJSON non valido", data);
-        }
-      },
-      (error) => {
+      (error: any) => {
         console.error('Errore nel recupero dei dati:', error);
       }
     );
   }
+
   // Funzione per determinare il colore in base al numero di crimini
-  getCrimeColor(crimeCount: number,data: any): string {
-    console.log("inserimento colore");
-    
-    const maxCrimeCount = Math.max(...data.features.map((f: any) => f.properties.crime_count)); 
-    
-    const verde=maxCrimeCount*0.25;
-    const giallo=maxCrimeCount*0.75;
-    
-    let r = 0, g = 0, b = 0;
+  getCrimeColor(crimeCount: number, data: any): string {
+    const maxCrimeCount = Math.max(...data.features.map((f: any) => f.properties.numero_crimini));
+    const verde = maxCrimeCount * 0.25;
+    const giallo = maxCrimeCount * 0.75;
 
     if (crimeCount <= verde) {
-      // Colori dalla verde (basso) al giallo (medio)
-      
-      return `rgb(0,255,0)`;
-    } else if(crimeCount <= giallo){
-      // Colori dal giallo al rosso (alto)
-      return `rgb(255,255,0)`;
-    }else{
-      return `rgb(255,0,0)`;
+      return 'rgb(0,255,0)';
+    } else if (crimeCount <= giallo) {
+      return 'rgb(255,255,0)';
+    } else {
+      return 'rgb(255,0,0)';
     }
-
-    
   }
 
   // Funzione per aggiungere i distretti con il numero di crimini alla mappa
   addDistrictsToMap(data: any): void {
-    L.geoJSON(data, {
+    this.geoJsonLayer = L.geoJSON(data, {
       style: (feature: any) => {
-        const crimeCount = feature.properties?.crime_count || 0;
-        const color = this.getCrimeColor(crimeCount,data); // Otteniamo il colore in base al numero di crimini
-        
+        const crimeCount = feature.properties?.numero_crimini || 0;
+        const color = this.getCrimeColor(crimeCount, data);
+
         return {
-          color: color,   // Border color
-          weight: 1,       // Border thickness
-          opacity: 1       // Border opacity
+          color: color,
+          weight: 1,
+          opacity: 1
         };
       },
       onEachFeature: (feature, layer) => {
-        // Check for the required properties to avoid undefined errors
-        const neighborhood = feature.properties?.pri_neigh || "Unknown";
-        const crimeCount = feature.properties?.crime_count || 0;
+        const neighborhood = feature.properties?.quartiere || "Unknown";
+        const crimeCount = feature.properties?.numero_crimini || 0;
+        const city = feature.properties?.citta || "Unknown";
+
         layer.bindPopup(`
           <strong>${neighborhood}</strong><br/>
-          Crimini: ${crimeCount}`);
-        layer.on('click',()=>{
-          console.log(neighborhood);
-          this.crimesService.getCriminiByNeigh(neighborhood).subscribe(data => {
-            console.log(data); // Mostra i dati recuperati nella console
-            this.crimini = data; // Salva i dati dei crimini del quartiere cliccato 
-            // Trasforma i dati in un array di oggetti
-            const keys = Object.keys(this.crimini.id); // Usa una delle proprietà principali per le chiavi (ad esempio "id")
-            this.formattedData = keys.map(key => ({
-              id: this.crimini.id[key],
-              arrest: this.crimini.arrest[key],
-              case_number: this.crimini.case_number[key],
-              date: this.crimini.date[key],
-              description: this.crimini.description[key],
-              domestic: this.crimini.domestic[key],
-            }));
+          Crimini: ${crimeCount}
+        `);
 
-            console.log(this.formattedData);
-          });
+        layer.on('click', () => {
+          if (this.mappaType) {
+            this.crimesService.getSegnalazioni(city, neighborhood).subscribe(data => {
+              console.log('Segnalazioni utenti:', data);
+              this.crimini = data;
+            });
+          } else {
+            this.crimesService.getDataCrime(city, neighborhood).subscribe(data => {
+              console.log('Crimini ufficiali:', data);
+              this.crimini = data;
+            });
+          }
         });
       }
-    }).addTo(this.map); // Aggiungi il layer alla mappa
+    }).addTo(this.map);
   }
 
   chiamata_db() {
@@ -214,5 +203,9 @@ export class MapComponent implements OnInit {
   onModalShown(): void {
     // Inizializza la mappa nel componente app-crime-report
     
+  }
+
+  toReport(): void {
+    this.router.navigate(['report']);
   }
 }

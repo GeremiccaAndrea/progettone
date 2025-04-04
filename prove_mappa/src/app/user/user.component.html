@@ -1,7 +1,7 @@
-<div *ngIf = 'loaded' style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+<div *ngIf = '!user' style="display: flex; justify-content: center; align-items: center; height: 100vh;">
     <h3>Loading...</h3>
 </div>
-<div class="container" *ngIf = 'loaded'>
+<div class="container" *ngIf = 'user'>
     <div   class="card mt-5 p-5" id="page">
         <div class="row">
             <div class="col-md-2">

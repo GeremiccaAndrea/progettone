@@ -29,13 +29,12 @@ export class AppComponent implements OnInit {
 
     // Esempio di logica fittizia:
     let query = event.type + '/'+ event.term;
-    window.location.href = '/' + query;
-    
+    this.router.navigate([query]);
   }
  
   ngOnInit() {
     this.checkLoginStatus();
-  
+
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -66,6 +65,7 @@ export class AppComponent implements OnInit {
   searchSubmit(query: HTMLInputElement): void {
     let url = 'users/'+ query.value;
     window.location.href = '/' + url;
+    
   }
 
   reporting(): Boolean {

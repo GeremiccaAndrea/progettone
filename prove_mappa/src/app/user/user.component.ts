@@ -22,15 +22,6 @@ export class UserComponent {
   constructor(private http: HttpClient,   private route: ActivatedRoute, private session: SessionService,private router: Router, private auth: Auth) {}
 
   ngOnInit() {
-    const token = this.session.getToken();
-    if (token) {
-      this.auth.onAuthStateChanged(logged => {
-      if (logged?.uid == this.user_uid) {
-        window.location.href = '/profile';
-        return;
-      } 
-      });
-    }
     this.loaded = true;
     this.routeObs = this.route.paramMap;
     this.routeObs.subscribe(this.getRouterParam);
@@ -74,7 +65,6 @@ export class UserComponent {
       ).subscribe(data => {
         // Read the result field from the JSON response.
         this.posts = data;
-        console.log(this.posts);
       });
     }
     //#endregion
