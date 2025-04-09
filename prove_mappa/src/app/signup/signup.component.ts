@@ -43,9 +43,6 @@ export class SignupComponent {
         });
       }
     });
-    console.log("Messaggio: [ " + this.message + " ]");
-
-    
   }
   //#endregion
 }

@@ -13,7 +13,7 @@ export class LoginComponent {
   utente !: User | null;
   email: string = '';
   password: string = '';
-  message: boolean = false;
+  message !: boolean;
   logged : boolean = false;
   usernameSignUp: string = '';
   emailSignUp: string = '';
@@ -52,8 +52,10 @@ export class LoginComponent {
           if (user) {
             user.getIdToken().then(token => this.session.setToken(token));
             window.location.assign('/');
+            return
           }
         });
+        return;
       }
     });
   }

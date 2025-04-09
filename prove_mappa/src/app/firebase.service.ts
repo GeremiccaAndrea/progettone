@@ -26,6 +26,7 @@ export class FirebaseService {
     } catch (error) {
       this.messageSource.next(false);
       console.error('Login error:', error);
+      alert('Credenziali sbagliate.\nRiprova.');
     }
   }
   //#endregion
@@ -40,6 +41,7 @@ export class FirebaseService {
       this.messageSource.next(true);
     } catch (error) {
       this.messageSource.next(false);
+      alert(error);
       console.error('Sign Up error:', error);
     }
     console.log(this.message);
