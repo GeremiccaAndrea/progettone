@@ -11,3 +11,138 @@
 .search-bar {
   width: 50%;
 }   
+
+/**/
+
+
+/* Variabile per spaziatura angolo */
+:root {
+  --fab-corner-spacing: 25px;
+}
+
+/* Contenitore principale */
+.floating-container {
+  position: fixed;
+  bottom: var(--fab-corner-spacing);
+  right: var(--fab-corner-spacing);
+  z-index: 100;
+}
+
+/* Checkbox nascosto */
+.floating-toggle {
+  display: none;
+}
+
+/* Stile del bottone/label principale */
+.floating-button {
+  position: relative; /* O rimuovi position */
+  width: 65px;
+  height: 65px;
+  background: #2cb3f0;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  z-index: 10;
+  box-shadow: 0 10px 25px -5px rgba(44, 179, 240, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.floating-button:hover {
+  box-shadow: 0 12px 30px rgba(44, 179, 240, 0.7);
+  transform: scale(1.05);
+}
+
+/* Contenitore degli elementi */
+.element-container {
+  position: absolute;
+  bottom: 75px; /* Posiziona gli elementi sopra il bottone */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none; /* Non interagibili quando chiusi */
+}
+
+
+/* Stile base degli elementi flottanti (nascosti di default) */
+.float-element {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 15px;
+  color: white;
+  text-decoration: none;
+  z-index: 5;
+
+  /* --- STATO INIZIALE MODIFICATO --- */
+  opacity: 0;
+  /* Inizia piccolo e centrato rispetto alla sua posizione finale,
+     pronto per l'animazione 'emerge-up' */
+  transform: scale(0);
+  /* Assicuriamo che non sia visibile/interagibile prima dell'animazione */
+  /* pointer-events: none; -- gestito dal container ora */
+  /* La transizione qui gestirà la CHIUSURA (quando :checked viene rimosso) */
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.float-element .material-icons {
+  font-size: 24px;
+}
+
+/* Colori specifici */
+.element-1 { background: #42A5F5; box-shadow: 0 10px 15px -5px rgba(66, 165, 245, 0.5); }
+.element-2 { background: #4CAF50; box-shadow: 0 10px 15px -5px rgba(76, 175, 80, 0.5); }
+.element-3 { background: #FF9800; box-shadow: 0 10px 15px -5px rgba(255, 152, 0, 0.5); }
+
+/* Effetto Hover SUGLI elementi (quando visibili) */
+.float-element:hover {
+    /* Leggero scale sull'hover individuale, ma solo se già visibile */
+    transform: scale(1.1);
+}
+
+
+/* ---- LOGICA DI APERTURA AL CLICK (CON NUOVA ANIMAZIONE) ---- */
+
+/* Stile del bottone quando :checked */
+.floating-toggle:checked + .floating-button {
+  transform: rotate(45deg);
+  background-color: #f05d5d;
+  box-shadow: 0 10px 25px -5px rgba(240, 93, 93, 0.6);
+}
+
+/* Riattiva interazione sul container quando aperto */
+.floating-toggle:checked ~ .element-container {
+   pointer-events: auto;
+}
+
+/* Applica la NUOVA animazione con ritardo specifico */
+.floating-toggle:checked ~ .element-container .element-1 {
+  animation: emerge-up 0.4s cubic-bezier(0.4, 0.0, 0.2, 1) forwards 0.1s;
+  /* Usa cubic-bezier per un'accelerazione/decelerazione personalizzata */
+}
+.floating-toggle:checked ~ .element-container .element-2 {
+  animation: emerge-up 0.4s cubic-bezier(0.4, 0.0, 0.2, 1) forwards 0.2s;
+}
+.floating-toggle:checked ~ .element-container .element-3 {
+  animation: emerge-up 0.4s cubic-bezier(0.4, 0.0, 0.2, 1) forwards 0.3s;
+}
+
+/* Rimuovi le vecchie regole con l'animazione 'come-in' se non le usi più */
+/*
+.floating-toggle:checked ~ .element-container .element-1 {
+  animation: come-in 0.4s forwards 0.1s;
+}
+  */
+
+
+  /*generale css*/

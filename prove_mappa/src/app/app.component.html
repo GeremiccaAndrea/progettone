@@ -1,27 +1,63 @@
 <header class="container-fluid py-3 border-bottom ">
+
+  <!-- Questa riga contiene logo, ricerca, login/logout -->
+  <!-- Appare solo se !currentLogin() è vero -->
   <div class="row align-items-center navbaru" *ngIf="!currentLogin()">
-    <!-- Logo -->
+
+    <!-- Logo (col-3) -->
     <div class="d-flex align-items-center col-3">
       <div class="logo bg-secondary rounded-circle pointer-cursor" style="width: 50px; height: 50px;" (click)="goHome()"></div>
       <span class="ms-2 pointer-cursor" (click)="goHome()">App Logo</span>
     </div>
 
+    <!-- Barra di ricerca (col-4) - Condizionale -->
     <app-search-bar (searchPerformed)="handleSearch($event)" *ngIf="!reporting()" class="search-bar col-4"></app-search-bar>
-    <div class="search-bar"  *ngIf="reporting()"></div>
-    
-    <!-- Barra di navigazione -->
-    <div class="col-3 text-end">
-      <a class="btn btn-primary" href="/login" *ngIf="!isLoggedIn">Log In</a>
-      <div *ngIf="isLoggedIn">
-        <a class="btn btn-danger" (click)="logout()">Logout</a>
-        <a class="btn btn-warning ms-2" href="/profile">Profile</a>
-      </div>
-    </div>
-  </div>
+    <!-- Placeholder vuoto se reporting() è vero -->
+    <div class="search-bar col-4" *ngIf="reporting()"></div>
 
+    <!-- Area Login / Dropdown Utente (col-3) -->
+    <div class="col-3 text-end">
+      <!-- Bottone Login (visibile solo se NON loggato) -->
+      <a class="btn btn-primary" href="/login" *ngIf="!isLoggedIn">Log In</a>
+
+      <!-- Menu Dropdown (visibile solo se LOGGATO) -->
+      <div *ngIf="isLoggedIn" class="dropdown">
+        <!-- Bottone che apre il dropdown -->
+        <button class="btn btn-primary dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          <!-- Puoi mettere qui il nome utente se lo hai, es: {{ username }} -->
+          ☰ Menu
+        </button>
+
+        <!-- Lista delle opzioni nel dropdown -->
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton">
+          <li>
+            <a class="dropdown-item" href="/profile">🗣️ Profilo</a>
+          </li>
+          <li><hr class="dropdown-divider"></li> <!-- Separatore opzionale -->
+          <li>
+            <a class="dropdown-item" (click)="logout()" style="cursor: pointer;">🚪 Logout</a>
+            <!-- Alternativa con button:
+            <button class="dropdown-item" type="button" (click)="logout()">Logout</button>
+            -->
+          </li>
+          <!-- Altre opzioni: -->
+          <!-- <li><a class="dropdown-item" href="/impostazioni">Impostazioni</a></li> -->
+        </ul>
+      </div> <!-- Chiusura div dropdown -->
+
+    </div> <!-- Chiusura col-3 text-end -->
+
+  </div> <!-- ****** QUESTA ERA LA CHIUSURA MANCANTE per <div class="row..."> ****** -->
+
+  <!-- Bottone "Indietro" - Visibile solo se currentLogin() è vero -->
   <span *ngIf="currentLogin()">
     <a class="btn btn-primary" href="/">Indietro</a>
   </span>
-</header>
+
+
+
+  <!--non ho capito-->
+  
+</header> <!-- Chiusura header -->
 
 <router-outlet></router-outlet>
