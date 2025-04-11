@@ -156,7 +156,9 @@ def sync():
     for user in allusers:
         if user["uid"] not in mongo_allusers:
             result = mongo_utenti.insert_one(user)
-            message = "User inserted in MongoDB:", result.inserted_id      
+            message = "User inserted in MongoDB:", result.inserted_id     
+            if mongo_utenti.find_one({"uid": user["uid"]}) != user:
+                mongo_utenti.replace_one({"uid": user["uid"]}, user)
         else:
             message = "User already exists in MongoDB, skipping..."
         log.update({user["displayName"]: message})

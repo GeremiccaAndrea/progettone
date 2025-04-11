@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
-import { EmailAuthCredential } from 'firebase/auth';
 import { Auth } from '@angular/fire/auth';
 import { SessionService } from '../session.service';
 
@@ -20,7 +18,7 @@ export class SignupComponent {
   isDisabled: boolean = false;
   message : any = "";
 
-  constructor(public firebase : FirebaseService, private auth: Auth, private session: SessionService) {}
+  constructor(public firebase : FirebaseService, private auth: Auth, private session: SessionService, private router : Router) {}
 
   ngOnInit() { } 
 
@@ -38,7 +36,7 @@ export class SignupComponent {
         this.auth.onAuthStateChanged(user => {
           if (user) {
             user.getIdToken().then(token => this.session.setToken(token));
-            window.location.assign('/');
+            this.router.navigate(['']);
           }
         });
       }

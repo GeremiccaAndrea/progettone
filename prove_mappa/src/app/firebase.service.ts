@@ -12,7 +12,7 @@ export class FirebaseService {
   private userSource = new BehaviorSubject<AngularFireUser | null>(null);
   message = this.messageSource.asObservable();
   user = this.userSource.asObservable();
-  constructor(private auth: Auth, private firestore: Firestore) { }
+  constructor(private auth: Auth) { }
 
    //#region LOGIN
    async Login( email: string, password: string)  {
@@ -39,6 +39,7 @@ export class FirebaseService {
       const user: AngularFireUser = userCredential.user;
       await this.SetDisplayName(user, username);
       this.messageSource.next(true);
+      this.synchronizeUser();
     } catch (error) {
       this.messageSource.next(false);
       alert(error);
@@ -51,6 +52,7 @@ export class FirebaseService {
     if (user) {
       try {
         await updateProfile(user, { displayName });
+        this.synchronizeUser();
         console.log('Display name set to:', displayName);
       } catch (error) {
         console.error('Error setting display name:', error);
@@ -59,5 +61,8 @@ export class FirebaseService {
   }
   //#endregion
 
-
+  synchronizeUser():void {
+    console.log('Synchronizing user with MongoDB...');
+    fetch('http://localhost:41000/api/sync_fireb_mongo').then(response => console.log(response));
+ }
 }
