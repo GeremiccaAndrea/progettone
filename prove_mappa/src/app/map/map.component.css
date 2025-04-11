@@ -8,8 +8,13 @@
   margin-top: 10px;
   margin-bottom: 10px;
 */
+
+#addMenuButton::after {
+  display: none;
+}
+
 #map {
-  height: calc(100vh - 70px); /* Altezza completa dello schermo meno l'header */
+  height: 100vh; /* Altezza completa dello schermo meno l'header */
   width: 100%; /* Larghezza completa */
   z-index: 4; /* Garantisce che la mappa stia sopra altri contenuti */
   margin-top: 0; /* Rimuove il margine superiore */

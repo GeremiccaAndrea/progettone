@@ -1,3 +1,7 @@
+header{
+  position: absolute;
+  z-index: 1000;
+}
 .pointer-cursor {
     cursor: pointer;
 }
@@ -5,6 +9,7 @@
 .navbaru {
     display: flex;
     justify-content: space-heavenly;
+    background-color: transparent;
     width: 100%;
 }
 
